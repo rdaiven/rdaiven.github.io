@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HARDSET — 12-Week Strength Program</title>
+<meta name="description" content="HARDSET is a 12-week progressive strength program with coached programming, real numbers, and a plan that actually adds weight to the bar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4F0;
+    --ink:#111111;
+    --hot:#FF3D00;
+    --concrete:#C9C6BE;
+    --concrete-soft:#E3E0D9;
+    --white:#FFFFFF;
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .anton{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.01em}
+  .archivo{font-family:'Archivo',sans-serif}
+
+  /* ---- utility labels ---- */
+  .eyebrow{
+    font-family:'Archivo',sans-serif;font-weight:800;
+    text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;
+    display:inline-flex;align-items:center;gap:.6em;
+  }
+  .eyebrow::before{content:"";width:26px;height:3px;background:var(--hot);display:inline-block}
+
+  /* ---- buttons ---- */
+  .btn{
+    font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;
+    letter-spacing:.08em;font-size:.86rem;
+    display:inline-flex;align-items:center;gap:.55em;
+    padding:15px 26px;border:2px solid var(--ink);cursor:pointer;
+    background:var(--ink);color:var(--paper);
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn:hover{background:var(--hot);border-color:var(--hot);color:#fff;transform:translateY(-2px)}
+  .btn--hot{background:var(--hot);border-color:var(--hot);color:#fff}
+  .btn--hot:hover{background:var(--ink);border-color:var(--ink)}
+  .btn--ghost{background:transparent;color:var(--ink)}
+  .btn--ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .btn .arw{transition:transform .15s ease}
+  .btn:hover .arw{transform:translateX(4px)}
+
+  :focus-visible{outline:3px solid var(--hot);outline-offset:3px}
+
+  /* ---- nav ---- */
+  header.nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(246,244,240,.86);backdrop-filter:blur(10px);
+    border-bottom:2px solid var(--ink);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.6rem;letter-spacing:.02em;display:flex;align-items:center;gap:.4em}
+  .logo .dot{width:12px;height:12px;background:var(--hot);display:inline-block;transform:rotate(45deg)}
+  .nav-links{
+    display:flex;align-items:center;
+    position:fixed;inset:66px 0 auto 0;flex-direction:column;gap:0;
+    background:var(--paper);border-bottom:2px solid var(--ink);
+    max-height:0;overflow:hidden;transition:max-height .3s ease;
+  }
+  .nav-links.open{max-height:420px}
+  .nav-links a.link{
+    font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.09em;font-size:.8rem;position:relative;
+    width:100%;padding:18px 24px;border-top:1px solid var(--concrete);
+  }
+  .nav-links a.link::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--hot);transition:width .2s ease}
+  .nav-links a.link:hover::after{width:100%}
+  .nav-cta{display:flex;align-items:center;gap:18px}
+  .nav-links .btn{margin:16px 24px 24px;justify-content:center}
+  .nav-cta .btn.desk{display:none}
+  .hamburger{display:block;background:none;border:2px solid var(--ink);width:46px;height:44px;cursor:pointer;padding:0}
+  .hamburger span{display:block;width:20px;height:2px;background:var(--ink);margin:4px auto;transition:.25s}
+  .hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  @media (min-width:861px){
+    .nav-links{
+      position:static;flex-direction:row;gap:30px;
+      background:transparent;border-bottom:0;
+      max-height:none;overflow:visible;transition:none;
+    }
+    .nav-links a.link{width:auto;padding:4px 0;border-top:0}
+    .nav-links .btn{margin:0;justify-content:normal}
+    .nav-cta .btn.desk{display:inline-flex}
+    .hamburger{display:none}
+  }
+
+  /* ---- hero ---- */
+  .hero{position:relative;overflow:hidden;padding:54px 0 40px}
+  .hero .diag{
+    position:absolute;top:-20%;right:-14%;width:70vw;max-width:900px;height:150%;
+    background:var(--hot);transform:rotate(-14deg);z-index:0;opacity:.14;
+    pointer-events:none;
+  }
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.2) brightness(1.05);opacity:.13}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--paper) 0%,rgba(246,244,240,.55) 45%,rgba(246,244,240,0) 100%)}
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:40px;align-items:end}
+  .hero h1{
+    font-family:'Anton',sans-serif;text-transform:uppercase;
+    font-size:clamp(3.4rem,12vw,9.4rem);line-height:.84;letter-spacing:-.01em;
+    margin:18px 0 0;
+  }
+  .hero h1 .stroke{
+    color:transparent;-webkit-text-stroke:2px var(--ink);
+  }
+  .hero h1 .hot{color:var(--hot)}
+  .hero-sub{max-width:44ch;font-size:1.08rem;margin:26px 0 30px;color:#222}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .hero-note{font-size:.82rem;color:#555;font-weight:500}
+
+  .hero-card{
+    background:var(--ink);color:var(--paper);padding:30px 28px;position:relative;
+    border:2px solid var(--ink);max-width:460px;
+  }
+  .hero-card .card-photo{margin:-30px -28px 24px;height:200px;overflow:hidden;border-bottom:3px solid var(--hot);background:#1c1c1c}
+  .hero-card .card-photo img{width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:grayscale(1) contrast(1.25) brightness(.88)}
+  .hero-card .kicker{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:.7rem;color:var(--hot)}
+  .hero-card .big{font-family:'Anton',sans-serif;font-size:clamp(4rem,9vw,6.6rem);line-height:.82;margin:6px 0}
+  .hero-card .big small{font-size:.32em;display:block;letter-spacing:.05em;color:var(--concrete);font-family:'Archivo',sans-serif;font-weight:700;margin-top:10px}
+  .hero-card ul{list-style:none;margin-top:22px;border-top:1px solid #333;padding-top:16px}
+  .hero-card li{display:flex;justify-content:space-between;font-family:'Archivo',sans-serif;font-weight:600;font-size:.9rem;padding:7px 0;border-bottom:1px solid #262626}
+  .hero-card li span:last-child{color:var(--hot)}
+
+  /* marquee strip */
+  .strip{background:var(--ink);color:var(--paper);overflow:hidden;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+  .marquee{display:flex;white-space:nowrap;will-change:transform;animation:scrollx 26s linear infinite}
+  @media (prefers-reduced-motion:reduce){.marquee{animation:none;justify-content:center;flex-wrap:wrap;white-space:normal}}
+  .marquee span{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:1.5rem;padding:14px 26px;display:inline-flex;align-items:center;gap:26px;letter-spacing:.02em}
+  .marquee .sep{color:var(--hot)}
+  @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---- section shell ---- */
+  section{padding:60px 0}
+  .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:44px}
+  .sec-head h2{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(2.4rem,6vw,4.4rem);line-height:.9;letter-spacing:-.01em}
+  .sec-head p{max-width:42ch;color:#333}
+
+  /* ---- benefits ---- */
+  #benefits{background:var(--white);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+  .bene-grid{display:grid;grid-template-columns:1fr;gap:0;border:2px solid var(--ink);background:var(--ink)}
+  .bene{background:var(--white);padding:34px 28px 38px;position:relative}
+  .bene .no{font-family:'Anton',sans-serif;font-size:1rem;color:var(--concrete);letter-spacing:.1em}
+  .bene .ico{width:46px;height:46px;margin:14px 0 18px;color:var(--hot)}
+  .bene h3{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;font-size:1.28rem;letter-spacing:.01em;margin-bottom:10px}
+  .bene p{color:#333;font-size:.96rem}
+  .bene::after{content:"";position:absolute;left:0;bottom:0;width:0;height:5px;background:var(--hot);transition:width .3s ease}
+  .bene:hover::after{width:100%}
+
+  /* ---- timeline ---- */
+  #program{background:var(--paper)}
+  .phase-legend{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:34px}
+  .phase-legend .lg{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.78rem;display:flex;align-items:center;gap:8px}
+  .phase-legend .sw{width:16px;height:16px;display:inline-block;border:2px solid var(--ink)}
+  .timeline{display:grid;gap:16px}
+  .tl{
+    display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;
+    background:var(--white);border:2px solid var(--ink);padding:22px 26px;position:relative;
+  }
+  .tl .wk{font-family:'Anton',sans-serif;font-size:clamp(2.6rem,7vw,4.2rem);line-height:.8;color:var(--ink);min-width:2.2em}
+  .tl .wk .u{display:block;font-family:'Archivo',sans-serif;font-weight:800;font-size:.2em;letter-spacing:.2em;color:#777;margin-top:6px}
+  .tl .body h3{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;font-size:1.18rem;margin-bottom:5px}
+  .tl .body p{color:#333;font-size:.95rem;max-width:52ch}
+  .tl .tag{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;padding:7px 12px;border:2px solid var(--ink);white-space:nowrap;grid-column:1/-1;justify-self:start}
+  .tl[data-phase="base"] .wk{color:var(--ink)}
+  .tl[data-phase="build"]{border-color:var(--ink)}
+  .tl[data-phase="build"] .tag{background:var(--concrete)}
+  .tl[data-phase="peak"] .wk{color:var(--hot)}
+  .tl[data-phase="peak"] .tag{background:var(--hot);color:#fff;border-color:var(--hot)}
+  .tl::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--concrete)}
+  .tl[data-phase="peak"]::before{background:var(--hot)}
+
+  /* ---- coach ---- */
+  #coach{background:var(--ink);color:var(--paper);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+  .coach-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+  .coach-portrait{position:relative;aspect-ratio:4/5;background:var(--paper);border:2px solid var(--paper);overflow:hidden;max-width:360px}
+  .coach-portrait svg{width:100%;height:100%;display:block}
+  .coach-portrait .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.2) brightness(.95);z-index:1}
+  .coach-portrait .badge{position:absolute;bottom:0;left:0;z-index:2;background:var(--hot);color:#fff;font-family:'Anton',sans-serif;font-size:1.1rem;padding:10px 16px;letter-spacing:.04em}
+  #coach .eyebrow{color:var(--paper)}
+  #coach h2{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(2.2rem,5.5vw,3.8rem);line-height:.9;margin:16px 0 18px}
+  #coach h2 .hot{color:var(--hot)}
+  #coach .lede{color:var(--concrete);font-size:1.05rem;margin-bottom:18px;max-width:52ch}
+  #coach .creds{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#333;border:1px solid #333;margin-top:26px}
+  #coach .creds div{background:var(--ink);padding:16px 18px}
+  #coach .creds .n{font-family:'Anton',sans-serif;font-size:2rem;color:var(--hot);line-height:1}
+  #coach .creds .l{font-family:'Archivo',sans-serif;font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--concrete);margin-top:4px}
+
+  /* ---- results / stats ---- */
+  #results{background:var(--white);border-bottom:2px solid var(--ink)}
+  .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--ink);background:var(--ink);margin-bottom:54px}
+  .stat{background:var(--white);padding:30px 24px;text-align:center}
+  .stat .num{font-family:'Anton',sans-serif;font-size:clamp(2.8rem,6vw,4.6rem);line-height:.85;color:var(--ink)}
+  .stat .num .s{color:var(--hot)}
+  .stat .lab{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.76rem;color:#444;margin-top:8px}
+  .quotes{display:grid;grid-template-columns:1fr;gap:22px}
+  .quote{border:2px solid var(--ink);padding:26px 24px;background:var(--paper);position:relative}
+  .quote .mark{font-family:'Anton',sans-serif;font-size:3.4rem;color:var(--hot);line-height:.6;height:.5em}
+  .quote p{font-size:1rem;margin:10px 0 18px;color:#1a1a1a}
+  .quote .who{display:flex;align-items:center;gap:12px}
+  .quote .av{width:40px;height:40px;background:var(--hot);color:#fff;font-family:'Anton',sans-serif;display:flex;align-items:center;justify-content:center;font-size:1.1rem;position:relative;overflow:hidden;flex:none}
+  .quote .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.2)}
+  .quote .who .nm{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;font-size:.82rem;letter-spacing:.04em}
+  .quote .who .meta{font-size:.76rem;color:#666}
+
+  /* ---- pricing ---- */
+  #pricing{background:var(--paper)}
+  .tiers{display:grid;grid-template-columns:1fr;gap:20px;align-items:stretch;max-width:440px;margin:0 auto}
+  .tier{border:2px solid var(--ink);background:var(--white);padding:30px 28px 34px;display:flex;flex-direction:column}
+  .tier.feat{background:var(--ink);color:var(--paper);position:relative;transform:none}
+  .tier .tname{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:1rem}
+  .tier .flag{position:absolute;top:-2px;right:-2px;background:var(--hot);color:#fff;font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.68rem;padding:7px 12px}
+  .tier .price{font-family:'Anton',sans-serif;font-size:clamp(2.8rem,5vw,3.8rem);line-height:.9;margin:16px 0 2px}
+  .tier .price .cur{font-size:.4em;vertical-align:super}
+  .tier .per{font-family:'Archivo',sans-serif;font-weight:600;font-size:.82rem;color:#777;text-transform:uppercase;letter-spacing:.06em}
+  .tier.feat .per{color:var(--concrete)}
+  .tier ul{list-style:none;margin:22px 0 26px;flex:1}
+  .tier li{display:flex;gap:10px;padding:8px 0;font-size:.92rem;border-bottom:1px solid var(--concrete-soft)}
+  .tier.feat li{border-bottom:1px solid #2a2a2a}
+  .tier li .ck{color:var(--hot);font-weight:800;flex:none}
+  .tier .btn{justify-content:center;width:100%}
+
+  /* ---- final CTA ---- */
+  .final{background:var(--hot);color:#fff;padding:0;overflow:hidden;position:relative;border-top:2px solid var(--ink)}
+  .final .inner{padding:80px 0}
+  .final h2{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(3rem,10vw,7rem);line-height:.85;letter-spacing:-.01em}
+  .final h2 .out{color:transparent;-webkit-text-stroke:2px #fff}
+  .final p{font-size:1.12rem;max-width:46ch;margin:22px 0 30px;font-weight:500}
+  .final .btn{background:var(--ink);border-color:var(--ink);color:#fff}
+  .final .btn:hover{background:#fff;color:var(--ink);border-color:#fff}
+  .final .ghost{background:transparent;border-color:#fff;color:#fff}
+  .final .ghost:hover{background:#fff;color:var(--hot)}
+  .final .finphoto{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .final .finphoto img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.25);mix-blend-mode:multiply;opacity:.38}
+  .final .bignum{position:absolute;right:-2%;bottom:-18%;font-family:'Anton',sans-serif;font-size:32vw;line-height:.7;color:rgba(255,255,255,.14);pointer-events:none;z-index:0}
+  .final .inner{position:relative;z-index:2}
+
+  /* ---- footer ---- */
+  footer{background:var(--ink);color:var(--concrete);padding:60px 0 34px}
+  .foot-top{display:grid;grid-template-columns:1fr;gap:30px;padding-bottom:40px;border-bottom:1px solid #333}
+  footer .logo{color:var(--paper)}
+  footer .blurb{margin-top:16px;font-size:.9rem;max-width:34ch}
+  .foot-col h4{font-family:'Archivo',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;color:var(--paper);margin-bottom:14px}
+  .foot-col a{display:block;font-size:.9rem;padding:6px 0;color:var(--concrete)}
+  .foot-col a:hover{color:var(--hot)}
+  .foot-bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:24px;font-size:.82rem}
+  .foot-note{color:#8a877f}
+  .foot-note b{color:var(--hot)}
+
+  /* ---- scroll reveal ---- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ---- responsive (mobile-first) ---- */
+  @media (min-width:561px){
+    section{padding:84px 0}
+    .bene-grid{grid-template-columns:repeat(2,1fr)}
+    .tl{grid-template-columns:auto 1fr auto;gap:26px}
+    .tl .tag{grid-column:auto;justify-self:auto}
+    .foot-top{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:961px){
+    .hero-grid{grid-template-columns:1.35fr .9fr}
+    .hero-card{max-width:none}
+    .bene-grid{grid-template-columns:repeat(3,1fr)}
+    .coach-grid{grid-template-columns:.85fr 1.15fr;gap:50px}
+    .coach-portrait{max-width:none}
+    .stat-row{grid-template-columns:repeat(4,1fr)}
+    .quotes{grid-template-columns:repeat(3,1fr)}
+    .tiers{grid-template-columns:repeat(3,1fr);max-width:none;margin:0}
+    .tier.feat{transform:translateY(-8px)}
+    .foot-top{grid-template-columns:1.4fr 1fr 1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top" aria-label="HARDSET home"><span class="dot"></span>HARDSET</a>
+    <nav class="nav-cta" aria-label="Primary">
+      <div class="nav-links" id="navLinks">
+        <a class="link" href="#benefits">What you get</a>
+        <a class="link" href="#program">The program</a>
+        <a class="link" href="#coach">Coach</a>
+        <a class="link" href="#results">Results</a>
+        <a class="link" href="#pricing">Pricing</a>
+        <a class="btn btn--hot" href="#pricing">Join now</a>
+      </div>
+      <a class="btn btn--hot desk" href="#pricing">Join now <span class="arw">→</span></a>
+      <button class="hamburger" id="ham" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&amp;fit=crop&amp;w=1600&amp;q=75" alt="" onerror="this.style.display='none'">
+  </div>
+  <div class="diag" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow reveal">Progressive strength · 3 days a week</span>
+      <h1 class="reveal">Add weight<br><span class="hot">to the bar.</span><br><span class="stroke">Every week.</span></h1>
+      <p class="hero-sub reveal">HARDSET is a 12-week coached strength program built for lifters who are done guessing. Real progressions, real accountability, and a plan that puts more on the bar without breaking your body.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn--hot" href="#pricing">Start week one <span class="arw">→</span></a>
+        <a class="btn btn--ghost" href="#program">See the plan</a>
+      </div>
+      <p class="hero-note reveal">No equipment guesswork · Cancel anytime · Built for barbells &amp; dumbbells</p>
+    </div>
+    <aside class="hero-card reveal" aria-label="Program at a glance">
+      <div class="card-photo">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Lifter braced under a loaded barbell during a heavy squat" onerror="this.style.display='none'">
+      </div>
+      <div class="kicker">The commitment</div>
+      <div class="big">12<small>Weeks. One barbell. Zero fluff.</small></div>
+      <ul>
+        <li><span>Training days</span><span>3 / week</span></li>
+        <li><span>Session length</span><span>55 min</span></li>
+        <li><span>Coached check-ins</span><span>Weekly</span></li>
+        <li><span>Avg. squat gain</span><span>+18 kg</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- marquee -->
+<div class="strip" aria-hidden="true">
+  <div class="marquee">
+    <span>Squat<span class="sep">/</span>Press<span class="sep">/</span>Deadlift<span class="sep">/</span>Pull<span class="sep">/</span>Recover<span class="sep">/</span>Repeat<span class="sep">◆</span></span>
+    <span>Squat<span class="sep">/</span>Press<span class="sep">/</span>Deadlift<span class="sep">/</span>Pull<span class="sep">/</span>Recover<span class="sep">/</span>Repeat<span class="sep">◆</span></span>
+  </div>
+</div>
+
+<!-- ============ BENEFITS ============ -->
+<section id="benefits">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>What's in<br>the program</h2>
+      <p>Not a random workout of the day. A structured system that tells you exactly what to lift, how heavy, and when to push.</p>
+    </div>
+    <div class="bene-grid">
+      <article class="bene reveal">
+        <div class="no">01</div>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></svg>
+        <h3>Auto-progression</h3>
+        <p>Your weights adjust every week based on the reps you actually hit. No more stalling on the same numbers for months.</p>
+      </article>
+      <article class="bene reveal">
+        <div class="no">02</div>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M5 8v8l7 5 7-5V8"/></svg>
+        <h3>Video form library</h3>
+        <p>Every lift filmed from three angles with the exact cues our coaches use on the platform. Fix your setup in minutes.</p>
+      </article>
+      <article class="bene reveal">
+        <div class="no">03</div>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+        <h3>Track every set</h3>
+        <p>Log lifts in seconds and watch your one-rep-max climb on a chart that doesn't lie. Progress you can actually see.</p>
+      </article>
+      <article class="bene reveal">
+        <div class="no">04</div>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-4.5-7-10a4 4 0 017-2.5A4 4 0 0119 11c0 5.5-7 10-7 10z"/></svg>
+        <h3>Recovery built in</h3>
+        <p>Deload weeks, mobility work, and sleep targets scheduled for you so you get stronger without burning out.</p>
+      </article>
+      <article class="bene reveal">
+        <div class="no">05</div>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M10 11a4 4 0 100-8 4 4 0 000 8M20 8v6M23 11h-6"/></svg>
+        <h3>Coach on call</h3>
+        <p>Message a real strength coach when a lift feels off. Weekly check-ins keep your plan honest and your ego in check.</p>
+      </article>
+      <article class="bene reveal">
+        <div class="no">06</div>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 15a3 3 0 100-6 3 3 0 000 6zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+        <h3>Nutrition targets</h3>
+        <p>Simple protein and calorie guardrails matched to your goal — get lean, stay full, and fuel the lifts that matter.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROGRAM TIMELINE ============ -->
+<section id="program">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Twelve weeks,<br>three phases</h2>
+      <p>Every week has a job. You start by building a base, load through the middle, then peak into the heaviest lifts of your life.</p>
+    </div>
+    <div class="phase-legend reveal">
+      <span class="lg"><span class="sw" style="background:var(--concrete)"></span>Base — weeks 1–4</span>
+      <span class="lg"><span class="sw" style="background:var(--concrete)"></span>Build — weeks 5–9</span>
+      <span class="lg"><span class="sw" style="background:var(--hot);border-color:var(--hot)"></span>Peak — weeks 10–12</span>
+    </div>
+    <div class="timeline">
+      <article class="tl reveal" data-phase="base">
+        <div class="wk">01–04<span class="u">Base</span></div>
+        <div class="body">
+          <h3>Groove the patterns</h3>
+          <p>Rebuild clean technique on the squat, press, and deadlift at moderate loads. We set your working maxes and dial in bracing and bar path.</p>
+        </div>
+        <span class="tag">Technique + volume</span>
+      </article>
+      <article class="tl reveal" data-phase="build">
+        <div class="wk">05–07<span class="u">Build</span></div>
+        <div class="body">
+          <h3>Load the engine</h3>
+          <p>Weights climb week over week while reps stay honest. Accessory work targets the weak links that cap your main lifts.</p>
+        </div>
+        <span class="tag">Progressive overload</span>
+      </article>
+      <article class="tl reveal" data-phase="build">
+        <div class="wk">08–09<span class="u">Build</span></div>
+        <div class="body">
+          <h3>Push the ceiling</h3>
+          <p>Heavier top sets, tighter rest, and a mid-program deload so your body absorbs the work instead of breaking under it.</p>
+        </div>
+        <span class="tag">Intensity + deload</span>
+      </article>
+      <article class="tl reveal" data-phase="peak">
+        <div class="wk">10–12<span class="u">Peak</span></div>
+        <div class="body">
+          <h3>Test your new max</h3>
+          <p>Taper the volume, sharpen your singles, and hit the platform for new personal records. This is the week the work pays off.</p>
+        </div>
+        <span class="tag">New PRs</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COACH ============ -->
+<section id="coach">
+  <div class="wrap coach-grid">
+    <div class="coach-portrait reveal">
+      <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="200" height="250" fill="#F6F4F0"/>
+        <path d="M0 200 L200 150 L200 250 L0 250 Z" fill="#C9C6BE"/>
+        <circle cx="100" cy="70" r="30" fill="#111"/>
+        <rect x="70" y="100" width="60" height="80" rx="10" fill="#111"/>
+        <rect x="35" y="112" width="130" height="12" rx="6" fill="#111"/>
+        <circle cx="30" cy="118" r="20" fill="#FF3D00"/>
+        <circle cx="170" cy="118" r="20" fill="#FF3D00"/>
+        <rect x="60" y="112" width="14" height="60" rx="7" fill="#111"/>
+        <rect x="126" y="112" width="14" height="60" rx="7" fill="#111"/>
+      </svg>
+      <img class="photo" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Portrait of head coach Mara Villanueva" loading="lazy" onerror="this.style.display='none'">
+      <span class="badge">Head Coach</span>
+    </div>
+    <div>
+      <span class="eyebrow reveal">Your coach</span>
+      <h2 class="reveal">Meet <span class="hot">Mara Villanueva.</span></h2>
+      <p class="lede reveal">Fifteen years under the bar, a national-level record, and a decade coaching everyday lifters from their first pull to their first plate. Mara built HARDSET because most programs treat you like an average — she coaches the person actually lifting.</p>
+      <p class="lede reveal">"Strength isn't luck and it isn't genetics. It's the right stimulus, repeated, at the right time. My whole job is to keep you in that window for twelve weeks straight."</p>
+      <div class="creds reveal">
+        <div><div class="n">15<span style="font-size:.5em">yr</span></div><div class="l">Coaching + competing</div></div>
+        <div><div class="n">2,400+</div><div class="l">Lifters programmed</div></div>
+        <div><div class="n">180kg</div><div class="l">Competition deadlift</div></div>
+        <div><div class="n">4.9<span style="font-size:.5em">★</span></div><div class="l">Average client rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULTS ============ -->
+<section id="results">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>The numbers<br>don't flinch</h2>
+      <p>Averages across HARDSET members who finished a full 12-week block. Real strength, tracked and verified.</p>
+    </div>
+    <div class="stat-row reveal">
+      <div class="stat"><div class="num"><span class="s">+</span><span class="count" data-to="34">0</span><span style="font-size:.5em">kg</span></div><div class="lab">Avg. total lifted gain</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="94">0</span><span class="s">%</span></div><div class="lab">Finish the full block</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="3">0</span><span class="s">×</span></div><div class="lab">Sessions per week</div></div>
+      <div class="stat"><div class="num"><span class="count" data-to="2400">0</span><span class="s">+</span></div><div class="lab">Lifters coached</div></div>
+    </div>
+    <div class="quotes">
+      <figure class="quote reveal">
+        <div class="mark">“</div>
+        <p>I chased a 100kg squat for two years on my own. HARDSET got me there in nine weeks and I wasn't even sore. The progressions just work.</p>
+        <figcaption class="who"><span class="av">J<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="Portrait of HARDSET member Jomar R." loading="lazy" onerror="this.style.display='none'"></span><span><span class="nm">Jomar R.</span><br><span class="meta">Squat 82 → 105 kg</span></span></figcaption>
+      </figure>
+      <figure class="quote reveal">
+        <div class="mark">“</div>
+        <p>First program that treated recovery as part of the plan, not an afterthought. I'm stronger than I was at 25 and I'm 38.</p>
+        <figcaption class="who"><span class="av">L<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=400&amp;q=75" alt="Portrait of HARDSET member Liza M." loading="lazy" onerror="this.style.display='none'"></span><span><span class="nm">Liza M.</span><br><span class="meta">Deadlift 90 → 130 kg</span></span></figcaption>
+      </figure>
+      <figure class="quote reveal">
+        <div class="mark">“</div>
+        <p>Having a coach actually read my check-ins changed everything. Small tweaks every week added up to the best numbers of my life.</p>
+        <figcaption class="who"><span class="av">D</span><span><span class="nm">Diego S.</span><br><span class="meta">Press 45 → 62 kg</span></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Pick your<br>membership</h2>
+      <p>Every tier is the full 12-week program. Pay for how much coach you want in your corner. Cancel anytime.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal">
+        <div class="tname">Self-Run</div>
+        <div class="price"><span class="cur">₱</span>790</div>
+        <div class="per">per month</div>
+        <ul>
+          <li><span class="ck">✓</span> Full 12-week program</li>
+          <li><span class="ck">✓</span> Auto-progression engine</li>
+          <li><span class="ck">✓</span> Video form library</li>
+          <li><span class="ck">✓</span> Lift &amp; PR tracking</li>
+        </ul>
+        <a class="btn btn--ghost" href="#top">Start solo</a>
+      </div>
+      <div class="tier feat reveal">
+        <span class="flag">Most popular</span>
+        <div class="tname">Coached</div>
+        <div class="price"><span class="cur">₱</span>1,690</div>
+        <div class="per">per month</div>
+        <ul>
+          <li><span class="ck">✓</span> Everything in Self-Run</li>
+          <li><span class="ck">✓</span> Weekly coach check-ins</li>
+          <li><span class="ck">✓</span> Form-video feedback</li>
+          <li><span class="ck">✓</span> Nutrition targets</li>
+          <li><span class="ck">✓</span> Private lifter community</li>
+        </ul>
+        <a class="btn btn--hot" href="#top">Join HARDSET</a>
+      </div>
+      <div class="tier reveal">
+        <div class="tname">1-on-1</div>
+        <div class="price"><span class="cur">₱</span>3,490</div>
+        <div class="per">per month</div>
+        <ul>
+          <li><span class="ck">✓</span> Everything in Coached</li>
+          <li><span class="ck">✓</span> Fully custom programming</li>
+          <li><span class="ck">✓</span> Two live video calls / mo</li>
+          <li><span class="ck">✓</span> Direct-message coach access</li>
+        </ul>
+        <a class="btn btn--ghost" href="#top">Go 1-on-1</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="finphoto" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&amp;fit=crop&amp;w=1600&amp;q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+  </div>
+  <div class="bignum" aria-hidden="true">12</div>
+  <div class="wrap inner">
+    <h2 class="reveal">Twelve weeks<br><span class="out">from now.</span></h2>
+    <p class="reveal">Picture the bar loaded heavier than you've ever pulled — and you, calm, ready for it. That's not a fantasy. That's week twelve. Start today.</p>
+    <div class="hero-cta reveal">
+      <a class="btn" href="#pricing">Claim your spot <span class="arw">→</span></a>
+      <a class="btn ghost" href="#program">See the program</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="logo" href="#top"><span class="dot"></span>HARDSET</a>
+        <p class="blurb">A 12-week coached strength program for lifters who are done guessing. Add weight to the bar, every week.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Program</h4>
+        <a href="#benefits">What you get</a>
+        <a href="#program">The 12 weeks</a>
+        <a href="#results">Results</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#coach">Our coaches</a>
+        <a href="#top">Careers</a>
+        <a href="#top">Contact</a>
+        <a href="#top">Press kit</a>
+      </div>
+      <div class="foot-col">
+        <h4>Follow</h4>
+        <a href="#top">Instagram</a>
+        <a href="#top">YouTube</a>
+        <a href="#top">TikTok</a>
+        <a href="#top">Newsletter</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 HARDSET Strength Co.</span>
+      <span class="foot-note"><b>Fictional brand · portfolio demo.</b> Not a real product — stats and testimonials are illustrative.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- hamburger ---- */
+  var ham = document.getElementById('ham');
+  var links = document.getElementById('navLinks');
+  ham.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  links.addEventListener('click', function(e){
+    if(e.target.closest('a')){ links.classList.remove('open'); ham.setAttribute('aria-expanded','false'); }
+  });
+
+  /* ---- scroll reveal ---- */
+  var reveals = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    /* Observe with threshold 0 + no negative rootMargin so ANY visible pixel
+       triggers, including tall hero elements whose intersection ratio never
+       reaches a higher threshold. */
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:0, rootMargin:'0px 0px 0px 0px'});
+
+    /* Immediate pass: anything already in the initial viewport reveals right
+       away (next frame) with no scrolling required. */
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    reveals.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < vh && r.bottom > 0){
+        el.classList.add('in');
+      } else {
+        io.observe(el);
+      }
+    });
+
+    /* Hard failsafe: ~700ms after load, force-reveal everything in the hero /
+       first section regardless of observer state. */
+    setTimeout(function(){
+      document.querySelectorAll('.hero .reveal').forEach(function(el){
+        el.classList.add('in');
+      });
+    }, 700);
+  }
+
+  /* ---- count-up on result stats ---- */
+  var counters = document.querySelectorAll('.count');
+  function animateCount(el){
+    var target = parseInt(el.getAttribute('data-to'),10);
+    if(reduce){ el.textContent = target.toLocaleString(); return; }
+    var start = null, dur = 1400;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.round(target*eased).toLocaleString();
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if(!('IntersectionObserver' in window)){
+    counters.forEach(function(el){ el.textContent = parseInt(el.getAttribute('data-to'),10).toLocaleString(); });
+  } else {
+    var co = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ animateCount(en.target); co.unobserve(en.target); }
+      });
+    }, {threshold:0.6});
+    counters.forEach(function(el){ co.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

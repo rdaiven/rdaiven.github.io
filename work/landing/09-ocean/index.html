@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Karagatan — Protecting the Reefs & Coasts of the Philippines</title>
+<meta name="description" content="Karagatan is a coastal conservation non-profit restoring coral reefs and mangroves across the Philippines. Donate, volunteer, and help the sea recover." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --teal:#0B3B44;
+    --teal-2:#0e4a55;
+    --sand:#EADFC8;
+    --paper:#F6F0E4;
+    --ink:#12211F;
+    --muted:#5E6E6A;
+    --coral:#FF6B4A;
+    --coral-ink:#c94a2c;
+    --glass:#7FBAB0;
+    --glass-deep:#4f9188;
+    --radius:18px;
+    --maxw:1200px;
+    --shadow:0 18px 50px -22px rgba(11,59,68,.45);
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;
+    font-family:"DM Sans",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em;margin:0}
+  p{margin:0}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+  .eyebrow{
+    font-family:"DM Sans";font-weight:700;font-size:.74rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--coral-ink);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--coral);border-radius:2px;display:inline-block}
+  section.teal .eyebrow{color:var(--glass)}
+  section.teal .eyebrow::before{background:var(--glass)}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;justify-content:center;
+    font-family:"DM Sans";font-weight:600;font-size:1rem;
+    padding:14px 26px;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+    transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .2s,color .2s;
+  }
+  .btn:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+  .btn-coral{background:var(--coral);color:#fff;box-shadow:0 12px 26px -12px rgba(255,107,74,.8)}
+  .btn-coral:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(255,107,74,.9)}
+  .btn-ghost{background:transparent;border-color:currentColor;color:var(--ink)}
+  .btn-ghost:hover{background:rgba(18,33,31,.06)}
+  section.teal .btn-ghost{color:var(--paper)}
+  section.teal .btn-ghost:hover{background:rgba(246,240,228,.12)}
+  .btn-light{background:var(--paper);color:var(--teal);}
+  .btn-light:hover{transform:translateY(-2px)}
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(246,240,228,.82);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(18,33,31,.08);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:11px;font-family:"Fraunces";font-weight:600;font-size:1.32rem;color:var(--teal)}
+  .logo .mark{width:34px;height:34px;flex:none}
+  .nav-links{
+    display:flex;align-items:stretch;gap:0;
+    position:fixed;inset:72px 0 auto 0;flex-direction:column;
+    background:var(--paper);border-bottom:1px solid rgba(18,33,31,.1);
+    padding:10px 24px 22px;box-shadow:var(--shadow);
+    transform:translateY(-140%);transition:transform .35s var(--ease);
+  }
+  .nav-links.open{transform:none}
+  .nav-links a.link{font-weight:500;font-size:.98rem;color:var(--ink);position:relative;padding:14px 0;border-bottom:1px solid rgba(18,33,31,.07)}
+  .nav-links a.link::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--coral);transition:width .28s var(--ease)}
+  .nav-links a.link:hover::after,.nav-links a.link:focus-visible::after{width:100%}
+  .nav-links a.link:focus-visible{outline:2px solid var(--coral);outline-offset:4px;border-radius:3px}
+  .nav-cta{padding:11px 22px;font-size:.95rem}
+  .nav-links .nav-cta{margin-top:14px;width:100%}
+  .hamburger{display:flex;background:none;border:0;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+  .hamburger span{width:24px;height:2.5px;background:var(--teal);border-radius:2px;transition:.3s var(--ease)}
+  .hamburger[aria-expanded="true"] span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .hamburger[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .hamburger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:var(--sand);overflow:hidden;padding:clamp(56px,9vw,104px) 0 0}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:clamp(30px,5vw,60px);align-items:center}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);color:var(--teal)}
+  .hero h1 em{font-style:italic;color:var(--coral-ink)}
+  .hero .lede{font-size:clamp(1.05rem,1.8vw,1.28rem);color:var(--muted);max-width:32ch;margin:22px 0 30px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-meta{display:flex;gap:18px;margin-top:34px;flex-wrap:wrap}
+  .hero-meta .m{font-size:.9rem;color:var(--muted)}
+  .hero-meta .m b{display:block;font-family:"Fraunces";font-size:1.55rem;color:var(--teal);font-weight:600}
+  .hero-art{position:relative;order:-1;max-width:440px}
+  .hero-art svg{width:100%;height:auto;filter:drop-shadow(0 24px 44px rgba(11,59,68,.28))}
+  .float{animation:bob 7s ease-in-out infinite}
+  .float.d{animation-delay:-3.5s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @media (prefers-reduced-motion:reduce){.float{animation:none}}
+
+  .wave-divider{display:block;width:100%;height:auto;margin-bottom:-2px}
+  .wave-divider.flip{transform:rotate(180deg)}
+
+  /* ---------- Mission band ---------- */
+  .mission{background:var(--paper);text-align:center;padding:clamp(64px,9vw,104px) 0}
+  .mission .big{font-size:clamp(1.55rem,3.4vw,2.6rem);color:var(--ink);max-width:20ch;margin:0 auto;line-height:1.28}
+  .mission .big span{color:var(--glass-deep)}
+  .mission .sub{color:var(--muted);max-width:52ch;margin:26px auto 0;font-size:1.05rem}
+
+  /* ---------- Impact numbers ---------- */
+  .impact{background:var(--teal);color:var(--paper);padding:clamp(60px,8vw,90px) 0}
+  .impact .head{text-align:center;max-width:44ch;margin:0 auto clamp(36px,5vw,54px)}
+  .impact h2{font-size:clamp(1.8rem,4vw,2.9rem);color:#fff}
+  .stat-grid{display:grid;grid-template-columns:1fr;gap:22px}
+  .stat{background:rgba(127,186,176,.1);border:1px solid rgba(127,186,176,.24);border-radius:var(--radius);padding:30px 24px;text-align:center}
+  .stat .num{font-family:"Fraunces";font-weight:600;font-size:clamp(2.3rem,4.6vw,3.4rem);color:var(--glass);line-height:1;letter-spacing:-.02em}
+  .stat .num .unit{font-size:.5em;color:var(--coral)}
+  .stat .lbl{margin-top:12px;font-size:.95rem;color:rgba(246,240,228,.86)}
+
+  /* ---------- What we do ---------- */
+  .work{padding:clamp(64px,9vw,110px) 0;background:var(--sand)}
+  .work .intro{max-width:46ch;margin-bottom:clamp(40px,6vw,64px)}
+  .work h2{font-size:clamp(1.9rem,4vw,3rem);color:var(--teal)}
+  .work .intro p{margin-top:16px;color:var(--muted);font-size:1.08rem}
+  .row{display:grid;grid-template-columns:1fr;gap:clamp(28px,5vw,60px);align-items:center;padding:clamp(28px,4vw,44px) 0;border-top:1px solid rgba(18,33,31,.1)}
+  .row .art,.row.rev .art{order:-1}
+  .row .art{display:flex;justify-content:center}
+  .row .art svg{width:min(340px,100%);height:auto}
+  .row h3{font-size:clamp(1.4rem,2.6vw,1.9rem);color:var(--ink);margin-bottom:12px}
+  .row .tag{display:inline-block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--coral-ink);margin-bottom:12px}
+  .row p{color:var(--muted);font-size:1.04rem}
+  .row ul{margin:16px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+  .row li{position:relative;padding-left:26px;color:var(--ink);font-size:.98rem}
+  .row li::before{content:"";position:absolute;left:0;top:.55em;width:12px;height:12px;border-radius:50%;background:var(--glass);box-shadow:0 0 0 4px rgba(127,186,176,.25)}
+
+  /* ---------- Stories / quote ---------- */
+  .stories{background:var(--teal);color:var(--paper);padding:clamp(64px,9vw,110px) 0}
+  .quote{max-width:60ch;margin:0 auto;text-align:center}
+  .quote blockquote{font-family:"Fraunces";font-weight:500;font-size:clamp(1.5rem,3.6vw,2.5rem);line-height:1.3;margin:0;color:#fff}
+  .quote blockquote .hl{color:var(--coral);font-style:italic}
+  .quote .who{margin-top:28px;color:var(--glass);font-weight:600}
+  .quote .who span{display:block;color:rgba(246,240,228,.7);font-weight:400;font-size:.92rem;margin-top:3px}
+  .quote-mark{font-family:"Fraunces";font-size:5rem;color:var(--glass-deep);line-height:.5;height:.5em;display:block;margin-bottom:6px}
+
+  /* ---------- Donate ---------- */
+  .donate{padding:clamp(64px,9vw,110px) 0;background:var(--paper)}
+  .donate-grid{display:grid;grid-template-columns:1fr;gap:clamp(34px,6vw,70px);align-items:center}
+  .donate h2{font-size:clamp(1.9rem,4vw,3rem);color:var(--teal)}
+  .donate .lede{color:var(--muted);margin-top:16px;font-size:1.08rem;max-width:40ch}
+  .donate .impact-line{display:flex;gap:12px;align-items:flex-start;margin-top:22px;padding:16px 18px;background:var(--sand);border-radius:14px;font-size:.96rem}
+  .donate .impact-line svg{flex:none;margin-top:2px}
+  .card{background:#fff;border:1px solid rgba(18,33,31,.1);border-radius:24px;padding:clamp(24px,4vw,36px);box-shadow:var(--shadow)}
+  .card .card-t{font-family:"Fraunces";font-size:1.3rem;color:var(--ink);font-weight:600;margin-bottom:4px}
+  .card .card-s{color:var(--muted);font-size:.92rem;margin-bottom:20px}
+  .toggle-row{display:flex;align-items:center;gap:12px;margin-bottom:20px;background:var(--paper);padding:8px;border-radius:999px;width:fit-content}
+  .seg{border:0;background:none;font-family:"DM Sans";font-weight:600;font-size:.92rem;padding:9px 20px;border-radius:999px;cursor:pointer;color:var(--muted);transition:.25s var(--ease)}
+  .seg[aria-pressed="true"]{background:var(--teal);color:#fff}
+  .seg:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+  .chip{
+    border:1.5px solid rgba(18,33,31,.16);background:#fff;border-radius:14px;padding:16px 8px;cursor:pointer;
+    font-family:"Fraunces";font-weight:600;font-size:1.28rem;color:var(--ink);transition:.2s var(--ease);position:relative;
+  }
+  .chip small{display:block;font-family:"DM Sans";font-weight:500;font-size:.68rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
+  .chip:hover{border-color:var(--glass)}
+  .chip[aria-pressed="true"]{border-color:var(--coral);background:#FFF4F0;color:var(--coral-ink)}
+  .chip[aria-pressed="true"] small{color:var(--coral-ink)}
+  .chip:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  .custom-wrap{display:flex;align-items:center;gap:8px;border:1.5px solid rgba(18,33,31,.16);border-radius:14px;padding:4px 16px;margin-bottom:22px}
+  .custom-wrap:focus-within{border-color:var(--coral)}
+  .custom-wrap .peso{font-family:"Fraunces";font-weight:600;font-size:1.2rem;color:var(--muted)}
+  .custom-wrap input{border:0;outline:0;font-family:"Fraunces";font-weight:600;font-size:1.2rem;padding:12px 0;width:100%;background:transparent;color:var(--ink)}
+  .give-btn{width:100%;font-size:1.05rem;padding:16px}
+  .give-total{font-weight:400;opacity:.9}
+  .card .fineprint{text-align:center;color:var(--muted);font-size:.8rem;margin-top:14px}
+
+  /* ---------- Ways to help / partners ---------- */
+  .ways{background:var(--sand);padding:clamp(60px,8vw,96px) 0}
+  .ways h2{font-size:clamp(1.7rem,3.6vw,2.6rem);color:var(--teal);text-align:center;max-width:20ch;margin:0 auto}
+  .ways-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:clamp(34px,5vw,52px)}
+  .way{background:var(--paper);border-radius:var(--radius);padding:28px 26px;border:1px solid rgba(18,33,31,.07)}
+  .way .ic{width:46px;height:46px;border-radius:12px;background:rgba(127,186,176,.2);display:grid;place-items:center;margin-bottom:16px}
+  .way h3{font-size:1.22rem;color:var(--ink);margin-bottom:8px}
+  .way p{color:var(--muted);font-size:.96rem}
+  .partners{margin-top:clamp(46px,6vw,64px);text-align:center}
+  .partners .plabel{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:22px}
+  .plist{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 34px;align-items:center}
+  .plist .p{display:flex;align-items:center;gap:9px;font-family:"Fraunces";font-weight:600;font-size:1.1rem;color:var(--teal);opacity:.7}
+  .plist .p svg{opacity:.85}
+
+  /* ---------- Footer ---------- */
+  footer.site{background:var(--teal);color:rgba(246,240,228,.82);padding:clamp(54px,7vw,80px) 0 34px}
+  .foot-top{display:grid;grid-template-columns:1fr;gap:32px}
+  .foot-brand .logo{color:#fff;margin-bottom:14px}
+  .foot-brand p{font-size:.95rem;max-width:34ch}
+  .foot-col h4{font-family:"DM Sans";font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--glass);margin:0 0 16px}
+  .foot-col a{display:block;font-size:.96rem;padding:5px 0;color:rgba(246,240,228,.82)}
+  .foot-col a:hover{color:#fff}
+  .foot-bottom{margin-top:clamp(40px,5vw,56px);padding-top:24px;border-top:1px solid rgba(127,186,176,.22);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem;color:rgba(246,240,228,.6)}
+  .demo-note{display:inline-flex;align-items:center;gap:8px;background:rgba(255,107,74,.14);color:#ffb59f;padding:6px 14px;border-radius:999px;font-size:.8rem;font-weight:600}
+
+  /* ---------- Reveal ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ---------- Photography (layered over SVG art; SVG remains fallback) ---------- */
+  .ph{position:absolute;inset:0;margin:0;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+  .ph img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92)}
+  .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,59,68,.16) 0%,rgba(11,59,68,.08) 45%,rgba(11,59,68,.44) 100%);pointer-events:none}
+  .hero-art .ph{border-radius:26px}
+  .hero-art .ph::after{background:linear-gradient(180deg,rgba(234,223,200,.12) 0%,rgba(11,59,68,.12) 40%,rgba(11,59,68,.5) 100%)}
+  .photo-frame{position:relative;width:min(340px,100%)}
+  .photo-frame>svg{width:100%;height:auto}
+
+  /* ---------- Responsive (mobile-first) ---------- */
+  @media (min-width:481px){
+    .stat-grid{grid-template-columns:repeat(2,1fr)}
+    .chips{grid-template-columns:repeat(3,1fr)}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .hero-meta{gap:26px}
+  }
+  @media (min-width:861px){
+    .nav-links{
+      position:static;inset:auto;flex-direction:row;gap:34px;align-items:center;
+      background:transparent;border-bottom:0;
+      padding:0;box-shadow:none;
+      transform:none;transition:none;
+    }
+    .nav-links a.link{padding:6px 0;border-bottom:0}
+    .nav-links .nav-cta{margin-top:0;width:auto}
+    .hamburger{display:none}
+    .hero-grid{grid-template-columns:1.05fr .95fr}
+    .donate-grid{grid-template-columns:1fr 1.05fr}
+    .hero-art{order:0;max-width:none}
+    .stat-grid{grid-template-columns:repeat(4,1fr)}
+    .row{grid-template-columns:1fr 1fr}
+    .row .art{order:0}
+    .row.rev .art{order:2}
+    .ways-grid{grid-template-columns:repeat(3,1fr)}
+    .foot-top{grid-template-columns:1.4fr 1fr 1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top" aria-label="Karagatan home">
+      <svg class="mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+        <circle cx="22" cy="22" r="21" fill="#0B3B44"/>
+        <path d="M6 26c4-4 8-4 12 0s8 4 12 0 6-3 8-1" stroke="#7FBAB0" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M8 32c4-4 8-4 12 0s8 4 12 0" stroke="#FF6B4A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <circle cx="22" cy="16" r="4.6" fill="#EADFC8"/>
+      </svg>
+      Karagatan
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a class="link" href="#mission">Mission</a>
+      <a class="link" href="#impact">Impact</a>
+      <a class="link" href="#involved">Get Involved</a>
+      <a class="btn btn-coral nav-cta" href="#donate">Donate</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-controls="navLinks" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <p class="eyebrow">Coastal conservation · Philippines</p>
+      <h1>The sea can still <em>recover</em>—if we act with it, now.</h1>
+      <p class="lede">Karagatan restores coral reefs and mangroves alongside the coastal communities who depend on them. Living coasts, thriving catches, protected shores.</p>
+      <div class="hero-cta">
+        <a class="btn btn-coral" href="#donate">Donate to the reefs</a>
+        <a class="btn btn-ghost" href="#involved">Volunteer with us</a>
+      </div>
+      <div class="hero-meta">
+        <div class="m"><b>42</b> reef sites in care</div>
+        <div class="m"><b>18</b> partner barangays</div>
+        <div class="m"><b>2,300+</b> volunteers</div>
+      </div>
+    </div>
+    <div class="hero-art reveal">
+      <svg viewBox="0 0 460 420" role="img" aria-hidden="true">
+        <defs>
+          <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#0e4a55"/><stop offset="1" stop-color="#0B3B44"/>
+          </linearGradient>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F6F0E4"/><stop offset="1" stop-color="#EADFC8"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="460" height="420" rx="26" fill="url(#sky)"/>
+        <circle cx="352" cy="96" r="46" fill="#FF6B4A" opacity="0.9"/>
+        <circle cx="352" cy="96" r="46" fill="none" stroke="#FFF" stroke-opacity="0.25" stroke-width="6"/>
+        <path d="M0 210 Q115 170 230 210 T460 210 V420 H0 Z" fill="url(#sea)"/>
+        <path d="M0 210 Q115 170 230 210 T460 210" fill="none" stroke="#7FBAB0" stroke-width="3" opacity="0.6"/>
+        <!-- fish -->
+        <g class="float">
+          <ellipse cx="120" cy="300" rx="26" ry="15" fill="#FF6B4A"/>
+          <path d="M146 300 l22 -13 v26 z" fill="#FF6B4A"/>
+          <circle cx="110" cy="296" r="3" fill="#0B3B44"/>
+        </g>
+        <g class="float d">
+          <ellipse cx="300" cy="350" rx="20" ry="12" fill="#7FBAB0"/>
+          <path d="M320 350 l17 -10 v20 z" fill="#7FBAB0"/>
+          <circle cx="292" cy="347" r="2.4" fill="#0B3B44"/>
+        </g>
+        <!-- coral -->
+        <g stroke-linecap="round" fill="none">
+          <path d="M370 420 V352 M370 372 q-16 -10 -20 -30 M370 366 q16 -8 22 -26" stroke="#EADFC8" stroke-width="9"/>
+          <path d="M60 420 V368 M60 388 q-14 -6 -16 -24 M60 382 q14 -6 18 -22" stroke="#FF6B4A" stroke-width="8" opacity="0.9"/>
+        </g>
+        <circle cx="350" cy="322" r="6" fill="#FF6B4A"/>
+        <circle cx="392" cy="340" r="5" fill="#FF6B4A"/>
+        <circle cx="44" cy="344" r="5" fill="#EADFC8"/>
+        <!-- bubbles -->
+        <circle cx="200" cy="270" r="5" fill="#7FBAB0" opacity="0.5"/>
+        <circle cx="214" cy="250" r="3.5" fill="#7FBAB0" opacity="0.4"/>
+        <circle cx="224" cy="234" r="2.5" fill="#7FBAB0" opacity="0.3"/>
+      </svg>
+      <figure class="ph">
+        <img src="https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=1600&q=75" alt="Freediver swimming above a sunlit reef in clear blue water" fetchpriority="high" onerror="this.parentElement.style.display='none'" />
+      </figure>
+    </div>
+  </div>
+  <!-- wave into paper mission -->
+  <svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 40 C 180 90 360 90 540 55 C 760 12 900 12 1080 45 C 1260 78 1360 70 1440 48 V90 H0 Z" fill="#F6F0E4"/>
+  </svg>
+</section>
+
+<!-- ============ MISSION ============ -->
+<section class="mission" id="mission">
+  <div class="wrap reveal">
+    <p class="eyebrow" style="justify-content:center">Our mission</p>
+    <p class="big">We protect and restore the living coasts of the Philippines—<span>so reefs, fisher families, and future generations can all thrive together.</span></p>
+    <p class="sub">More than half of the country's coral reefs are in poor condition. We believe recovery is possible when science, community stewardship, and long-term care meet the water at the same time.</p>
+  </div>
+</section>
+
+<!-- wave into teal impact -->
+<svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 45 C 200 5 380 5 560 42 C 760 82 940 82 1120 46 C 1280 15 1380 20 1440 40 V0 H0 Z" fill="#F6F0E4"/>
+  <path d="M0 45 C 200 5 380 5 560 42 C 760 82 940 82 1120 46 C 1280 15 1380 20 1440 40 V90 H0 Z" fill="#0B3B44"/>
+</svg>
+
+<!-- ============ IMPACT ============ -->
+<section class="impact teal" id="impact">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow" style="justify-content:center">Impact by the numbers</p>
+      <h2>Progress you can measure, tide by tide</h2>
+    </div>
+    <div class="stat-grid">
+      <div class="stat reveal">
+        <div class="num" data-count="4200" data-suffix="+">0</div>
+        <div class="lbl">Coral fragments transplanted</div>
+      </div>
+      <div class="stat reveal">
+        <div class="num" data-count="68"><span class="unit">km </span>0</div>
+        <div class="lbl">Coastline under protection</div>
+      </div>
+      <div class="stat reveal">
+        <div class="num" data-count="31" data-suffix="k"><span class="unit"></span>0</div>
+        <div class="lbl">Mangrove seedlings planted</div>
+      </div>
+      <div class="stat reveal">
+        <div class="num" data-count="2300" data-suffix="+">0</div>
+        <div class="lbl">Volunteers on the water</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave into sand work -->
+<svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 40 C 180 80 380 80 560 46 C 760 8 960 8 1140 44 C 1300 76 1380 66 1440 46 V0 H0 Z" fill="#0B3B44"/>
+  <path d="M0 40 C 180 80 380 80 560 46 C 760 8 960 8 1140 44 C 1300 76 1380 66 1440 46 V90 H0 Z" fill="#EADFC8"/>
+</svg>
+
+<!-- ============ WHAT WE DO ============ -->
+<section class="work">
+  <div class="wrap">
+    <div class="intro reveal">
+      <p class="eyebrow">The problem &amp; what we do</p>
+      <h2>Warming seas, silt, and overfishing are pushing reefs past recovery.</h2>
+      <p>We meet each threat with practical, community-led work—the kind that keeps working long after our boats leave the bay.</p>
+    </div>
+
+    <!-- coral -->
+    <div class="row reveal">
+      <div class="art">
+        <div class="photo-frame">
+        <svg viewBox="0 0 300 240" aria-hidden="true">
+          <rect width="300" height="240" rx="20" fill="#F6F0E4"/>
+          <g stroke-linecap="round" fill="none">
+            <path d="M150 230 V120 M150 160 q-40 -20 -46 -60 M150 150 q40 -18 50 -58 M150 138 q-24 -30 -18 -66 M150 132 q26 -28 20 -64" stroke="#FF6B4A" stroke-width="12"/>
+          </g>
+          <circle cx="104" cy="98" r="9" fill="#FF6B4A"/><circle cx="200" cy="90" r="9" fill="#FF6B4A"/>
+          <circle cx="132" cy="66" r="8" fill="#7FBAB0"/><circle cx="170" cy="66" r="8" fill="#7FBAB0"/>
+          <circle cx="150" cy="120" r="7" fill="#0B3B44"/>
+          <path d="M20 230 q60 -14 120 0 t140 0" stroke="#7FBAB0" stroke-width="4" fill="none" opacity="0.5"/>
+        </svg>
+        <figure class="ph">
+          <img src="https://images.unsplash.com/photo-1546026423-cc4642628d2b?auto=format&fit=crop&w=800&q=75" alt="Colorful coral reef teeming with life" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        </figure>
+        </div>
+      </div>
+      <div>
+        <span class="tag">Reef restoration</span>
+        <h3>Rebuilding coral, one fragment at a time</h3>
+        <p>Our dive teams grow resilient coral in nearby nurseries, then transplant fragments onto degraded reef—giving fish, shellfish, and whole food webs a structure to return to.</p>
+        <ul>
+          <li>Heat-tolerant coral nurseries in six municipalities</li>
+          <li>Monthly survival monitoring by trained local divers</li>
+          <li>Reef survey data shared openly with LGUs</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- mangrove -->
+    <div class="row rev reveal">
+      <div class="art">
+        <div class="photo-frame">
+        <svg viewBox="0 0 300 240" aria-hidden="true">
+          <rect width="300" height="240" rx="20" fill="#F6F0E4"/>
+          <path d="M0 180 h300" stroke="#7FBAB0" stroke-width="3" opacity="0.4"/>
+          <g fill="none" stroke="#0B3B44" stroke-width="9" stroke-linecap="round">
+            <path d="M150 180 V96 M150 130 l-34 34 M150 130 l34 34 M150 150 l-22 30 M150 150 l22 30"/>
+          </g>
+          <circle cx="150" cy="80" r="34" fill="#7FBAB0"/>
+          <circle cx="118" cy="94" r="22" fill="#7FBAB0"/>
+          <circle cx="182" cy="94" r="22" fill="#7FBAB0"/>
+          <circle cx="150" cy="80" r="10" fill="#EADFC8"/>
+          <path d="M60 200 q40 -12 80 0 M160 200 q40 -12 80 0" stroke="#5E6E6A" stroke-width="3" fill="none" opacity="0.4"/>
+        </svg>
+        <figure class="ph">
+          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=75" alt="Aerial view of surf breaking along a green coastline" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        </figure>
+        </div>
+      </div>
+      <div>
+        <span class="tag">Mangrove &amp; coastline</span>
+        <h3>Green walls that hold the shore</h3>
+        <p>Mangroves shelter young fish, store carbon, and blunt the force of storm surge. We restore them with fisherfolk cooperatives, choosing native species and the right sites so they actually survive.</p>
+        <ul>
+          <li>31,000 native seedlings established since 2019</li>
+          <li>Community-run nurseries create local livelihoods</li>
+          <li>Natural buffers for typhoon-exposed villages</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- fish / fisheries -->
+    <div class="row reveal">
+      <div class="art">
+        <div class="photo-frame">
+        <svg viewBox="0 0 300 240" aria-hidden="true">
+          <rect width="300" height="240" rx="20" fill="#F6F0E4"/>
+          <path d="M0 60 q75 -22 150 0 t150 0" stroke="#7FBAB0" stroke-width="3" fill="none" opacity="0.5"/>
+          <g>
+            <ellipse cx="120" cy="120" rx="52" ry="30" fill="#FF6B4A"/>
+            <path d="M172 120 l40 -26 v52 z" fill="#FF6B4A"/>
+            <circle cx="102" cy="112" r="6" fill="#0B3B44"/>
+            <path d="M120 90 q10 -14 26 -8 M120 150 q10 14 26 8" stroke="#c94a2c" stroke-width="4" fill="none"/>
+          </g>
+          <g opacity="0.85">
+            <ellipse cx="212" cy="180" rx="26" ry="15" fill="#7FBAB0"/>
+            <path d="M238 180 l20 -12 v24 z" fill="#7FBAB0"/>
+            <circle cx="203" cy="176" r="3" fill="#0B3B44"/>
+          </g>
+          <circle cx="70" cy="190" r="4" fill="#7FBAB0" opacity="0.6"/>
+          <circle cx="84" cy="176" r="3" fill="#7FBAB0" opacity="0.5"/>
+        </svg>
+        <figure class="ph">
+          <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=75" alt="Open ocean water under a clear sky" loading="lazy" onerror="this.parentElement.style.display='none'" />
+        </figure>
+        </div>
+      </div>
+      <div>
+        <span class="tag">Sustainable fisheries</span>
+        <h3>Full nets tomorrow start with limits today</h3>
+        <p>We help communities set up and enforce no-take marine sanctuaries. Protected zones let fish grow and spill over into surrounding waters—so catches rebound where families fish.</p>
+        <ul>
+          <li>Support for locally managed marine protected areas</li>
+          <li>Bantay-dagat patrols against illegal fishing</li>
+          <li>Alternative-livelihood training for coastal households</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave into teal stories -->
+<svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 50 C 220 10 400 10 580 46 C 780 84 960 84 1140 48 C 1300 18 1380 26 1440 44 V0 H0 Z" fill="#EADFC8"/>
+  <path d="M0 50 C 220 10 400 10 580 46 C 780 84 960 84 1140 48 C 1300 18 1380 26 1440 44 V90 H0 Z" fill="#0B3B44"/>
+</svg>
+
+<!-- ============ STORIES / QUOTE ============ -->
+<section class="stories teal">
+  <div class="wrap">
+    <div class="quote reveal">
+      <span class="quote-mark">&ldquo;</span>
+      <blockquote>When the sanctuary closed, we were afraid we'd lose our income. Three years on, the <span class="hl">fish came back thicker than our fathers remember</span>—and now the whole barangay guards the reef.</blockquote>
+      <p class="who">Aling Remy Basa<span>Fisher &amp; bantay-dagat volunteer · Coron, Palawan</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- wave into paper donate -->
+<svg class="wave-divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 44 C 180 82 380 82 560 46 C 760 8 960 8 1140 44 C 1300 76 1380 66 1440 46 V0 H0 Z" fill="#0B3B44"/>
+  <path d="M0 44 C 180 82 380 82 560 46 C 760 8 960 8 1140 44 C 1300 76 1380 66 1440 46 V90 H0 Z" fill="#F6F0E4"/>
+</svg>
+
+<!-- ============ DONATE ============ -->
+<section class="donate" id="donate">
+  <div class="wrap donate-grid">
+    <div class="reveal">
+      <p class="eyebrow">Give to the reefs</p>
+      <h2>Your gift goes straight into the water</h2>
+      <p class="lede">Every peso funds coral nurseries, mangrove seedlings, and the local stewards who keep the reefs safe long-term.</p>
+      <div class="impact-line">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 14c3-3 6-3 9 0s6 3 8 1" stroke="#FF6B4A" stroke-width="2.2" stroke-linecap="round"/><path d="M5 18c3-3 6-3 8 0" stroke="#7FBAB0" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <span><b>₱500</b> transplants roughly 20 coral fragments onto a recovering reef. <b>₱1,000</b> raises a mangrove nursery for a month.</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <p class="card-t">Make a donation</p>
+      <p class="card-s">Choose an amount and how often you'd like to give.</p>
+
+      <div class="toggle-row" role="group" aria-label="Donation frequency">
+        <button class="seg" id="segOnce" aria-pressed="true">One-time</button>
+        <button class="seg" id="segMonthly" aria-pressed="false">Give monthly</button>
+      </div>
+
+      <div class="chips" role="group" aria-label="Donation amount">
+        <button class="chip" data-amt="250" aria-pressed="false">₱250<small>Seedlings</small></button>
+        <button class="chip" data-amt="500" aria-pressed="true">₱500<small>Coral</small></button>
+        <button class="chip" data-amt="1000" aria-pressed="false">₱1,000<small>Nursery</small></button>
+      </div>
+
+      <div class="custom-wrap">
+        <span class="peso">₱</span>
+        <input type="text" inputmode="numeric" id="customAmt" aria-label="Custom donation amount" placeholder="Other amount" />
+      </div>
+
+      <button class="btn btn-coral give-btn" id="giveBtn" type="button">
+        Give <span class="give-total">₱500</span>
+      </button>
+      <p class="fineprint">Demo only — no payment is processed. Karagatan is a fictional organization.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WAYS TO HELP ============ -->
+<section class="ways" id="involved">
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center">Get involved</p>
+    <h2>There's more than one way to stand with the sea</h2>
+    <div class="ways-grid">
+      <div class="way reveal">
+        <div class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21c-5-4-8-7-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4-3 7-8 11z" stroke="#0B3B44" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>Donate</h3>
+        <p>Fund the nurseries, patrols, and seedlings that make recovery possible. One-time or monthly.</p>
+      </div>
+      <div class="way reveal">
+        <div class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#0B3B44" stroke-width="2"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="#0B3B44" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Volunteer</h3>
+        <p>Join a coastal clean-up, a mangrove planting, or a reef survey. Training provided—no experience needed.</p>
+      </div>
+      <div class="way reveal">
+        <div class="ic" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M12 4v16" stroke="#0B3B44" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#0B3B44" stroke-width="2"/></svg></div>
+        <h3>Partner</h3>
+        <p>Bring your school, barangay, or business into a sponsorship or corporate stewardship program.</p>
+      </div>
+    </div>
+
+    <div class="partners reveal">
+      <p class="plabel">In partnership with</p>
+      <div class="plist">
+        <span class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0B3B44" stroke-width="2"/><path d="M7 13c2-2 3-2 5 0s3 2 5 0" stroke="#0B3B44" stroke-width="2"/></svg>Bantay Reef Network</span>
+        <span class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 4v6c0 4-3 6-7 8-4-2-7-4-7-8V7z" stroke="#0B3B44" stroke-width="2" stroke-linejoin="round"/></svg>Coastal Guardians PH</span>
+        <span class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 16c3-2 5-2 8 0s5 2 8 0M4 11c3-2 5-2 8 0s5 2 8 0" stroke="#0B3B44" stroke-width="2" stroke-linecap="round"/></svg>Marine Futures Fund</span>
+        <span class="p"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="5" stroke="#0B3B44" stroke-width="2"/><circle cx="16" cy="15" r="5" stroke="#0B3B44" stroke-width="2"/></svg>Isla Verde Trust</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a class="logo" href="#top">
+          <svg class="mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+            <circle cx="22" cy="22" r="21" fill="#0e4a55"/>
+            <path d="M6 26c4-4 8-4 12 0s8 4 12 0 6-3 8-1" stroke="#7FBAB0" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M8 32c4-4 8-4 12 0s8 4 12 0" stroke="#FF6B4A" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <circle cx="22" cy="16" r="4.6" fill="#EADFC8"/>
+          </svg>
+          Karagatan
+        </a>
+        <p>A coastal conservation movement restoring the reefs, mangroves, and fisheries of the Philippines—together with the communities who call the sea home.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="#mission">Our mission</a>
+        <a href="#impact">Impact</a>
+        <a href="#involved">Get involved</a>
+        <a href="#donate">Donate</a>
+      </div>
+      <div class="foot-col">
+        <h4>Programs</h4>
+        <a href="#">Reef restoration</a>
+        <a href="#">Mangrove &amp; coastline</a>
+        <a href="#">Sustainable fisheries</a>
+        <a href="#">Bantay-dagat</a>
+      </div>
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="#">Newsletter</a>
+        <a href="#">Volunteer</a>
+        <a href="#">Contact</a>
+        <a href="#">Annual report</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Karagatan. Made with care for the sea.</span>
+      <span class="demo-note">◆ Fictional non-profit · portfolio demo</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Hamburger ---------- */
+  var burger = document.getElementById("hamburger");
+  var links = document.getElementById("navLinks");
+  burger.addEventListener("click", function(){
+    var open = links.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  links.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){
+      links.classList.remove("open");
+      burger.setAttribute("aria-expanded","false");
+    });
+  });
+
+  /* ---------- Scroll reveal ---------- */
+  var reveals = document.querySelectorAll(".reveal");
+  function inViewport(el){
+    var r = el.getBoundingClientRect();
+    return r.top < (window.innerHeight || document.documentElement.clientHeight) && r.bottom > 0;
+  }
+  if(reduce || !("IntersectionObserver" in window)){
+    reveals.forEach(function(el){el.classList.add("in");});
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, {threshold:0.15, rootMargin:"0px 0px -40px 0px"});
+    // Reveal anything already inside the initial viewport right away —
+    // the observer's threshold + negative rootMargin can miss above-the-fold
+    // content on load, leaving the hero ghosted.
+    reveals.forEach(function(el){
+      if(inViewport(el)){ el.classList.add("in"); }
+      else { io.observe(el); }
+    });
+    // Hard failsafe: never leave the hero invisible.
+    setTimeout(function(){
+      document.querySelectorAll(".hero .reveal").forEach(function(el){
+        if(!el.classList.contains("in")){ el.classList.add("in"); io.unobserve(el); }
+      });
+    }, 700);
+  }
+
+  /* ---------- Count up ---------- */
+  var counters = document.querySelectorAll(".num[data-count]");
+  function animateCount(el){
+    var target = parseFloat(el.getAttribute("data-count"));
+    var suffix = el.getAttribute("data-suffix") || "";
+    var unitEl = el.querySelector(".unit");
+    var unit = unitEl ? unitEl.outerHTML : "";
+    var dur = 1500, start = null;
+    // for the 'k' suffix stat we stored 31 meaning 31k
+    function fmt(v){
+      var n = Math.round(v);
+      return n.toLocaleString("en-US");
+    }
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      el.innerHTML = unit + fmt(target*eased) + suffix;
+      if(p<1) requestAnimationFrame(step);
+      else el.innerHTML = unit + fmt(target) + suffix;
+    }
+    if(reduce){ el.innerHTML = unit + fmt(target) + suffix; return; }
+    requestAnimationFrame(step);
+  }
+  if(!("IntersectionObserver" in window)){
+    counters.forEach(animateCount);
+  } else {
+    var cio = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ animateCount(e.target); cio.unobserve(e.target); }
+      });
+    }, {threshold:0.5});
+    counters.forEach(function(el){
+      if(inViewport(el)){ animateCount(el); }
+      else { cio.observe(el); }
+    });
+  }
+
+  /* ---------- Donation UI ---------- */
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+  var custom = document.getElementById("customAmt");
+  var giveBtn = document.getElementById("giveBtn");
+  var giveTotal = giveBtn.querySelector(".give-total");
+  var segOnce = document.getElementById("segOnce");
+  var segMonthly = document.getElementById("segMonthly");
+  var monthly = false;
+  var amount = 500;
+
+  function fmtPeso(n){ return "₱" + Number(n).toLocaleString("en-US"); }
+  function updateBtn(){
+    if(!amount || amount<=0){ giveTotal.textContent=""; giveBtn.firstChild.textContent="Enter an amount "; return; }
+    giveBtn.firstChild.textContent = "Give ";
+    giveTotal.textContent = fmtPeso(amount) + (monthly ? " / month" : "");
+  }
+  function selectChip(chip){
+    chips.forEach(function(c){c.setAttribute("aria-pressed","false");});
+    if(chip){ chip.setAttribute("aria-pressed","true"); amount = parseInt(chip.getAttribute("data-amt"),10); }
+    updateBtn();
+  }
+  chips.forEach(function(chip){
+    chip.addEventListener("click", function(){
+      custom.value = "";
+      selectChip(chip);
+    });
+  });
+  custom.addEventListener("input", function(){
+    var v = custom.value.replace(/[^0-9]/g,"");
+    custom.value = v;
+    if(v){
+      chips.forEach(function(c){c.setAttribute("aria-pressed","false");});
+      amount = parseInt(v,10);
+    } else {
+      selectChip(document.querySelector('.chip[data-amt="500"]'));
+    }
+    updateBtn();
+  });
+  function setFreq(isMonthly){
+    monthly = isMonthly;
+    segMonthly.setAttribute("aria-pressed", isMonthly ? "true":"false");
+    segOnce.setAttribute("aria-pressed", isMonthly ? "false":"true");
+    updateBtn();
+  }
+  segOnce.addEventListener("click", function(){ setFreq(false); });
+  segMonthly.addEventListener("click", function(){ setFreq(true); });
+  giveBtn.addEventListener("click", function(){
+    if(!amount||amount<=0) return;
+    var prev = giveBtn.innerHTML;
+    giveBtn.innerHTML = "Thank you for standing with the reefs ♥";
+    giveBtn.style.background = "#0B3B44";
+    setTimeout(function(){ giveBtn.innerHTML = prev; giveBtn.style.background=""; updateBtn(); }, 2600);
+  });
+  updateBtn();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NULL/FORM — SS26 Drop</title>
+<meta name="description" content="NULL/FORM — contemporary unisex streetwear. Season SS26. New drop every Friday." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- NAV -->
+<header class="nav" id="top">
+  <div class="nav__inner">
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="wordmark" href="#top" aria-label="NULL/FORM home">NULL<span class="wordmark__slash">/</span>FORM</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#drop">New</a>
+      <a href="#grid">Men</a>
+      <a href="#grid">Women</a>
+      <a href="#lookbook">Lookbook</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="iconbtn" id="searchBtn" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+      </button>
+      <button class="cartbtn" id="cartBtn" aria-label="Open cart">
+        Cart <span class="cartbtn__count" id="cartCount" aria-live="polite">(2)</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobilemenu" id="mobileMenu" aria-hidden="true">
+  <nav class="mobilemenu__links" aria-label="Mobile">
+    <a href="#drop">New</a>
+    <a href="#grid">Men</a>
+    <a href="#grid">Women</a>
+    <a href="#lookbook">Lookbook</a>
+    <a href="#about">About</a>
+  </nav>
+</div>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="drop" aria-labelledby="heroTitle">
+    <div class="hero__tag"><span class="mark">SS26</span> — Season Zero</div>
+    <h1 class="hero__title" id="heroTitle">
+      FORM<br />FOLLOWS<br /><span class="hero__accent">NOTHING</span>
+    </h1>
+    <div class="hero__side">
+      <p class="hero__sub">A wardrobe with no fixed rules. Structured shells, raw denim and heavyweight knits built for the street and the studio. The SS26 drop lands now.</p>
+      <div class="hero__cta">
+        <a href="#grid" class="btn btn--solid">Shop the drop</a>
+        <a href="#lookbook" class="btn btn--ghost">View lookbook</a>
+      </div>
+    </div>
+    <div class="hero__meta">
+      <span>28 pieces</span><span>Unisex</span><span>Made to move</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Free shipping over ₱2,500</span><span class="mark">/</span>
+      <span>New drop every Friday</span><span class="mark">/</span>
+      <span>Ships worldwide from Manila</span><span class="mark">/</span>
+      <span>SS26 — Season Zero</span><span class="mark">/</span>
+      <span>Free shipping over ₱2,500</span><span class="mark">/</span>
+      <span>New drop every Friday</span><span class="mark">/</span>
+      <span>Ships worldwide from Manila</span><span class="mark">/</span>
+      <span>SS26 — Season Zero</span><span class="mark">/</span>
+    </div>
+  </div>
+
+  <!-- CATEGORY TILES -->
+  <section class="cats reveal" aria-label="Shop by category">
+    <header class="sec-head">
+      <h2 class="sec-head__title">The <span class="mark">/</span> categories</h2>
+      <span class="sec-head__idx">01</span>
+    </header>
+    <div class="cats__grid">
+      <a class="cat cat--a has-photo" href="#grid" data-swatch="ink">
+        <img class="cat__img" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=1200&q=75" alt="Model wearing a black technical jacket" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-photo')" />
+        <span class="cat__label">Outerwear</span>
+        <span class="cat__count">08 pieces</span>
+      </a>
+      <a class="cat cat--b has-photo" href="#grid" data-swatch="warm">
+        <img class="cat__img" src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=1200&q=75" alt="Heavyweight pullover hoodie" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-photo')" />
+        <span class="cat__label">Knitwear</span>
+        <span class="cat__count">06 pieces</span>
+      </a>
+      <a class="cat cat--c has-photo" href="#grid" data-swatch="blue">
+        <img class="cat__img" src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=1200&q=75" alt="Raw denim jeans detail" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-photo')" />
+        <span class="cat__label">Denim</span>
+        <span class="cat__count">09 pieces</span>
+      </a>
+      <a class="cat cat--d has-photo" href="#grid" data-swatch="surface">
+        <img class="cat__img" src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=75" alt="Folded garments stacked in studio" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-photo')" />
+        <span class="cat__label">Accessories</span>
+        <span class="cat__count">05 pieces</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURED GRID -->
+  <section class="grid-sec" id="grid" aria-labelledby="gridTitle">
+    <header class="sec-head reveal">
+      <h2 class="sec-head__title" id="gridTitle">Featured <span class="mark">/</span> drop</h2>
+      <span class="sec-head__idx">02</span>
+    </header>
+    <div class="pgrid" id="productGrid"><!-- products injected by app.js --></div>
+  </section>
+
+  <!-- EDITORIAL SPLIT BANNER -->
+  <section class="split reveal" id="lookbook" aria-labelledby="splitTitle">
+    <div class="split__media has-photo" role="img" aria-label="SS26 campaign panel in electric blue">
+      <img class="split__img" src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?auto=format&fit=crop&w=1200&q=75" alt="SS26 campaign — fashion model on location" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-photo')" />
+      <span class="split__kicker">Campaign / SS26</span>
+    </div>
+    <div class="split__body">
+      <p class="split__eyebrow"><span class="mark">/</span> Lookbook</p>
+      <h2 class="split__title" id="splitTitle">Built for the in-between hours.</h2>
+      <p class="split__text">Shot on location between concrete and coastline. The SS26 lookbook is a study in weight, drape and utility — clothing that holds its shape while you don't hold still.</p>
+      <a href="#grid" class="btn btn--solid">Explore the story</a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="news" id="about" aria-labelledby="newsTitle">
+    <div class="news__inner reveal">
+      <h2 class="news__title" id="newsTitle">Get the drop before it drops.</h2>
+      <p class="news__sub">One email each Friday. New releases, restocks and members-only sizing. No noise.</p>
+      <form class="news__form" onsubmit="return false;">
+        <label class="visually-hidden" for="email">Email address</label>
+        <input class="news__input" id="email" type="email" placeholder="your@email.com" autocomplete="email" />
+        <button class="btn btn--solid" type="submit">Subscribe</button>
+      </form>
+      <p class="news__fine">By subscribing you agree to the fictional NULL/FORM terms. This is a portfolio demo.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__top">
+    <a class="wordmark wordmark--lg" href="#top" aria-label="NULL/FORM home">NULL<span class="wordmark__slash">/</span>FORM</a>
+    <div class="footer__cols">
+      <div class="footer__col">
+        <h3>Shop</h3>
+        <a href="#grid">New arrivals</a>
+        <a href="#grid">Outerwear</a>
+        <a href="#grid">Knitwear</a>
+        <a href="#grid">Denim</a>
+      </div>
+      <div class="footer__col">
+        <h3>Company</h3>
+        <a href="#about">About</a>
+        <a href="#lookbook">Lookbook</a>
+        <a href="#about">Careers</a>
+        <a href="#about">Stores</a>
+      </div>
+      <div class="footer__col">
+        <h3>Help</h3>
+        <a href="#about">Shipping</a>
+        <a href="#about">Returns</a>
+        <a href="#about">Size guide</a>
+        <a href="#about">Contact</a>
+      </div>
+      <div class="footer__col">
+        <h3>Social</h3>
+        <a href="#about">Instagram</a>
+        <a href="#about">TikTok</a>
+        <a href="#about">Pinterest</a>
+        <a href="#about">Newsletter</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bar">
+    <span class="footer__copy">© 2026 NULL/FORM. A fictional brand — portfolio demo.</span>
+    <div class="footer__pay" aria-label="Accepted payments">
+      <span>VISA</span><span>MASTERCARD</span><span>GCASH</span><span>MAYA</span><span>AMEX</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="drawer__head">
+    <h2 class="drawer__title">Your cart <span class="mark">/</span> <span id="drawerCount">2</span></h2>
+    <button class="iconbtn" id="drawerClose" aria-label="Close cart">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+  <div class="drawer__items" id="drawerItems"><!-- line items injected --></div>
+  <div class="drawer__foot">
+    <div class="drawer__sub"><span>Subtotal</span><span id="subtotal">₱7,400</span></div>
+    <p class="drawer__note">Shipping and taxes calculated at checkout.</p>
+    <button class="btn btn--solid btn--full">Checkout</button>
+    <button class="drawer__cont" id="drawerCont">Continue shopping</button>
+  </div>
+</aside>
+
+<!-- QUICK VIEW MODAL -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalName">
+  <div class="modal__overlay" id="modalOverlay"></div>
+  <div class="modal__panel" role="document">
+    <button class="iconbtn modal__close" id="modalClose" aria-label="Close quick view">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+    <div class="modal__media" id="modalMedia"></div>
+    <div class="modal__body">
+      <p class="modal__cat" id="modalCat">Outerwear</p>
+      <h2 class="modal__name" id="modalName">Product</h2>
+      <p class="modal__price" id="modalPrice">₱0</p>
+      <p class="modal__desc">Heavyweight construction, boxed shoulders and a clean unisex cut. A core piece from the SS26 drop, made to layer and last.</p>
+      <div class="modal__opt">
+        <span class="modal__optlabel">Size</span>
+        <div class="chips" id="sizeChips" role="group" aria-label="Select size">
+          <button class="chip" type="button">XS</button>
+          <button class="chip" type="button">S</button>
+          <button class="chip chip--on" type="button">M</button>
+          <button class="chip" type="button">L</button>
+          <button class="chip" type="button">XL</button>
+        </div>
+      </div>
+      <div class="modal__opt">
+        <span class="modal__optlabel">Colour</span>
+        <div class="swatches swatches--lg" id="modalSwatches" role="group" aria-label="Select colour"></div>
+      </div>
+      <button class="btn btn--solid btn--full" id="modalAdd">Add to cart</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

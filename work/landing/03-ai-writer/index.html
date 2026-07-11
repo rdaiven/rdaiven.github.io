@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Margin — The AI writing desk for professionals</title>
+<meta name="description" content="Margin drafts, edits, and rewrites with you — a calm, intelligent writing assistant for writers, founders, and marketers." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#100B1A;
+    --surface:#191227;
+    --raised:#211836;
+    --hairline:#2E2442;
+    --text:#ECE7F5;
+    --muted:#A99FC0;
+    --accent:#B79CFF;
+    --teal:#7EE0D3;
+    --grad:linear-gradient(120deg,#B79CFF 0%,#7EE0D3 100%);
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --maxw:1120px;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background:
+      radial-gradient(60% 45% at 78% 8%, rgba(183,156,255,.14), transparent 70%),
+      radial-gradient(50% 40% at 12% 100%, rgba(126,224,211,.06), transparent 70%);
+    pointer-events:none;z-index:0;
+  }
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+  img,svg{display:block}
+  ::selection{background:rgba(183,156,255,.3);color:#fff}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(16,11,26,.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s,background .3s;
+  }
+  header.nav.scrolled{border-bottom-color:var(--hairline);background:rgba(16,11,26,.9)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.02em}
+  .logo .mark{width:26px;height:26px;flex:none}
+  .nav-links{display:none;align-items:center;gap:30px}
+  .nav-links a.lnk{color:var(--muted);font-size:15px;transition:color .2s}
+  .nav-links a.lnk:hover{color:var(--text)}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .btn{
+    font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;
+    border:none;border-radius:999px;padding:10px 20px;transition:transform .15s,box-shadow .2s,background .2s,border-color .2s;
+    display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+  }
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--hairline)}
+  .btn-ghost:hover{border-color:var(--accent);color:#fff}
+  .btn-primary{background:var(--accent);color:#180f2b;font-weight:600}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px -8px rgba(183,156,255,.6)}
+  .btn-signin{color:var(--muted);font-size:15px}
+  .btn-signin:hover{color:var(--text)}
+  .nav-cta .btn-signin{display:none}
+  .nav-cta .btn-primary{padding:9px 16px;font-size:14px}
+  .hamburger{display:inline-flex;background:none;border:1px solid var(--hairline);border-radius:10px;padding:8px;cursor:pointer}
+  .hamburger svg{stroke:var(--text)}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:56px 0;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;font-size:13px;letter-spacing:.04em;
+    color:var(--muted);text-transform:uppercase;margin-bottom:22px;
+    border:1px solid var(--hairline);border-radius:999px;padding:6px 14px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--grad)}
+  .hero h1{font-size:clamp(2.5rem,5.4vw,4rem);margin-bottom:22px}
+  .hero h1 .em{font-style:italic;color:var(--accent)}
+  .hero p.lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:30em;margin-bottom:32px}
+  .hero-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .hero-cta .fine{font-size:13.5px;color:var(--muted)}
+  .btn-lg{padding:14px 26px;font-size:16px}
+
+  /* editor mock */
+  .editor{
+    background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);
+    box-shadow:0 40px 80px -40px rgba(0,0,0,.7);overflow:hidden;
+  }
+  .editor-bar{display:flex;align-items:center;gap:8px;padding:14px 16px;border-bottom:1px solid var(--hairline);background:var(--raised)}
+  .dots{display:flex;gap:6px}
+  .dots i{width:10px;height:10px;border-radius:50%;background:#3a2f52;display:block}
+  .editor-file{margin-left:8px;font-size:13px;color:var(--muted)}
+  .editor-tag{margin-left:auto;font-size:12px;color:var(--accent);border:1px solid var(--hairline);border-radius:999px;padding:3px 10px}
+  .editor-body{padding:20px;min-height:250px}
+  .editor-label{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .draft{font-family:var(--serif);font-size:1.15rem;line-height:1.5;color:var(--text);min-height:4.6em}
+  .draft .caret{display:inline-block;width:2px;height:1.05em;background:var(--accent);vertical-align:-2px;margin-left:1px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .draft .ins{color:#fff;background:rgba(183,156,255,.16);border-radius:3px;box-shadow:0 0 0 2px rgba(183,156,255,.05)}
+  .draft .del{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(169,159,192,.6);opacity:.7}
+  .editor-foot{display:flex;align-items:center;gap:10px;margin-top:24px;padding-top:18px;border-top:1px solid var(--hairline);font-size:13px;color:var(--muted)}
+  .editor-foot .pill{display:inline-flex;align-items:center;gap:6px;background:var(--raised);border:1px solid var(--hairline);border-radius:999px;padding:5px 12px;color:var(--text)}
+  .editor-foot .pill.active{border-color:var(--accent);color:var(--accent)}
+  @media(prefers-reduced-motion:reduce){.draft .caret{animation:none}}
+
+  /* ---------- Sections ---------- */
+  section{position:relative}
+  .section{padding:56px 0}
+  .sec-head{max-width:36em;margin-bottom:52px}
+  .sec-head .kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;display:block}
+  .sec-head h2{font-size:clamp(1.9rem,3.4vw,2.7rem);margin-bottom:16px}
+  .sec-head p{color:var(--muted);font-size:1.08rem}
+
+  /* features */
+  .feat-grid{display:grid;grid-template-columns:1fr;gap:24px}
+  .card{
+    background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);
+    padding:30px;transition:transform .25s,border-color .25s,background .25s;
+  }
+  .card:hover{transform:translateY(-4px);border-color:#3c3057;background:var(--raised)}
+  .glyph{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--raised);border:1px solid var(--hairline);margin-bottom:20px}
+  .glyph svg{stroke:var(--accent)}
+  .card h3{font-size:1.35rem;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:1rem}
+
+  /* diff showcase */
+  .diff-wrap{display:grid;grid-template-columns:1fr;gap:24px;align-items:stretch}
+  .diff-col{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);padding:28px}
+  .diff-col.after{border-color:rgba(183,156,255,.4);background:linear-gradient(180deg,rgba(183,156,255,.05),transparent)}
+  .diff-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .diff-head span{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .diff-head .badge{color:var(--accent)}
+  .diff-col p{font-family:var(--serif);font-size:1.18rem;line-height:1.55}
+  .diff-col.before p{color:var(--muted)}
+  .diff-note{text-align:center;color:var(--muted);font-size:14px;margin-top:28px}
+
+  /* quote */
+  .quote{padding:96px 0}
+  .quote blockquote{max-width:24em;margin:0 auto;text-align:center}
+  .quote .mk{font-family:var(--serif);font-size:4rem;color:var(--accent);line-height:0;display:block;height:.5em}
+  .quote p{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.4rem);font-style:italic;line-height:1.28;margin:24px 0 28px}
+  .quote cite{font-style:normal;color:var(--muted);font-size:15px}
+  .quote cite strong{color:var(--text);font-weight:600;font-style:normal;display:block;font-family:var(--sans)}
+
+  /* pricing */
+  .price-grid{display:grid;grid-template-columns:1fr;gap:24px}
+  .tier{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column}
+  .tier.featured{border-color:var(--accent);background:var(--raised);position:relative;order:-1}
+  .tier.featured::before{content:"Most popular";position:absolute;top:-11px;left:32px;background:var(--accent);color:#180f2b;font-size:12px;font-weight:600;padding:3px 12px;border-radius:999px}
+  .tier h3{font-size:1.3rem;margin-bottom:6px}
+  .tier .desc{color:var(--muted);font-size:.95rem;min-height:2.8em;margin-bottom:20px}
+  .tier .amt{font-family:var(--serif);font-size:2.6rem;line-height:1}
+  .tier .amt span{font-family:var(--sans);font-size:1rem;color:var(--muted);font-weight:400}
+  .tier ul{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:12px}
+  .tier li{display:flex;gap:10px;align-items:flex-start;font-size:.98rem;color:var(--text)}
+  .tier li svg{stroke:var(--teal);flex:none;margin-top:4px}
+  .tier .btn{width:100%;justify-content:center;margin-top:auto}
+
+  /* final cta */
+  .final{padding:104px 0}
+  .final-card{
+    text-align:center;background:var(--surface);border:1px solid var(--hairline);border-radius:24px;
+    padding:44px 22px;position:relative;overflow:hidden;
+  }
+  .final-card::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 90% at 50% 0%,rgba(183,156,255,.14),transparent 70%);pointer-events:none}
+  .final-card h2{font-size:clamp(2rem,4vw,3rem);margin-bottom:16px;position:relative}
+  .final-card p{color:var(--muted);max-width:28em;margin:0 auto 30px;position:relative;font-size:1.1rem}
+
+  /* footer */
+  footer{border-top:1px solid var(--hairline);padding:52px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:36px}
+  .foot-brand{max-width:22em}
+  .foot-brand .logo{margin-bottom:12px}
+  .foot-brand p{color:var(--muted);font-size:.95rem}
+  .foot-cols{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-col h4{font-family:var(--sans);font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:600}
+  .foot-col a{display:block;color:var(--text);font-size:.95rem;margin-bottom:10px;opacity:.85;transition:opacity .2s}
+  .foot-col a:hover{opacity:1;color:var(--accent)}
+  .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--hairline);font-size:13.5px;color:var(--muted)}
+  .demo-note{display:inline-flex;align-items:center;gap:8px}
+  .demo-note .dot{width:6px;height:6px;border-radius:50%;background:var(--grad)}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.instant{transition:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ---------- Responsive (mobile-first) ---------- */
+  @media(min-width:521px){
+    .section{padding:88px 0}
+    .hero{padding:72px 0 88px}
+    .nav-cta .btn-primary{padding:10px 20px;font-size:15px}
+    .final-card{padding:64px 32px}
+    .editor-body{padding:26px 26px 30px}
+    .draft{font-size:1.35rem}
+  }
+  @media(min-width:901px){
+    .hero-grid{grid-template-columns:1.05fr .95fr;gap:56px}
+    .feat-grid,.price-grid{grid-template-columns:repeat(3,1fr)}
+    .diff-wrap{grid-template-columns:1fr 1fr}
+    .nav-links{display:flex}
+    .nav-cta .btn-signin{display:inline}
+    .hamburger{display:none}
+    .tier.featured{order:0}
+  }
+  /* mobile menu */
+  .mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 22px;border-bottom:1px solid var(--hairline);background:var(--surface)}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{padding:12px 4px;color:var(--text);border-bottom:1px solid var(--hairline);font-size:16px}
+  .mobile-menu a:last-of-type{border:none}
+  .mobile-menu .btn-primary{margin-top:12px;justify-content:center}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo" aria-label="Margin home">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="24" height="24" rx="7" stroke="url(#g1)" stroke-width="1.6"/>
+        <path d="M8 18V9.5L13 15l5-5.5V18" stroke="#B79CFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="26" y2="26"><stop stop-color="#B79CFF"/><stop offset="1" stop-color="#7EE0D3"/></linearGradient></defs>
+      </svg>
+      Margin
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="lnk" href="#features">Features</a>
+      <a class="lnk" href="#showcase">How it reads</a>
+      <a class="lnk" href="#pricing">Pricing</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn-signin" href="#top">Sign in</a>
+      <a class="btn btn-primary" href="#pricing">Try free</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Features</a>
+    <a href="#showcase">How it reads</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#top">Sign in</a>
+    <a class="btn btn-primary" href="#pricing">Try free</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span>The AI writing desk</span>
+        <h1>Write with a <span class="em">clearer</span> mind, and a faster pen.</h1>
+        <p class="lead">Margin drafts, edits, and rewrites alongside you — keeping your voice intact while sharpening every line. Built for writers, founders, and marketers who ship words for a living.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="#pricing">Start writing free</a>
+          <a class="btn btn-ghost btn-lg" href="#showcase">See it rewrite</a>
+        </div>
+        <p class="hero-cta fine" style="margin-top:18px">No credit card · 10,000 words free every month</p>
+      </div>
+
+      <!-- Live draft editor mock -->
+      <div class="editor reveal" aria-hidden="true">
+        <div class="editor-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="editor-file">launch-note.md</span>
+          <span class="editor-tag">Margin · rewriting</span>
+        </div>
+        <div class="editor-body">
+          <div class="editor-label">Draft</div>
+          <p class="draft" id="draft"><span class="caret"></span></p>
+          <div class="editor-foot">
+            <span class="pill active">Tone: Confident</span>
+            <span class="pill">Tighten</span>
+            <span class="pill">Keep voice</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">What Margin does</span>
+        <h2>Three ways to move a blank page forward.</h2>
+        <p>Not a chatbot bolted onto a text box. Margin understands the shape of good writing and helps you find it faster.</p>
+      </div>
+      <div class="feat-grid">
+        <article class="card reveal">
+          <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5Z"/></svg></div>
+          <h3>Rewrite</h3>
+          <p>Highlight a clumsy paragraph and get three cleaner versions — tighter, warmer, or bolder — without losing what you meant to say.</p>
+        </article>
+        <article class="card reveal">
+          <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/><path d="M9 12h6M9 15h4"/></svg></div>
+          <h3>Tone</h3>
+          <p>Shift a landing page from formal to human, or an email from timid to decisive. Margin learns your register and holds it across the whole document.</p>
+        </article>
+        <article class="card reveal">
+          <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z"/></svg></div>
+          <h3>Brainstorm</h3>
+          <p>Stuck on an intro or a headline? Ask for angles, outlines, and openings, then pull the good ones straight into your draft.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diff showcase -->
+  <section class="section" id="showcase">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">Before &amp; after</span>
+        <h2>The same idea, said the way you wish you'd said it.</h2>
+        <p>Margin doesn't flatten your writing into beige. It keeps your intent and removes the friction around it.</p>
+      </div>
+      <div class="diff-wrap">
+        <div class="diff-col before reveal">
+          <div class="diff-head"><span>Your first pass</span></div>
+          <p>We are excited to announce that our team has been working really hard to build a new product that we think will hopefully help a lot of people write better and be more productive over time.</p>
+        </div>
+        <div class="diff-col after reveal">
+          <div class="diff-head"><span>Margin's rewrite</span><span class="badge">Confident · Tighter</span></div>
+          <p>Today we're launching Margin — a writing desk that helps professionals draft sharper, faster, and in their own voice.</p>
+        </div>
+      </div>
+      <p class="diff-note">37 words became 22. The meaning stayed. The hedging left.</p>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="quote">
+    <div class="wrap">
+      <blockquote class="reveal">
+        <span class="mk" aria-hidden="true">&ldquo;</span>
+        <p>Margin is the first assistant that edits like a good copy chief — it makes the line better and somehow still sounds like me.</p>
+        <cite><strong>Renata Ilagan</strong>Head of Content, Northwind Studio</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">Pricing</span>
+        <h2>Start free. Upgrade when the words pile up.</h2>
+        <p>Every plan keeps your drafts private. Prices in Philippine peso, billed monthly.</p>
+      </div>
+      <div class="price-grid">
+        <div class="tier reveal">
+          <h3>Draft</h3>
+          <p class="desc">For the occasional writer who wants a sharper second opinion.</p>
+          <div class="amt">Free</div>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>10,000 words / month</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Rewrite &amp; tone tools</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>1 saved voice profile</li>
+          </ul>
+          <a class="btn btn-ghost" href="#top">Get started</a>
+        </div>
+        <div class="tier featured reveal">
+          <h3>Professional</h3>
+          <p class="desc">For people who write every day and can't afford a flat draft.</p>
+          <div class="amt">₱499<span>/mo</span></div>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Unlimited words</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Brainstorm &amp; outline mode</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Unlimited voice profiles</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Priority rewrites</li>
+          </ul>
+          <a class="btn btn-primary" href="#top">Try free for 14 days</a>
+        </div>
+        <div class="tier reveal">
+          <h3>Studio</h3>
+          <p class="desc">For teams keeping one voice across many writers.</p>
+          <div class="amt">₱1,299<span>/mo</span></div>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Everything in Professional</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Up to 5 seats</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Shared brand style guide</li>
+          </ul>
+          <a class="btn btn-ghost" href="#top">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final">
+    <div class="wrap">
+      <div class="final-card reveal">
+        <h2>Your next draft is waiting.</h2>
+        <p>Open a blank page with Margin and watch the first version arrive in seconds — then make it yours.</p>
+        <a class="btn btn-primary btn-lg" href="#pricing" style="position:relative">Start writing free</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="logo">
+          <svg class="mark" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="24" height="24" rx="7" stroke="url(#g2)" stroke-width="1.6"/>
+            <path d="M8 18V9.5L13 15l5-5.5V18" stroke="#B79CFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="g2" x1="0" y1="0" x2="26" y2="26"><stop stop-color="#B79CFF"/><stop offset="1" stop-color="#7EE0D3"/></linearGradient></defs>
+          </svg>
+          Margin
+        </a>
+        <p>The AI writing desk for professionals who take their words seriously.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#showcase">How it reads</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <a href="#top">About</a>
+          <a href="#top">Writers' blog</a>
+          <a href="#top">Careers</a>
+        </div>
+        <div class="foot-col">
+          <h4>Legal</h4>
+          <a href="#top">Privacy</a>
+          <a href="#top">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="demo-note"><span class="dot"></span>Fictional product · portfolio demo</span>
+      <span>© 2026 Margin. Designed as a concept.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('nav');
+  var ham = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Nav shadow on scroll
+  var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 8); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // Hamburger
+  ham.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ menu.classList.remove('open'); ham.setAttribute('aria-expanded','false'); }
+  });
+
+  // Scroll reveal — anything already in the viewport shows immediately;
+  // only below-the-fold content animates in on scroll.
+  var reveals = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var below = [];
+    reveals.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < vh && r.bottom > 0){
+        el.classList.add('instant', 'in'); // above the fold: visible right away
+      } else {
+        below.push(el);
+      }
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:.15});
+    below.forEach(function(el){ io.observe(el); });
+    // Failsafe: the hero (and its editor panel) must never stay hidden.
+    setTimeout(function(){
+      document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('in'); });
+    }, 700);
+  }
+
+  // ---- Live draft typewriter / rewrite ----
+  var draft = document.getElementById('draft');
+  var caret = '<span class="caret"></span>';
+  var finalHTML = 'Today we’re launching <span class="ins">Margin</span> — a writing desk that helps professionals draft <span class="ins">sharper, faster, and in their own voice.</span>';
+  var typedFinal = 'Today we’re launching Margin — a writing desk that helps professionals draft sharper, faster, and in their own voice.';
+
+  if(reduce){
+    // Settle immediately to final text, no motion.
+    draft.innerHTML = finalHTML;
+    return;
+  }
+
+  // Sequence: type a weak draft, mark deletions, then rewrite to the confident final.
+  var weak = 'We are excited to announce a new product that we hope will help people write better.';
+
+  function typeText(str, node, speed, done){
+    var i = 0;
+    (function step(){
+      node.innerHTML = str.slice(0, i).replace(/</g,'&lt;') + caret;
+      i++;
+      if(i <= str.length){ setTimeout(step, speed); }
+      else { done && done(); }
+    })();
+  }
+
+  function typeHTML(finalStr, plainStr, node, speed, done){
+    // Type plain, then swap to highlighted final once complete.
+    var i = 0;
+    (function step(){
+      node.innerHTML = plainStr.slice(0, i) + caret;
+      i++;
+      if(i <= plainStr.length){ setTimeout(step, speed); }
+      else { node.innerHTML = finalStr + caret; done && done(); }
+    })();
+  }
+
+  setTimeout(function(){
+    typeText(weak, draft, 26, function(){
+      setTimeout(function(){
+        // Show the weak version struck through, then clear.
+        draft.innerHTML = '<span class="del">' + weak + '</span>' + caret;
+        setTimeout(function(){
+          draft.innerHTML = caret;
+          setTimeout(function(){
+            typeHTML(finalHTML, typedFinal, draft, 30, function(){
+              // fully settled — caret keeps its calm blink; no infinite text motion.
+            });
+          }, 220);
+        }, 900);
+      }, 500);
+    });
+  }, 650);
+})();
+</script>
+</body>
+</html>

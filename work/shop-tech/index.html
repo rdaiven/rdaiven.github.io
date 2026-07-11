@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NULLPORT — Instrument-grade audio, power &amp; wearables</title>
+  <meta name="description" content="NULLPORT builds instrument-grade consumer electronics — audio, power and wearables engineered to spec." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="NULLPORT home">
+        <svg class="brand__mark" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+          <rect x="1" y="1" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="11" cy="11" r="5.2" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <circle cx="11" cy="11" r="1.6" fill="currentColor"/>
+        </svg>
+        <span class="brand__word">NULLPORT</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#products">Products</a>
+        <a href="#products">Audio</a>
+        <a href="#products">Power</a>
+        <a href="#products">Wearables</a>
+        <a href="#support">Support</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" id="searchBtn" aria-label="Search products">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.5" cy="7.5" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="11.2" y1="11.2" x2="16" y2="16" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <button class="icon-btn cart-btn" id="cartBtn" aria-label="Open cart">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3h2l1.4 8.5a1.5 1.5 0 0 0 1.5 1.25h6.2a1.5 1.5 0 0 0 1.47-1.2L16 6H5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="7.5" cy="15.5" r="1" fill="currentColor"/><circle cx="14" cy="15.5" r="1" fill="currentColor"/></svg>
+          <span class="cart-count" id="cartCount" aria-live="polite">2</span>
+        </button>
+        <button class="icon-btn hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><line x1="3" y1="6" x2="17" y2="6" stroke="currentColor" stroke-width="1.5"/><line x1="3" y1="10" x2="17" y2="10" stroke="currentColor" stroke-width="1.5"/><line x1="3" y1="14" x2="17" y2="14" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="nav__mobile" id="mobileMenu" hidden>
+      <a href="#products">Products</a>
+      <a href="#products">Audio</a>
+      <a href="#products">Power</a>
+      <a href="#products">Wearables</a>
+      <a href="#support">Support</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__copy reveal">
+          <p class="eyebrow">REF. NP-04 // FLAGSHIP</p>
+          <h1 class="hero__title">Sound, measured.<br />Not marketed.</h1>
+          <p class="hero__lede">The NP-04 Reference earbuds are tuned to a ±1.5&nbsp;dB target curve and verified per unit. Adaptive hybrid ANC, a 40-hour system, and an aluminium acoustic chamber that behaves like test equipment.</p>
+
+          <div class="readout" role="group" aria-label="Key specifications">
+            <div class="readout__item"><span class="readout__k">BATTERY</span><span class="readout__v">40 H</span></div>
+            <div class="readout__sep" aria-hidden="true"></div>
+            <div class="readout__item"><span class="readout__k">ANC DEPTH</span><span class="readout__v">−48 dB</span></div>
+            <div class="readout__sep" aria-hidden="true"></div>
+            <div class="readout__item"><span class="readout__k">LATENCY</span><span class="readout__v">38 ms</span></div>
+          </div>
+
+          <div class="hero__cta">
+            <button class="btn btn--accent" data-add="NP-04" data-name="NP-04 Reference" data-price="12990">Buy — ₱12,990</button>
+            <a class="btn btn--ghost" href="#compare">View specs</a>
+          </div>
+        </div>
+
+        <div class="hero__stage reveal">
+          <div class="stage-panel" aria-label="NP-04 Reference earbuds rendering" role="img">
+            <span class="stage-ref">NP-04</span>
+            <svg class="stage-svg" viewBox="0 0 320 320" aria-hidden="true">
+              <defs>
+                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M20 0H0V20" fill="none" stroke="#2A313C" stroke-width="0.5"/>
+                </pattern>
+                <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#252c37"/><stop offset="1" stop-color="#12161c"/>
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="320" height="320" fill="url(#grid)"/>
+              <!-- earbud body -->
+              <g transform="translate(160 150)">
+                <ellipse cx="0" cy="0" rx="58" ry="58" fill="url(#metal)" stroke="#2A313C"/>
+                <ellipse cx="0" cy="0" rx="34" ry="34" fill="#0E1116" stroke="#2A313C"/>
+                <circle cx="0" cy="0" r="16" fill="#161B22" stroke="#4C8DFF" stroke-width="1.2"/>
+                <circle cx="0" cy="0" r="4" fill="#4C8DFF"/>
+                <path d="M40 30 q40 40 22 96" fill="none" stroke="url(#metal)" stroke-width="26" stroke-linecap="round"/>
+                <path d="M40 30 q40 40 22 96" fill="none" stroke="#2A313C" stroke-width="26" stroke-linecap="round" opacity="0.4"/>
+              </g>
+              <!-- dimension marks -->
+              <line x1="90" y1="245" x2="230" y2="245" stroke="#5A6472" stroke-width="0.75"/>
+              <line x1="90" y1="241" x2="90" y2="249" stroke="#5A6472" stroke-width="0.75"/>
+              <line x1="230" y1="241" x2="230" y2="249" stroke="#5A6472" stroke-width="0.75"/>
+            </svg>
+            <span class="stage-dim">24.6 mm</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SPEC STRIP ============ -->
+    <div class="spec-strip" aria-label="Product highlights">
+      <div class="spec-strip__track">
+        <span>40H BATTERY SYSTEM</span><span class="dot">·</span>
+        <span>USB-C PD</span><span class="dot">·</span>
+        <span>IP67 SEALED</span><span class="dot">·</span>
+        <span>−110 dB NOISE FLOOR</span><span class="dot">·</span>
+        <span>±1.5 dB TUNING TARGET</span><span class="dot">·</span>
+        <span>LDAC / aptX ADAPTIVE</span><span class="dot">·</span>
+        <span>2-YEAR CALIBRATION WARRANTY</span><span class="dot">·</span>
+        <span>40H BATTERY SYSTEM</span><span class="dot">·</span>
+        <span>USB-C PD</span><span class="dot">·</span>
+        <span>IP67 SEALED</span><span class="dot">·</span>
+        <span>−110 dB NOISE FLOOR</span><span class="dot">·</span>
+      </div>
+    </div>
+
+    <!-- ============ PRODUCT GRID ============ -->
+    <section class="section" id="products">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="eyebrow">CATALOG // 2026.Q3</p>
+          <h2 class="section__title">The full instrument set</h2>
+          <p class="section__sub">Eight devices. One tuning philosophy. Every unit ships with its own measured response card.</p>
+        </div>
+
+        <div class="grid" id="productGrid"><!-- injected by app.js --></div>
+      </div>
+    </section>
+
+    <!-- ============ COMPARISON ============ -->
+    <section class="section section--alt" id="compare">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="eyebrow">SIDE-BY-SIDE // AUDIO LINE</p>
+          <h2 class="section__title">Compare the reference</h2>
+          <p class="section__sub">Measured figures, not marketing rounding. Accent marks the leading value in each row.</p>
+        </div>
+
+        <div class="compare-scroll reveal">
+          <table class="compare" aria-label="Product comparison">
+            <caption class="visually-hidden">Comparison of NP-04 Reference, NP-02 Studio and NP-01 Field earbuds</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="compare__rowhead">SPECIFICATION</th>
+                <th scope="col" class="compare__col compare__col--rec">
+                  <span class="compare__pn">NP-04</span>
+                  <span class="compare__name">Reference</span>
+                  <span class="tag tag--rec">RECOMMENDED</span>
+                </th>
+                <th scope="col" class="compare__col">
+                  <span class="compare__pn">NP-02</span>
+                  <span class="compare__name">Studio</span>
+                </th>
+                <th scope="col" class="compare__col">
+                  <span class="compare__pn">NP-01</span>
+                  <span class="compare__name">Field</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Driver</th><td class="best">11 mm planar</td><td>10 mm dynamic</td><td>8 mm dynamic</td></tr>
+              <tr><th scope="row">Frequency response</th><td class="best">5 Hz – 40 kHz</td><td>10 Hz – 24 kHz</td><td>20 Hz – 20 kHz</td></tr>
+              <tr><th scope="row">Battery (bud / case)</th><td class="best">10 h / 40 h</td><td>8 h / 32 h</td><td>7 h / 28 h</td></tr>
+              <tr><th scope="row">ANC depth</th><td class="best">−48 dB</td><td>−42 dB</td><td>−36 dB</td></tr>
+              <tr><th scope="row">Weight (per bud)</th><td>5.4 g</td><td class="best">4.9 g</td><td>5.1 g</td></tr>
+              <tr><th scope="row">Connectivity</th><td class="best">BT 5.4 · LDAC</td><td>BT 5.3 · aptX</td><td>BT 5.3 · SBC</td></tr>
+              <tr><th scope="row">Water resistance</th><td>IP67</td><td>IP54</td><td class="best">IP68</td></tr>
+              <tr><th scope="row">Price</th><td class="best price-cell">₱12,990</td><td class="price-cell">₱9,490</td><td class="price-cell">₱6,290</td></tr>
+              <tr class="compare__action">
+                <th scope="row" class="visually-hidden">Action</th>
+                <td><button class="btn btn--accent btn--sm" data-add="NP-04" data-name="NP-04 Reference" data-price="12990">Add</button></td>
+                <td><button class="btn btn--ghost btn--sm" data-add="NP-02" data-name="NP-02 Studio" data-price="9490">Add</button></td>
+                <td><button class="btn btn--ghost btn--sm" data-add="NP-01" data-name="NP-01 Field" data-price="6290">Add</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURE BAND ============ -->
+    <section class="section feature">
+      <div class="wrap feature__grid">
+        <div class="feature__copy reveal">
+          <p class="eyebrow">SYSTEM // ADAPTIVE ANC</p>
+          <h2 class="section__title">A feedforward loop that reads the room 48,000×/sec</h2>
+          <p class="feature__text">Dual reference microphones sample ambient pressure and feed an on-chip DSP that re-computes the anti-noise curve every 20&nbsp;microseconds. The result is a −48&nbsp;dB attenuation floor that holds steady as you move between a cabin, a street, and an open office — no pumping, no hiss.</p>
+          <ul class="feature__list">
+            <li><span class="mono">01</span> Dual feedforward mics per bud</li>
+            <li><span class="mono">02</span> On-chip DSP, 48 kHz correction rate</li>
+            <li><span class="mono">03</span> Per-ear seal calibration on insert</li>
+          </ul>
+        </div>
+        <div class="feature__diagram reveal">
+          <svg viewBox="0 0 360 300" class="diagram" role="img" aria-label="Diagram of the adaptive noise-cancellation signal path">
+            <rect x="0.5" y="0.5" width="359" height="299" fill="none" stroke="#2A313C"/>
+            <!-- hairline grid -->
+            <g stroke="#1C222B" stroke-width="0.5">
+              <line x1="0" y1="75" x2="360" y2="75"/><line x1="0" y1="150" x2="360" y2="150"/><line x1="0" y1="225" x2="360" y2="225"/>
+              <line x1="90" y1="0" x2="90" y2="300"/><line x1="180" y1="0" x2="180" y2="300"/><line x1="270" y1="0" x2="270" y2="300"/>
+            </g>
+            <!-- incoming noise wave -->
+            <path d="M10 60 q15 -22 30 0 t30 0 t30 0 t30 0" fill="none" stroke="#8B949E" stroke-width="1.5"/>
+            <text x="14" y="34" class="d-label">AMBIENT</text>
+            <!-- mic -->
+            <rect x="150" y="44" width="60" height="32" rx="4" fill="#161B22" stroke="#2A313C"/>
+            <text x="180" y="64" text-anchor="middle" class="d-node">MIC</text>
+            <!-- dsp -->
+            <rect x="140" y="130" width="80" height="40" rx="4" fill="#161B22" stroke="#4C8DFF"/>
+            <text x="180" y="154" text-anchor="middle" class="d-node d-node--accent">DSP</text>
+            <!-- driver -->
+            <rect x="150" y="228" width="60" height="34" rx="4" fill="#161B22" stroke="#2A313C"/>
+            <text x="180" y="249" text-anchor="middle" class="d-node">DRIVER</text>
+            <!-- connectors -->
+            <line x1="180" y1="76" x2="180" y2="130" stroke="#2A313C" stroke-width="1"/>
+            <line x1="180" y1="170" x2="180" y2="228" stroke="#4C8DFF" stroke-width="1.2"/>
+            <polygon points="180,130 176,122 184,122" fill="#2A313C"/>
+            <polygon points="180,228 176,220 184,220" fill="#4C8DFF"/>
+            <!-- anti-noise inverted wave -->
+            <path d="M240 245 q15 22 30 0 t30 0 t30 0" fill="none" stroke="#4C8DFF" stroke-width="1.5"/>
+            <text x="248" y="285" class="d-label">ANTI-NOISE</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NEWSLETTER ============ -->
+    <section class="section signup" id="support">
+      <div class="wrap signup__inner reveal">
+        <div>
+          <p class="eyebrow">STOCK // NOTIFY</p>
+          <h2 class="section__title">Get restock alerts</h2>
+          <p class="section__sub">Reference units are built in limited runs. Leave an address and we'll ping you the moment a batch clears calibration.</p>
+        </div>
+        <form class="signup__form" onsubmit="return false" aria-label="Restock alert signup">
+          <label class="visually-hidden" for="email">Email address</label>
+          <input id="email" type="email" placeholder="you@domain.com" autocomplete="email" />
+          <button class="btn btn--accent" type="submit">Notify me</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="wrap footer__grid">
+        <div class="footer__brand">
+          <a class="brand" href="#top" aria-label="NULLPORT home">
+            <svg class="brand__mark" width="20" height="20" viewBox="0 0 22 22" aria-hidden="true">
+              <rect x="1" y="1" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="11" cy="11" r="5.2" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <circle cx="11" cy="11" r="1.6" fill="currentColor"/>
+            </svg>
+            <span class="brand__word">NULLPORT</span>
+          </a>
+          <p class="footer__tag">Instrument-grade consumer electronics. Measured, not marketed.</p>
+          <p class="mono footer__ref">MFG. MNL · EST. 2021</p>
+        </div>
+        <div class="footer__col">
+          <h3>Products</h3>
+          <a href="#products">Audio</a><a href="#products">Power</a><a href="#products">Wearables</a><a href="#products">Accessories</a>
+        </div>
+        <div class="footer__col">
+          <h3>Company</h3>
+          <a href="#">About</a><a href="#">Lab notes</a><a href="#">Careers</a><a href="#">Press</a>
+        </div>
+        <div class="footer__col">
+          <h3>Support</h3>
+          <a href="#">Warranty</a><a href="#">Calibration</a><a href="#">Firmware</a><a href="#">Contact</a>
+        </div>
+        <div class="footer__col">
+          <h3>Legal</h3>
+          <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Returns</a><a href="#">Compliance</a>
+        </div>
+      </div>
+      <div class="wrap footer__bar">
+        <span class="mono">© 2026 NULLPORT INSTRUMENTS INC.</span>
+        <div class="pay" aria-label="Accepted payment methods">
+          <span class="pay__chip">VISA</span><span class="pay__chip">MC</span><span class="pay__chip">GCASH</span><span class="pay__chip">AMEX</span><span class="pay__chip">COD</span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div class="overlay" id="overlay" hidden></div>
+
+  <aside class="drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer__head">
+      <h2 class="drawer__title">Cart <span class="mono" id="drawerCount">(2)</span></h2>
+      <button class="icon-btn" id="cartClose" aria-label="Close cart">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><line x1="3" y1="3" x2="15" y2="15" stroke="currentColor" stroke-width="1.6"/><line x1="15" y1="3" x2="3" y2="15" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </div>
+    <div class="drawer__body" id="cartItems"><!-- injected --></div>
+    <div class="drawer__foot">
+      <div class="drawer__row"><span class="mono muted">SUBTOTAL</span><span class="mono" id="cartSubtotal">₱0</span></div>
+      <div class="drawer__row drawer__row--faint"><span class="mono">SHIPPING</span><span class="mono">CALCULATED AT CHECKOUT</span></div>
+      <button class="btn btn--accent btn--block">Checkout</button>
+      <p class="drawer__note mono">FREE INSURED SHIPPING OVER ₱5,000</p>
+    </div>
+  </aside>
+
+  <!-- ============ QUICK VIEW MODAL ============ -->
+  <div class="modal" id="quickModal" role="dialog" aria-modal="true" aria-labelledby="qvTitle" aria-hidden="true">
+    <div class="modal__panel">
+      <button class="icon-btn modal__close" id="modalClose" aria-label="Close quick view">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><line x1="3" y1="3" x2="15" y2="15" stroke="currentColor" stroke-width="1.6"/><line x1="15" y1="3" x2="3" y2="15" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="modal__grid" id="modalBody"><!-- injected --></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>STACK/MNL 27 — Developer Conference · Manila</title>
+<meta name="description" content="STACK/MNL 27 — a two-day developer, design and founder conference in Manila. 40+ talks, 24 speakers, hands-on workshops. February 12–13, 2027." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F4F3EF;
+    --ink:#0A0A0A;
+    --cobalt:#2647FF;
+    --lemon:#E6FF3A;
+    --line:rgba(10,10,10,.16);
+    --line-strong:#0A0A0A;
+    --disp:"Space Grotesk",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+    --wrap:1240px;
+    --nav-h:64px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--body);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{max-width:100%;display:block}
+  h1,h2,h3{margin:0;font-family:var(--disp);font-weight:700;line-height:.98;letter-spacing:-.02em}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+  .tag{
+    font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:.5em;
+    font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    padding:12px 20px;border:2px solid var(--ink);background:var(--lemon);color:var(--ink);
+    cursor:pointer;transition:transform .12s ease, background .12s ease;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+  .btn--cobalt{background:var(--cobalt);color:#fff;border-color:var(--ink)}
+  .btn--ghost{background:transparent}
+  @media (prefers-reduced-motion:reduce){.btn:hover{transform:none;box-shadow:none}}
+
+  /* NAV */
+  .nav{
+    position:sticky;top:0;z-index:50;background:var(--paper);
+    border-bottom:2px solid var(--ink);height:var(--nav-h);
+  }
+  .nav__in{display:flex;align-items:center;justify-content:space-between;height:100%}
+  .logo{font-family:var(--disp);font-weight:700;font-size:20px;letter-spacing:-.03em;display:flex;align-items:center;gap:8px}
+  .logo b{background:var(--cobalt);color:#fff;padding:2px 7px}
+  .nav__links{
+    display:flex;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--paper);
+    flex-direction:column;align-items:stretch;gap:0;border-bottom:2px solid var(--ink);
+    transform:translateY(-120%);transition:transform .25s ease;height:auto;padding:8px 24px 18px
+  }
+  .nav__links.open{transform:translateY(0)}
+  .nav__links a{font-family:var(--mono);font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:12px 0;border-bottom:1px solid var(--line)}
+  .nav__links a.link:hover{color:var(--cobalt)}
+  .nav__links .btn{margin-top:12px;justify-content:center}
+  .burger{display:flex;width:44px;height:44px;border:2px solid var(--ink);background:var(--paper);cursor:pointer;padding:0;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+  .burger span{width:20px;height:2px;background:var(--ink);display:block;transition:.2s}
+  .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  /* HERO */
+  .hero{border-bottom:2px solid var(--ink);position:relative;overflow:hidden}
+  .hero__grid{display:grid;grid-template-columns:1fr}
+  .hero__main{padding:36px 24px 34px;border-bottom:2px solid var(--ink)}
+  .hero__side{background:var(--cobalt);color:#fff;padding:40px 28px;display:flex;flex-direction:column;justify-content:space-between}
+  .hero h1{font-size:clamp(52px,11vw,150px);text-transform:uppercase}
+  .hero h1 .slash{color:var(--cobalt)}
+  .hero__date{
+    display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline;margin:26px 0 18px;
+    font-family:var(--mono);font-weight:700;font-size:clamp(18px,2.6vw,26px);
+  }
+  .hero__date .pin{background:var(--lemon);padding:2px 8px}
+  .hero__pitch{max-width:44ch;font-size:clamp(17px,2vw,20px);line-height:1.45;margin:0 0 28px}
+  .hero__cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .hero__price{font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+  .hero__price b{font-size:22px}
+  /* countdown */
+  .cd{display:flex;gap:10px;margin-top:6px}
+  .cd__cell{background:#fff;color:var(--ink);border:2px solid var(--ink);padding:10px 0;text-align:center;min-width:64px}
+  .cd__n{font-family:var(--mono);font-weight:700;font-size:30px;line-height:1;display:block}
+  .cd__l{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;display:block}
+  .hero__sideTag{color:var(--lemon)}
+  .hero__loc{font-family:var(--disp);font-weight:700;font-size:clamp(28px,4vw,40px);line-height:1;text-transform:uppercase;margin:14px 0}
+
+  /* STRIP / STATS */
+  .strip{background:var(--ink);color:var(--paper);border-bottom:2px solid var(--ink)}
+  .strip__grid{display:grid;grid-template-columns:1fr}
+  .stat{padding:30px 24px;border-bottom:1px solid rgba(244,243,239,.22)}
+  .stat:last-child{border-right:0}
+  .stat__n{font-family:var(--mono);font-weight:700;font-size:clamp(34px,5vw,52px);line-height:1;color:var(--lemon)}
+  .stat__l{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:8px;opacity:.85}
+
+  /* SECTION HEADS */
+  section{scroll-margin-top:var(--nav-h)}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:52px 0 22px;flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(34px,6vw,68px);text-transform:uppercase}
+  .sec-head .idx{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--cobalt)}
+
+  /* SPEAKERS */
+  .speakers{border-bottom:2px solid var(--ink)}
+  .sp-grid{display:grid;grid-template-columns:1fr;border-top:2px solid var(--ink);border-left:2px solid var(--ink)}
+  .sp{border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:18px;background:var(--paper)}
+  .sp__av{aspect-ratio:1/1;display:grid;place-items:center;border:2px solid var(--ink);margin-bottom:14px;position:relative;overflow:hidden}
+  .sp__mono{font-family:var(--disp);font-weight:700;font-size:clamp(40px,6vw,64px);color:#fff;mix-blend-mode:normal;letter-spacing:-.04em}
+  .sp__name{font-family:var(--disp);font-weight:700;font-size:20px;line-height:1.05;margin-bottom:4px}
+  .sp__role{font-size:14px;line-height:1.35}
+  .sp__co{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:8px;color:var(--cobalt)}
+
+  /* SCHEDULE */
+  .schedule{background:var(--cobalt);color:#fff;border-bottom:2px solid var(--ink)}
+  .schedule .sec-head h2{color:#fff}
+  .schedule .sec-head .idx{color:var(--lemon)}
+  .tabs{display:flex;gap:0;border:2px solid var(--ink);width:max-content;margin-bottom:22px;background:#fff}
+  .tab{
+    font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:11px 18px;background:#fff;color:var(--ink);border:0;border-right:2px solid var(--ink);cursor:pointer
+  }
+  .tab:last-child{border-right:0}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--lemon)}
+  .sched-scroll{overflow-x:auto;border:2px solid var(--ink);background:var(--paper);color:var(--ink);-webkit-overflow-scrolling:touch}
+  .sched{min-width:760px;border-collapse:collapse;width:100%}
+  .sched th,.sched td{border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .sched thead th{
+    background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;padding:12px 16px;position:sticky;top:0
+  }
+  .sched td{padding:16px}
+  .sched .time{font-family:var(--mono);font-weight:700;font-size:14px;white-space:nowrap;width:132px;background:var(--lemon)}
+  .sess__t{font-family:var(--disp);font-weight:700;font-size:18px;line-height:1.1;margin-bottom:4px}
+  .sess__m{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--cobalt)}
+  .sess__d{font-size:13px;margin-top:6px;max-width:40ch;color:#333}
+  .sched td.break{background:#eceae2;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .day{display:none}
+  .day.is-on{display:block}
+  .sched-hint{font-family:var(--mono);font-size:11px;letter-spacing:.06em;margin-top:10px;opacity:.85;text-transform:uppercase}
+
+  /* VENUE */
+  .venue{border-bottom:2px solid var(--ink)}
+  .venue__grid{display:grid;grid-template-columns:1fr;border-top:2px solid var(--ink)}
+  .venue__info{padding:44px 24px;border-bottom:2px solid var(--ink)}
+  .venue__info h3{font-family:var(--disp);font-size:clamp(26px,4vw,40px);text-transform:uppercase;margin-bottom:14px}
+  .venue__info p{max-width:46ch}
+  .venue__meta{font-family:var(--mono);font-size:13px;margin-top:20px;display:grid;gap:6px}
+  .venue__meta span{color:var(--cobalt)}
+  .venue__map{background:var(--lemon);display:grid;place-items:stretch;min-height:320px}
+  .venue__map svg{width:100%;height:100%}
+
+  /* TICKETS */
+  .tickets{border-bottom:2px solid var(--ink)}
+  .tk-grid{display:grid;grid-template-columns:1fr;border-top:2px solid var(--ink);border-left:2px solid var(--ink)}
+  .tk{border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:28px 24px;display:flex;flex-direction:column;background:var(--paper)}
+  .tk--feat{background:var(--ink);color:var(--paper)}
+  .tk--feat .tk__price{color:var(--lemon)}
+  .tk--feat .tk__li{border-color:rgba(244,243,239,.2)}
+  .tk__badge{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cobalt);margin-bottom:10px}
+  .tk--feat .tk__badge{color:var(--lemon)}
+  .tk__name{font-family:var(--disp);font-weight:700;font-size:26px;text-transform:uppercase;margin-bottom:6px}
+  .tk__price{font-family:var(--mono);font-weight:700;font-size:38px;line-height:1;margin:8px 0 4px}
+  .tk__sub{font-family:var(--mono);font-size:12px;letter-spacing:.04em;opacity:.7;margin-bottom:18px}
+  .tk__list{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:0}
+  .tk__li{font-size:14px;padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:10px}
+  .tk__li::before{content:"→";font-family:var(--mono);color:var(--cobalt)}
+  .tk--feat .tk__li::before{color:var(--lemon)}
+  .tk .btn{margin-top:auto;justify-content:center}
+
+  /* SPONSORS */
+  .sponsors{background:var(--ink);color:var(--paper);border-bottom:2px solid var(--ink);padding:34px 0}
+  .sp-title{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:20px}
+  .sp-marks{display:grid;grid-template-columns:1fr;gap:2px;border:1px solid rgba(244,243,239,.2)}
+  .mark{font-family:var(--disp);font-weight:700;font-size:clamp(15px,2vw,22px);letter-spacing:-.02em;padding:22px 10px;text-align:center;border:1px solid rgba(244,243,239,.14);text-transform:uppercase;opacity:.9}
+  .mark span{color:var(--lemon)}
+
+  /* FINAL CTA */
+  .final{background:var(--lemon);border-bottom:2px solid var(--ink);text-align:center;padding:72px 24px}
+  .final h2{font-size:clamp(38px,8vw,96px);text-transform:uppercase;margin-bottom:8px}
+  .final p{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 26px}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:var(--paper);padding:44px 24px 34px}
+  .foot__grid{display:grid;grid-template-columns:1fr;gap:24px;margin-bottom:30px}
+  .foot__grid h4{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--lemon);margin:0 0 12px}
+  .foot__grid a{display:block;font-size:14px;padding:4px 0;opacity:.85}
+  .foot__grid a:hover{opacity:1;color:var(--lemon)}
+  .foot__logo{font-family:var(--disp);font-weight:700;font-size:30px;text-transform:uppercase;letter-spacing:-.03em}
+  .foot__note{font-family:var(--mono);font-size:12px;letter-spacing:.04em;opacity:.6;border-top:1px solid rgba(244,243,239,.2);padding-top:18px}
+
+  /* reveal */
+  .rev{opacity:0;transform:translateY(18px);transition:opacity .5s ease, transform .5s ease}
+  .rev.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}}
+
+  /* RESPONSIVE (mobile-first) */
+  @media (min-width:641px){
+    .nav__links{
+      position:static;top:auto;left:auto;right:auto;background:transparent;
+      flex-direction:row;align-items:center;gap:28px;border-bottom:0;
+      transform:none;transition:none;padding:0
+    }
+    .nav__links a{padding:0;border-bottom:0}
+    .nav__links .btn{margin-top:0;justify-content:normal;padding:12px 20px;border-bottom:2px solid var(--ink)}
+    .burger{display:none}
+    .sp-grid{grid-template-columns:repeat(2,1fr)}
+    .strip__grid{grid-template-columns:repeat(2,1fr)}
+    .stat{border-right:1px solid rgba(244,243,239,.22)}
+    .stat:nth-child(2){border-right:0}
+    .foot__grid{grid-template-columns:1fr 1fr}
+    .sp-marks{grid-template-columns:repeat(2,1fr)}
+    .hero__main{padding:56px 24px 48px}
+  }
+  @media (min-width:961px){
+    .hero__grid{grid-template-columns:1.4fr .9fr}
+    .hero__main{border-right:2px solid var(--ink);border-bottom:0}
+    .strip__grid{grid-template-columns:repeat(4,1fr)}
+    .stat{border-bottom:0}
+    .stat:nth-child(2){border-right:1px solid rgba(244,243,239,.22)}
+    .sp-grid{grid-template-columns:repeat(4,1fr)}
+    .venue__grid{grid-template-columns:1fr 1fr}
+    .venue__info{border-right:2px solid var(--ink);border-bottom:0}
+    .tk-grid{grid-template-columns:repeat(3,1fr)}
+    .sp-marks{grid-template-columns:repeat(5,1fr)}
+    .foot__grid{grid-template-columns:2fr 1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="#top">STACK<b>/MNL</b> 27</a>
+    <nav class="nav__links" id="menu" aria-label="Primary">
+      <a class="link" href="#speakers">Speakers</a>
+      <a class="link" href="#schedule">Schedule</a>
+      <a class="link" href="#venue">Venue</a>
+      <a class="btn btn--cobalt" href="#tickets">Get tickets</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__grid">
+      <div class="hero__main">
+        <span class="tag" style="color:var(--cobalt)">The developer conference · Southeast Asia</span>
+        <h1>Stack<span class="slash">/</span>Mnl<br>Twenty&#8202;Seven</h1>
+        <div class="hero__date">
+          <span>FEB 12–13, 2027</span>
+          <span class="pin">Manila · PH</span>
+        </div>
+        <p class="hero__pitch">Two days of deep, no-fluff talks on shipping software — systems, product, and the craft in between. Built for developers, designers, and founders who actually build.</p>
+        <div class="hero__cta">
+          <a class="btn btn--cobalt" href="#tickets">Get tickets →</a>
+          <a class="btn btn--ghost" href="#schedule">See schedule</a>
+          <span class="hero__price">FROM <b>₱2,900</b></span>
+        </div>
+      </div>
+      <aside class="hero__side">
+        <div>
+          <span class="tag hero__sideTag">Countdown to doors</span>
+          <div class="cd" id="cd" aria-live="polite">
+            <div class="cd__cell"><span class="cd__n" data-cd="d">00</span><span class="cd__l">Days</span></div>
+            <div class="cd__cell"><span class="cd__n" data-cd="h">00</span><span class="cd__l">Hrs</span></div>
+            <div class="cd__cell"><span class="cd__n" data-cd="m">00</span><span class="cd__l">Min</span></div>
+            <div class="cd__cell"><span class="cd__n" data-cd="s">00</span><span class="cd__l">Sec</span></div>
+          </div>
+        </div>
+        <div>
+          <span class="tag hero__sideTag">Hosted at</span>
+          <div class="hero__loc">Samsung<br>Hall · BGC</div>
+          <p class="mono" style="font-size:13px;margin:0;opacity:.9">Aura Premier, Bonifacio Global City, Taguig, Metro Manila</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="strip" aria-label="What to expect">
+    <div class="wrap">
+      <div class="strip__grid">
+        <div class="stat"><div class="stat__n">42</div><div class="stat__l">Talks &amp; sessions</div></div>
+        <div class="stat"><div class="stat__n">24</div><div class="stat__l">Speakers</div></div>
+        <div class="stat"><div class="stat__n">08</div><div class="stat__l">Hands-on workshops</div></div>
+        <div class="stat"><div class="stat__n">1.2K</div><div class="stat__l">Builders in the room</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEAKERS -->
+  <section class="speakers" id="speakers">
+    <div class="wrap">
+      <div class="sec-head rev">
+        <h2>Speakers</h2>
+        <span class="idx">/01 — 24 confirmed, more soon</span>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="sp-grid rev" id="spGrid"></div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="schedule" id="schedule">
+    <div class="wrap">
+      <div class="sec-head rev">
+        <h2>Schedule</h2>
+        <span class="idx">/02 — Two stages, two days</span>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Conference day">
+        <button class="tab" role="tab" id="tab-d1" aria-selected="true" aria-controls="day1" data-day="day1">Day 1 · Feb 12</button>
+        <button class="tab" role="tab" id="tab-d2" aria-selected="false" aria-controls="day2" data-day="day2">Day 2 · Feb 13</button>
+      </div>
+
+      <div class="day is-on" id="day1" role="tabpanel" aria-labelledby="tab-d1">
+        <div class="sched-scroll">
+          <table class="sched">
+            <thead><tr><th>Time</th><th>Main Stage — Systems</th><th>Stage B — Product &amp; Craft</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="time">09:00–09:30</td>
+                <td colspan="2" class="break">Registration, coffee &amp; welcome</td>
+              </tr>
+              <tr>
+                <td class="time">09:30–10:15</td>
+                <td><div class="sess__t">Opening keynote: Ship Small, Ship Often</div><div class="sess__m">Keynote</div><div class="sess__d">Why the fastest teams optimize for lead time, not line count — and how to rebuild your pipeline around it.</div></td>
+                <td><div class="sess__t">Design Systems That Survive Contact</div><div class="sess__m">Design · Talk</div><div class="sess__d">Keeping a component library honest once ten squads start shipping against it.</div></td>
+              </tr>
+              <tr>
+                <td class="time">10:25–11:05</td>
+                <td><div class="sess__t">Postgres at 40K Writes/sec</div><div class="sess__m">Databases · Talk</div><div class="sess__d">Partitioning, connection pooling and the boring tuning that took us from outage to autopilot.</div></td>
+                <td><div class="sess__t">From Founder to First 10 Engineers</div><div class="sess__m">Founders · Talk</div><div class="sess__d">The hiring, process and culture decisions that either compound or quietly kill early velocity.</div></td>
+              </tr>
+              <tr>
+                <td class="time">11:15–12:00</td>
+                <td><div class="sess__t">Type-Safe APIs End to End</div><div class="sess__m">Web · Talk</div><div class="sess__d">Sharing a single source of truth from database row to React prop without a codegen nightmare.</div></td>
+                <td><div class="sess__t">Prototyping in the Browser, Live</div><div class="sess__m">Workshop</div><div class="sess__d">Ninety minutes turning a Figma flow into a working, animated front-end — no framework required.</div></td>
+              </tr>
+              <tr>
+                <td class="time">12:00–13:15</td>
+                <td colspan="2" class="break">Lunch &amp; hallway track</td>
+              </tr>
+              <tr>
+                <td class="time">13:15–14:00</td>
+                <td><div class="sess__t">Observability Without the Bill Shock</div><div class="sess__m">Infra · Talk</div><div class="sess__d">Sampling, cardinality and open standards — getting real signal without paying per log line.</div></td>
+                <td><div class="sess__t">Writing Docs Developers Actually Read</div><div class="sess__m">Craft · Talk</div><div class="sess__d">Treating documentation as a product surface, with the same rigor as your onboarding flow.</div></td>
+              </tr>
+              <tr>
+                <td class="time">14:10–14:55</td>
+                <td><div class="sess__t">Practical Edge Compute for PH Latency</div><div class="sess__m">Platform · Talk</div><div class="sess__d">Serving Southeast Asian users fast when your origin is a region away.</div></td>
+                <td><div class="sess__t">Pricing Your SaaS for the Region</div><div class="sess__m">Founders · Talk</div><div class="sess__d">Packaging, purchasing-power tiers and the psychology of the ₱ price point.</div></td>
+              </tr>
+              <tr>
+                <td class="time">15:30–16:15</td>
+                <td><div class="sess__t">Incident Command for Small Teams</div><div class="sess__m">Ops · Talk</div><div class="sess__d">A lightweight on-call playbook that keeps a five-person team calm at 3am.</div></td>
+                <td><div class="sess__t">Micro-interactions with Zero JS Framework</div><div class="sess__m">Design · Workshop</div><div class="sess__d">Motion, state and delight using nothing but modern CSS and a sprinkle of vanilla JS.</div></td>
+              </tr>
+              <tr>
+                <td class="time">16:30–17:15</td>
+                <td colspan="2"><div class="sess__t">Day 1 Fireside: Building in Public from Manila</div><div class="sess__m">Panel · Both stages</div><div class="sess__d">Regional founders on shipping globally without leaving Southeast Asia.</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="sched-hint">↔ Swipe the table sideways on mobile</p>
+      </div>
+
+      <div class="day" id="day2" role="tabpanel" aria-labelledby="tab-d2" hidden>
+        <div class="sched-scroll">
+          <table class="sched">
+            <thead><tr><th>Time</th><th>Main Stage — Systems</th><th>Stage B — Product &amp; Craft</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="time">09:30–10:00</td>
+                <td colspan="2" class="break">Doors, coffee &amp; day-2 kickoff</td>
+              </tr>
+              <tr>
+                <td class="time">10:00–10:45</td>
+                <td><div class="sess__t">Keynote: The Cost of Complexity</div><div class="sess__m">Keynote</div><div class="sess__d">A field guide to spotting accidental complexity before it becomes your architecture.</div></td>
+                <td><div class="sess__t">Research on a Startup Budget</div><div class="sess__m">Product · Talk</div><div class="sess__d">Getting real user insight in a week with five conversations and zero panel fees.</div></td>
+              </tr>
+              <tr>
+                <td class="time">10:55–11:40</td>
+                <td><div class="sess__t">Queues, Jobs &amp; the Art of Retry</div><div class="sess__m">Backend · Talk</div><div class="sess__d">Idempotency, backoff and dead-letter design that survives a bad deploy.</div></td>
+                <td><div class="sess__t">Accessibility as a Default</div><div class="sess__m">Design · Talk</div><div class="sess__d">Baking WCAG into components so the whole org ships accessible without thinking about it.</div></td>
+              </tr>
+              <tr>
+                <td class="time">11:50–12:35</td>
+                <td><div class="sess__t">Shipping ML Features Safely</div><div class="sess__m">ML · Talk</div><div class="sess__d">Shadow deploys, guardrails and evals for teams putting models in front of real users.</div></td>
+                <td><div class="sess__t">Building a Design-Engineer Guild</div><div class="sess__m">Craft · Workshop</div><div class="sess__d">Structuring the hybrid role that bridges Figma and the codebase.</div></td>
+              </tr>
+              <tr>
+                <td class="time">12:35–13:45</td>
+                <td colspan="2" class="break">Lunch, demos &amp; sponsor alley</td>
+              </tr>
+              <tr>
+                <td class="time">13:45–14:30</td>
+                <td><div class="sess__t">Zero-Downtime Migrations, For Real</div><div class="sess__m">Databases · Talk</div><div class="sess__d">Expand-contract patterns for schema changes on a table nobody can afford to lock.</div></td>
+                <td><div class="sess__t">Content &amp; Community as a Growth Loop</div><div class="sess__m">Founders · Talk</div><div class="sess__d">Turning your dev-rel and docs into a compounding acquisition channel.</div></td>
+              </tr>
+              <tr>
+                <td class="time">14:40–15:25</td>
+                <td><div class="sess__t">Rust in a Mostly-Not-Rust Codebase</div><div class="sess__m">Systems · Talk</div><div class="sess__d">Where dropping to a native module actually pays off — and where it just adds a build step.</div></td>
+                <td><div class="sess__t">Portfolio Reviews, Live on Stage</div><div class="sess__m">Design · Workshop</div><div class="sess__d">Real portfolios critiqued in the open — bring yours to the queue.</div></td>
+              </tr>
+              <tr>
+                <td class="time">16:00–16:45</td>
+                <td colspan="2"><div class="sess__t">Closing Keynote: Craft, Compounding &amp; Career</div><div class="sess__m">Keynote · Both stages</div><div class="sess__d">The long game of getting quietly, relentlessly better at building software.</div></td>
+              </tr>
+              <tr>
+                <td class="time">16:45–18:30</td>
+                <td colspan="2" class="break">After-party · rooftop, BGC</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="sched-hint">↔ Swipe the table sideways on mobile</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENUE -->
+  <section class="venue" id="venue">
+    <div class="wrap">
+      <div class="sec-head rev">
+        <h2>Venue</h2>
+        <span class="idx">/03 — Bonifacio Global City</span>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="venue__grid rev">
+        <div class="venue__info">
+          <h3>Samsung Hall, BGC</h3>
+          <p>Two theatre stages, a workshop floor and a wide-open hallway track for the conversations that actually change how you build. Right in the middle of Manila's tech district, walkable to coffee, food and the after-party.</p>
+          <div class="venue__meta">
+            <div><span>ADDR /</span> SM Aura Premier, McKinley Pkwy, Taguig, Metro Manila 1634</div>
+            <div><span>GETTING THERE /</span> 20 min from NAIA · grab, bus &amp; BGC shuttle</div>
+            <div><span>DOORS /</span> 09:00 PHT · badge pickup at Level 5</div>
+          </div>
+        </div>
+        <div class="venue__map" role="img" aria-label="Stylized map of the BGC venue area">
+          <svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="320" fill="#E6FF3A"/>
+            <g stroke="#0A0A0A" stroke-width="2">
+              <path d="M0 90 H400 M0 210 H400 M120 0 V320 M280 0 V320" fill="none" opacity=".55"/>
+              <path d="M40 40 L360 40 L360 70 L40 70 Z" fill="#2647FF"/>
+              <path d="M60 250 L150 250 L150 300 L60 300 Z" fill="#0A0A0A"/>
+              <path d="M300 140 L360 140 L360 190 L300 190 Z" fill="#2647FF"/>
+            </g>
+            <circle cx="200" cy="150" r="26" fill="#0A0A0A"/>
+            <circle cx="200" cy="150" r="9" fill="#E6FF3A"/>
+            <path d="M200 150 L200 96" stroke="#0A0A0A" stroke-width="3"/>
+            <text x="214" y="130" font-family="'JetBrains Mono',monospace" font-size="13" font-weight="700" fill="#0A0A0A">SAMSUNG HALL</text>
+            <text x="66" y="284" font-family="'JetBrains Mono',monospace" font-size="11" fill="#E6FF3A">MCKINLEY PKWY</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKETS -->
+  <section class="tickets" id="tickets">
+    <div class="wrap">
+      <div class="sec-head rev">
+        <h2>Tickets</h2>
+        <span class="idx">/04 — Early-bird ends Dec 1</span>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="tk-grid rev">
+        <div class="tk">
+          <div class="tk__badge">Community</div>
+          <div class="tk__name">Solo Pass</div>
+          <div class="tk__price">₱2,900</div>
+          <div class="tk__sub">Early-bird · reg. ₱3,900</div>
+          <ul class="tk__list">
+            <li class="tk__li">Both conference days</li>
+            <li class="tk__li">All talks, both stages</li>
+            <li class="tk__li">Hallway track &amp; expo</li>
+            <li class="tk__li">Talk recordings after</li>
+          </ul>
+          <a class="btn" href="#tickets">Buy Solo</a>
+        </div>
+        <div class="tk tk--feat">
+          <div class="tk__badge">Most popular</div>
+          <div class="tk__name">Builder Pass</div>
+          <div class="tk__price">₱5,400</div>
+          <div class="tk__sub">Early-bird · reg. ₱6,900</div>
+          <ul class="tk__list">
+            <li class="tk__li">Everything in Solo</li>
+            <li class="tk__li">All hands-on workshops</li>
+            <li class="tk__li">Reserved seating, main stage</li>
+            <li class="tk__li">After-party + swag kit</li>
+            <li class="tk__li">Speaker AMA lounge access</li>
+          </ul>
+          <a class="btn btn--cobalt" href="#tickets">Buy Builder</a>
+        </div>
+        <div class="tk">
+          <div class="tk__badge">Teams of 5+</div>
+          <div class="tk__name">Team Table</div>
+          <div class="tk__price">₱24,000</div>
+          <div class="tk__sub">5 Builder passes · save ₱3,000</div>
+          <ul class="tk__list">
+            <li class="tk__li">5× Builder Pass</li>
+            <li class="tk__li">Reserved team table</li>
+            <li class="tk__li">Invoice &amp; PO friendly</li>
+            <li class="tk__li">Logo on the sponsor wall</li>
+          </ul>
+          <a class="btn" href="#tickets">Get Team Table</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <section class="sponsors" aria-label="Sponsors">
+    <div class="wrap">
+      <div class="sp-title">Backed by teams who build</div>
+      <div class="sp-marks">
+        <div class="mark">Nimbus<span>/</span>Cloud</div>
+        <div class="mark">Ledger<span>OS</span></div>
+        <div class="mark">Pixel<span>Forge</span></div>
+        <div class="mark">Quanta<span>DB</span></div>
+        <div class="mark">Halo<span>Pay</span></div>
+        <div class="mark">Ori<span>gami</span></div>
+        <div class="mark">Vector<span>Labs</span></div>
+        <div class="mark">Baybayin<span>.dev</span></div>
+        <div class="mark">Stack<span>Sur</span></div>
+        <div class="mark">North<span>Star</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <span class="tag" style="color:var(--cobalt)">Feb 12–13, 2027 · Manila</span>
+    <h2>Come build<br>with us.</h2>
+    <p>1,200 seats · early-bird pricing won't last</p>
+    <a class="btn btn--cobalt" href="#tickets" style="font-size:15px;padding:16px 28px">Get your ticket →</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <div class="foot__logo">STACK/MNL 27</div>
+        <p class="mono" style="font-size:13px;max-width:34ch;opacity:.8">The developer, design &amp; founder conference for Southeast Asia. Manila, February 2027.</p>
+      </div>
+      <div>
+        <h4>Event</h4>
+        <a href="#speakers">Speakers</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#venue">Venue</a>
+        <a href="#tickets">Tickets</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="#top">hello@stackmnl.dev</a>
+        <a href="#top">Sponsor prospectus</a>
+        <a href="#top">Speak / submit a talk</a>
+        <a href="#top">Code of conduct</a>
+      </div>
+    </div>
+    <div class="foot__note">Fictional event · portfolio demo. STACK/MNL 27 is a design concept — no real event, tickets, or affiliation. Built as a static HTML/CSS/JS prototype.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- Speakers (monogram avatars) ---- */
+  var speakers = [
+    {n:"Rafael Santos",   r:"Principal Engineer",       c:"NimbusCloud",  bg:"#2647FF", fg:"#fff"},
+    {n:"Mika Tan",        r:"Head of Design",           c:"PixelForge",   bg:"#E6FF3A", fg:"#0A0A0A"},
+    {n:"Jomar Dela Cruz", r:"Founder & CTO",            c:"LedgerOS",     bg:"#0A0A0A", fg:"#E6FF3A"},
+    {n:"Aiza Reyes",      r:"Staff SRE",                c:"QuantaDB",     bg:"#2647FF", fg:"#fff"},
+    {n:"Ken Villanueva",  r:"Product Lead",             c:"HaloPay",      bg:"#0A0A0A", fg:"#fff"},
+    {n:"Sofia Cruz",      r:"Design Engineer",          c:"Origami",      bg:"#E6FF3A", fg:"#0A0A0A"},
+    {n:"Dev Aguilar",     r:"ML Platform Engineer",     c:"VectorLabs",   bg:"#2647FF", fg:"#fff"},
+    {n:"Nadia Lim",       r:"VP Engineering",           c:"NorthStar",    bg:"#0A0A0A", fg:"#E6FF3A"},
+    {n:"Paolo Mercado",   r:"Developer Advocate",       c:"Baybayin.dev", bg:"#E6FF3A", fg:"#0A0A0A"},
+    {n:"Hana Ocampo",     r:"Design Systems Lead",      c:"StackSur",     bg:"#2647FF", fg:"#fff"},
+    {n:"Miguel Torres",   r:"Backend Architect",        c:"NimbusCloud",  bg:"#0A0A0A", fg:"#fff"},
+    {n:"Bea Fernandez",   r:"Solo Founder",             c:"Sari.dev",     bg:"#E6FF3A", fg:"#0A0A0A"}
+  ];
+  function initials(name){
+    var p = name.split(" ");
+    return (p[0][0] + (p[p.length-1][0]||"")).toUpperCase();
+  }
+  var grid = document.getElementById("spGrid");
+  if(grid){
+    var html = "";
+    for(var i=0;i<speakers.length;i++){
+      var s = speakers[i];
+      html += '<article class="sp">'+
+        '<div class="sp__av" style="background:'+s.bg+'">'+
+          '<span class="sp__mono" style="color:'+s.fg+'">'+initials(s.n)+'</span>'+
+        '</div>'+
+        '<h3 class="sp__name">'+s.n+'</h3>'+
+        '<div class="sp__role">'+s.r+'</div>'+
+        '<div class="sp__co">'+s.c+'</div>'+
+      '</article>';
+    }
+    grid.innerHTML = html;
+  }
+
+  /* ---- Hamburger ---- */
+  var burger = document.getElementById("burger");
+  var menu = document.getElementById("menu");
+  if(burger && menu){
+    burger.addEventListener("click", function(){
+      var open = menu.classList.toggle("open");
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    menu.addEventListener("click", function(e){
+      if(e.target.tagName === "A"){
+        menu.classList.remove("open");
+        burger.setAttribute("aria-expanded","false");
+      }
+    });
+  }
+
+  /* ---- Schedule tabs ---- */
+  var tabs = document.querySelectorAll(".tab");
+  tabs.forEach(function(tab){
+    tab.addEventListener("click", function(){
+      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
+      tab.setAttribute("aria-selected","true");
+      document.querySelectorAll(".day").forEach(function(d){
+        var on = d.id === tab.getAttribute("data-day");
+        d.classList.toggle("is-on", on);
+        if(on){ d.removeAttribute("hidden"); } else { d.setAttribute("hidden",""); }
+      });
+    });
+  });
+
+  /* ---- Scroll reveal ---- */
+  var revs = document.querySelectorAll(".rev");
+  if(reduce || !("IntersectionObserver" in window)){
+    revs.forEach(function(r){ r.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    },{threshold:.12});
+    revs.forEach(function(r){ io.observe(r); });
+  }
+
+  /* ---- Countdown (hardcoded, static-safe) ---- */
+  var TARGET = new Date("2027-02-12T09:00:00+08:00").getTime();
+  var cells = {
+    d: document.querySelector('[data-cd="d"]'),
+    h: document.querySelector('[data-cd="h"]'),
+    m: document.querySelector('[data-cd="m"]'),
+    s: document.querySelector('[data-cd="s"]')
+  };
+  function pad(n){ return (n<10?"0":"")+n; }
+  function tick(){
+    if(!cells.d) return;
+    var diff = TARGET - Date.now();
+    if(diff < 0) diff = 0;
+    var sec = Math.floor(diff/1000);
+    var days = Math.floor(sec/86400);
+    var hrs  = Math.floor((sec%86400)/3600);
+    var mins = Math.floor((sec%3600)/60);
+    var secs = sec%60;
+    cells.d.textContent = days > 99 ? days : pad(days);
+    cells.h.textContent = pad(hrs);
+    cells.m.textContent = pad(mins);
+    cells.s.textContent = pad(secs);
+  }
+  tick();
+  if(!reduce){ setInterval(tick, 1000); }
+})();
+</script>
+</body>
+</html>

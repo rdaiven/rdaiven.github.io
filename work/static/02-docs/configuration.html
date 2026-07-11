@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configuration · Baybay Docs</title>
+<meta name="description" content="Every option in baybay.config.js: core paths, Markdown behaviour, i18n, dev server, and build settings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <button class="nav-toggle" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="wordmark" href="index.html">baybay<span class="cursor-block">▮</span><span class="version">v1.4.2</span></a>
+  <div class="header-spacer"></div>
+  <button class="search-button" type="button">
+    <span aria-hidden="true">🔍</span>
+    <span class="search-label">Search docs…</span>
+    <span class="kbd-hint">Ctrl K</span>
+  </button>
+  <nav class="header-links" aria-label="External">
+    <a href="cli.html">CLI</a>
+    <a href="configuration.html">Config</a>
+  </nav>
+</header>
+
+<div class="layout with-toc">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation">
+    <h2>Introduction</h2>
+    <ul>
+      <li><a href="index.html">What is Baybay?</a></li>
+    </ul>
+    <h2>Guides</h2>
+    <ul>
+      <li><a href="getting-started.html">Getting Started</a></li>
+    </ul>
+    <h2>Reference</h2>
+    <ul>
+      <li><a href="configuration.html" aria-current="page">Configuration</a></li>
+      <li><a href="cli.html">CLI Commands</a></li>
+    </ul>
+  </nav>
+  <button class="sidebar-backdrop" aria-label="Close navigation" tabindex="-1"></button>
+
+  <main class="content" id="main">
+    <article>
+      <p class="breadcrumb"><a href="index.html">Docs</a> / Reference / Configuration</p>
+      <h1>Configuration</h1>
+      <p class="lede">Baybay runs with no config file at all. When you need to change a default, create <code>baybay.config.js</code> at the project root — every option on this page is optional.</p>
+
+      <h2 id="config-file">The config file</h2>
+      <p>Export a plain object. Baybay validates it on startup and fails fast with the exact key that is wrong:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">javascript</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="dim">// baybay.config.js</span>
+export default {
+  srcDir: "src",
+  outDir: "dist",
+  base: "/",
+  trailingSlash: true,
+
+  markdown: {
+    smartQuotes: true,
+    anchors: "h2-h4",
+    footnotes: true,
+  },
+
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en", "fil", "de"],
+  },
+
+  dev:   { port: 8484, open: false },
+  build: { minify: true, sitemap: true, cleanUrls: true },
+};</code></pre>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Note</span>
+        <p>Both ESM (<code>export default</code>) and CommonJS (<code>module.exports</code>) are accepted. TypeScript configs (<code>baybay.config.ts</code>) work if <code>typescript</code> is installed locally.</p>
+      </div>
+
+      <h2 id="core-options">Core options</h2>
+      <p>Paths are resolved relative to the config file.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>srcDir</code></td><td><code>string</code></td><td><code>"src"</code></td><td>Directory scanned for pages, layouts, and partials. Files prefixed with <code>_</code> are treated as templates and never emitted.</td></tr>
+            <tr><td><code>outDir</code></td><td><code>string</code></td><td><code>"dist"</code></td><td>Build output directory. Emptied before each production build unless <code>--no-clean</code> is passed.</td></tr>
+            <tr><td><code>staticDir</code></td><td><code>string</code></td><td><code>"static"</code></td><td>Copied to <code>outDir</code> verbatim, no processing. Set to <code>false</code> to disable.</td></tr>
+            <tr><td><code>base</code></td><td><code>string</code></td><td><code>"/"</code></td><td>Public base path, e.g. <code>"/docs/"</code> when serving from a sub-path. All generated links are prefixed with it.</td></tr>
+            <tr><td><code>trailingSlash</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Emit <code>/about/index.html</code> (true) or <code>/about.html</code> (false). Affects generated links too.</td></tr>
+            <tr><td><code>layout</code></td><td><code>string</code></td><td><code>"_layout.html"</code></td><td>Default layout applied to every page. Override per page with the <code>layout</code> front-matter key.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="markdown-options">Markdown options</h2>
+      <p>All keys live under the <code>markdown</code> object.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>markdown.smartQuotes</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Convert straight quotes and dashes to typographic equivalents (<code>"</code> → <code>“ ”</code>, <code>--</code> → <code>–</code>). Code spans are never touched.</td></tr>
+            <tr><td><code>markdown.anchors</code></td><td><code>string | false</code></td><td><code>"h2-h4"</code></td><td>Range of headings that get slugified <code>id</code> attributes and anchor links. Set <code>false</code> to disable.</td></tr>
+            <tr><td><code>markdown.footnotes</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Enable GitHub-style footnote syntax (<code>[^1]</code>).</td></tr>
+            <tr><td><code>markdown.externalLinks</code></td><td><code>"new-tab" | "same-tab"</code></td><td><code>"same-tab"</code></td><td>When <code>"new-tab"</code>, external links get <code>target="_blank" rel="noopener"</code> automatically.</td></tr>
+            <tr><td><code>markdown.highlight</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Syntax-highlight fenced code blocks at build time. Zero client-side JS is shipped for this.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="i18n-options">i18n options</h2>
+      <p>Declaring more than one locale makes Baybay mirror your route tree per locale: <code>src/about.md</code> becomes <code>/about/</code> and <code>/fil/about/</code>, with <code>hreflang</code> alternates injected into each page head.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>i18n.defaultLocale</code></td><td><code>string</code></td><td><code>"en"</code></td><td>Locale served at the site root without a path prefix.</td></tr>
+            <tr><td><code>i18n.locales</code></td><td><code>string[]</code></td><td><code>["en"]</code></td><td>BCP&nbsp;47 tags, e.g. <code>["en", "fil", "de-AT"]</code>. Each non-default locale is served under <code>/&lt;locale&gt;/</code>.</td></tr>
+            <tr><td><code>i18n.translationsDir</code></td><td><code>string</code></td><td><code>"i18n"</code></td><td>Folder of per-locale JSON dictionaries available in templates as <code>{{ t("key") }}</code>.</td></tr>
+            <tr><td><code>i18n.fallback</code></td><td><code>boolean</code></td><td><code>true</code></td><td>If a page has no translation for a locale, reuse the default-locale content instead of 404ing.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="dev-build-options">Dev &amp; build options</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>dev.port</code></td><td><code>number</code></td><td><code>8484</code></td><td>Dev server port. If taken, Baybay increments until it finds a free one and tells you.</td></tr>
+            <tr><td><code>dev.host</code></td><td><code>string</code></td><td><code>"localhost"</code></td><td>Set to <code>"0.0.0.0"</code> to expose the server on your LAN (also printed as the Network URL).</td></tr>
+            <tr><td><code>dev.open</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Open the browser automatically when the server starts.</td></tr>
+            <tr><td><code>build.minify</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Minify emitted HTML and CSS. Your own JS files are copied untouched.</td></tr>
+            <tr><td><code>build.sitemap</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Write <code>sitemap.xml</code> at the output root. Requires <code>site.url</code> to be set for absolute URLs.</td></tr>
+            <tr><td><code>build.cleanUrls</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Strip <code>.html</code> from generated internal links (pairs with <code>trailingSlash</code>).</td></tr>
+            <tr><td><code>build.drafts</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Include pages marked <code>draft: true</code> in front matter. The dev server always includes drafts.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="env-vars">Environment variables</h2>
+      <p>A few settings can be supplied via the environment, which always wins over the config file. Useful in CI:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Variable</th><th>Equivalent</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><code>BAYBAY_OUT_DIR</code></td><td><code>outDir</code></td><td><code>BAYBAY_OUT_DIR=public baybay build</code></td></tr>
+            <tr><td><code>BAYBAY_BASE</code></td><td><code>base</code></td><td><code>BAYBAY_BASE=/docs/ baybay build</code></td></tr>
+            <tr><td><code>BAYBAY_PORT</code></td><td><code>dev.port</code></td><td><code>BAYBAY_PORT=3000 baybay dev</code></td></tr>
+            <tr><td><code>BAYBAY_TOKEN</code></td><td>deploy credential</td><td>Read by <code>baybay deploy</code>; never stored on disk.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Precedence</span>
+        <p>CLI flags &gt; environment variables &gt; <code>baybay.config.js</code> &gt; built-in defaults. The effective config is printed with <code>baybay build --verbose</code>.</p>
+      </div>
+
+      <nav class="pagination" aria-label="Previous and next">
+        <a href="getting-started.html"><span class="dir">← Previous</span><span class="page-name">Getting Started</span></a>
+        <a class="next" href="cli.html"><span class="dir">Next →</span><span class="page-name">CLI Commands</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    <nav data-toc aria-label="Table of contents"></nav>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 Baybay — a fictional tool. Prototype for the Daiven Reyes Prototype Lab.</span>
+    <a href="../../index.html">← Prototype Lab</a>
+  </div>
+</footer>
+
+<dialog class="search-dialog" id="search-dialog" aria-label="Search documentation">
+  <form class="search-form" method="dialog">
+    <span aria-hidden="true">🔍</span>
+    <input type="search" placeholder="Search titles and headings…" aria-label="Search documentation" autocomplete="off">
+    <span class="esc-hint" aria-hidden="true">esc</span>
+  </form>
+  <ul class="search-results"></ul>
+  <p class="search-empty" hidden>No results. Try “config”, “deploy”, or “install”.</p>
+</dialog>
+
+<script src="assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ISLA SONORA 2026 — Boracay Beachfront Music Festival</title>
+<meta name="description" content="ISLA SONORA 2026 — three nights of sound on the white sands of Boracay. Apr 24–26. Get your tickets." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@800;900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --night:#0A0710;
+    --plum:#17091F;
+    --text:#F7EEF9;
+    --muted:#B39FC4;
+    --magenta:#FF2D9B;
+    --violet:#7B2FF7;
+    --cyan:#2FE0FF;
+    --grad:linear-gradient(100deg,var(--magenta) 0%,var(--violet) 50%,var(--cyan) 100%);
+    --grad-soft:linear-gradient(100deg,#FF2D9B33,#7B2FF733,#2FE0FF33);
+    --maxw:1200px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:clip;max-width:100%}
+  body{
+    background:var(--night);
+    color:var(--text);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+  }
+  ::selection{background:var(--magenta);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img,svg{max-width:100%;display:block}
+  h1,h2,h3{line-height:.92;letter-spacing:-.01em}
+
+  /* ---- Ambient animated gradient field ---- */
+  .aurora{position:fixed;inset:-20% -20% -20% -20%;z-index:0;pointer-events:none;filter:blur(90px);opacity:.55}
+  .aurora .blob{position:absolute;border-radius:50%;mix-blend-mode:screen;will-change:transform}
+  .b1{width:46vw;height:46vw;background:radial-gradient(circle,var(--magenta),transparent 65%);top:-8%;left:-6%;animation:drift1 26s var(--ease) infinite alternate}
+  .b2{width:52vw;height:52vw;background:radial-gradient(circle,var(--violet),transparent 65%);top:10%;right:-14%;animation:drift2 32s var(--ease) infinite alternate}
+  .b3{width:40vw;height:40vw;background:radial-gradient(circle,var(--cyan),transparent 65%);bottom:-12%;left:20%;animation:drift3 30s var(--ease) infinite alternate}
+  @keyframes drift1{to{transform:translate(8vw,10vh) scale(1.15)}}
+  @keyframes drift2{to{transform:translate(-10vw,6vh) scale(1.1)}}
+  @keyframes drift3{to{transform:translate(6vw,-8vh) scale(1.2)}}
+
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(18px,5vw,40px)}
+  main,footer,nav{position:relative;z-index:2}
+
+  .grad-text{
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+    background-size:200% 100%;animation:hue 12s linear infinite;
+  }
+  @keyframes hue{to{background-position:200% 0}}
+
+  .eyebrow{font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+  /* ---- Nav ---- */
+  nav{position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(14px);
+    background:linear-gradient(to bottom,rgba(10,7,16,.85),rgba(10,7,16,.55));
+    border-bottom:1px solid #ffffff12}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:"Anton",sans-serif;font-size:1.35rem;letter-spacing:.02em;display:flex;align-items:center;gap:.5ch}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--grad);box-shadow:0 0 14px var(--magenta)}
+  .nav-links{display:flex;align-items:center;gap:0;
+    position:fixed;inset:64px 0 auto 0;flex-direction:column;
+    background:rgba(12,8,20,.98);backdrop-filter:blur(20px);border-bottom:1px solid #ffffff1a;
+    max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
+  .nav-links.open{max-height:400px}
+  .nav-links a.link{font-weight:500;font-size:1.05rem;color:var(--muted);transition:color .2s;
+    width:100%;padding:16px 24px;border-top:1px solid #ffffff10}
+  .nav-links a.link:hover{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;gap:.5ch;font-weight:700;border-radius:999px;padding:11px 22px;
+    background:var(--grad);background-size:200% 100%;color:#0A0710;border:none;cursor:pointer;
+    box-shadow:0 0 0 rgba(255,45,155,.5);transition:box-shadow .3s,transform .15s;animation:hue 10s linear infinite}
+  .btn:hover{box-shadow:0 8px 34px rgba(123,47,247,.55);transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--text);border:1px solid #ffffff2e;animation:none}
+  .btn.ghost:hover{border-color:var(--cyan);box-shadow:0 0 24px rgba(47,224,255,.3)}
+  .nav-links .btn{margin:14px 24px 22px;justify-content:center}
+  .hamburger{display:block;background:none;border:0;cursor:pointer;width:40px;height:40px;color:var(--text)}
+  .hamburger span{display:block;width:22px;height:2px;margin:5px auto;background:currentColor;transition:.3s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* ---- Hero ---- */
+  .hero{padding:clamp(48px,9vh,110px) 0 60px;text-align:center;position:relative}
+  .hero .eyebrow{margin-bottom:22px}
+  .hero h1{font-family:"Anton",sans-serif;font-weight:400;
+    font-size:clamp(4.2rem,18vw,15rem);line-height:.82;text-transform:uppercase;
+    filter:drop-shadow(0 6px 40px rgba(123,47,247,.35));margin:6px 0}
+  .hero h1 .l2{display:block}
+  .hero .stamp{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin:30px 0 8px;
+    font-weight:700;letter-spacing:.06em}
+  .hero .stamp span{display:inline-flex;align-items:center;gap:.6ch}
+  .hero .stamp .big{font-size:clamp(1.1rem,3.4vw,1.6rem)}
+  .divider{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+  .hype{max-width:620px;margin:20px auto 34px;color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem)}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* ---- Marquee ---- */
+  .marquee{border-block:1px solid #ffffff14;background:linear-gradient(90deg,#FF2D9B12,#7B2FF712,#2FE0FF12);
+    overflow:hidden;padding:14px 0;margin-top:20px}
+  .marquee-track{display:flex;gap:0;white-space:nowrap;width:max-content;animation:scroll 34s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track span{font-family:"Archivo",sans-serif;font-weight:900;font-size:1.15rem;text-transform:uppercase;
+    letter-spacing:.04em;padding:0 26px;color:var(--text)}
+  .marquee-track span.star{color:transparent;-webkit-text-stroke:1px var(--cyan)}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---- Section shells ---- */
+  section{padding:clamp(64px,11vh,120px) 0;position:relative}
+  .sec-head{margin-bottom:44px}
+  .sec-head h2{font-family:"Archivo",sans-serif;font-weight:900;text-transform:uppercase;
+    font-size:clamp(2.2rem,7vw,4.6rem)}
+  .sec-head p{color:var(--muted);max-width:560px;margin-top:14px;font-size:1.05rem}
+
+  /* ---- Lineup poster ---- */
+  #lineup{text-align:center}
+  .poster{border:1px solid #ffffff1a;border-radius:28px;padding:clamp(30px,6vw,70px) clamp(20px,4vw,50px);
+    background:radial-gradient(120% 120% at 50% 0%,#7B2FF71a,transparent 60%),#0e0817cc;
+    position:relative;overflow:hidden}
+  .poster::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 40% at 50% -10%,#FF2D9B33,transparent 70%);pointer-events:none}
+  .tier-label{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);margin:34px 0 10px;position:relative}
+  .tier-label:first-child{margin-top:0}
+  .head-acts{display:flex;flex-direction:column;gap:4px;position:relative}
+  .head-acts a{font-family:"Anton",sans-serif;font-size:clamp(2.6rem,11vw,7.5rem);line-height:.9;text-transform:uppercase;
+    transition:transform .25s,filter .25s}
+  .head-acts a:hover{transform:scale(1.02);filter:drop-shadow(0 0 26px rgba(47,224,255,.6))}
+  .mid-acts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 28px;position:relative}
+  .mid-acts a{font-family:"Archivo",sans-serif;font-weight:900;font-size:clamp(1.3rem,4.5vw,2.6rem);text-transform:uppercase;
+    transition:color .2s}
+  .mid-acts a:hover{color:var(--cyan)}
+  .support-acts{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 20px;position:relative;margin-top:6px}
+  .support-acts span{font-weight:500;font-size:clamp(.9rem,2.6vw,1.15rem);color:var(--muted)}
+  .support-acts span::after{content:"·";margin-left:20px;color:#ffffff33}
+  .support-acts span:last-child::after{content:""}
+
+  /* ---- Schedule ---- */
+  .days{display:grid;grid-template-columns:1fr;gap:22px}
+  .day{border:1px solid #ffffff1a;border-radius:22px;padding:30px;background:#0e0817b3;position:relative;overflow:hidden}
+  .day::after{content:"";position:absolute;top:-40%;right:-30%;width:60%;height:120%;background:radial-gradient(circle,#7B2FF733,transparent 70%)}
+  .day .dnum{font-family:"Anton",sans-serif;font-size:clamp(2.4rem,6vw,3.6rem);line-height:1}
+  .day .ddate{color:var(--muted);font-weight:700;letter-spacing:.05em;margin-bottom:18px}
+  .slot{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-top:1px solid #ffffff12;position:relative;z-index:1}
+  .slot .t{color:var(--cyan);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .slot .a{font-weight:500;text-align:right}
+  .stage-tag{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---- Tickets ---- */
+  .tiers{display:grid;grid-template-columns:1fr;gap:20px;align-items:stretch}
+  .tier{border:1px solid #ffffff1c;border-radius:22px;padding:32px 28px;background:#0e0817b3;display:flex;flex-direction:column;
+    position:relative;transition:transform .25s,border-color .25s}
+  .tier:hover{transform:translateY(-6px);border-color:#ffffff33}
+  .tier.feat{border:1px solid transparent;background:
+    linear-gradient(#120a1e,#120a1e) padding-box,
+    var(--grad) border-box;box-shadow:0 20px 60px rgba(123,47,247,.28);order:-1}
+  .tier .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--grad);color:#0A0710;
+    font-weight:700;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 16px;border-radius:999px;white-space:nowrap}
+  .tier h3{font-family:"Archivo",sans-serif;font-weight:900;text-transform:uppercase;font-size:1.5rem}
+  .tier .price{font-family:"Anton",sans-serif;font-size:clamp(2.4rem,6vw,3.2rem);margin:10px 0 2px}
+  .tier .per{color:var(--muted);font-size:.85rem;margin-bottom:20px}
+  .tier ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin-bottom:26px;flex:1}
+  .tier li{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;color:#e7ddef}
+  .tier li svg{flex:none;margin-top:3px}
+  .tier .btn{width:100%;justify-content:center;margin-top:auto}
+
+  /* ---- Info / FAQ ---- */
+  .info-grid{display:grid;grid-template-columns:1fr;gap:40px}
+  .facts{display:flex;flex-direction:column;gap:16px}
+  .fact{border:1px solid #ffffff16;border-radius:16px;padding:20px 22px;background:#0e0817a1}
+  .fact h4{font-family:"Archivo",sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:4px}
+  .fact p{color:var(--muted);font-size:.95rem}
+  .faq details{border-bottom:1px solid #ffffff16;padding:16px 0;cursor:pointer}
+  .faq summary{font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:14px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--cyan);font-size:1.4rem;line-height:1;transition:transform .2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq p{color:var(--muted);margin-top:12px;font-size:.95rem}
+
+  /* ---- Final CTA ---- */
+  .final{text-align:center;border-radius:32px;margin-block:20px;padding:clamp(50px,9vw,100px) 24px;
+    background:radial-gradient(120% 120% at 50% 0%,#FF2D9B26,transparent 55%),#0e0817;
+    border:1px solid #ffffff1a;position:relative;overflow:hidden}
+  .final h2{font-family:"Anton",sans-serif;font-size:clamp(2.6rem,10vw,6rem);text-transform:uppercase;line-height:.88}
+  .final p{color:var(--muted);max-width:520px;margin:20px auto 30px;font-size:1.1rem}
+  .pulse{animation:pulse 4s var(--ease) infinite}
+  @keyframes pulse{0%,100%{filter:drop-shadow(0 0 10px rgba(123,47,247,.3))}50%{filter:drop-shadow(0 0 40px rgba(47,224,255,.55))}}
+
+  /* ---- Footer ---- */
+  footer{border-top:1px solid #ffffff14;padding:50px 0 40px;margin-top:10px}
+  .foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:flex-start}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+  .foot-links a:hover{color:var(--text)}
+  .demo-note{margin-top:30px;color:#8a7a9c;font-size:.82rem;letter-spacing:.02em}
+
+  /* ---- Reveal ---- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---- Responsive (mobile-first) ---- */
+  @media(min-width:821px){
+    .nav-links{position:static;inset:auto;flex-direction:row;gap:28px;
+      background:transparent;backdrop-filter:none;border-bottom:0;
+      max-height:none;overflow:visible;transition:none}
+    .nav-links a.link{width:auto;padding:0;border-top:0;font-size:.95rem}
+    .nav-links .btn{margin:0;justify-content:normal}
+    .hamburger{display:none}
+    .days{grid-template-columns:1fr 1fr}
+    .tiers{grid-template-columns:repeat(3,1fr)}
+    .info-grid{grid-template-columns:1fr 1fr}
+    .tier.feat{order:0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .aurora .blob,.grad-text,.btn,.marquee-track,.pulse{animation:none!important}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="logo"><span class="dot"></span>ISLA&nbsp;SONORA</a>
+    <div class="nav-links" id="navLinks">
+      <a class="link" href="#lineup">Lineup</a>
+      <a class="link" href="#tickets">Tickets</a>
+      <a class="link" href="#info">Info</a>
+      <a class="btn" href="#tickets">Get tickets</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main id="top">
+  <!-- HERO -->
+  <header class="hero wrap">
+    <p class="eyebrow reveal">Three nights on the white sand · Boracay, Philippines</p>
+    <h1 class="reveal"><span class="grad-text">ISLA</span><span class="l2 grad-text">SONORA</span></h1>
+    <div class="stamp reveal">
+      <span class="big">APR 24–26 · 2026</span>
+      <span class="divider"></span>
+      <span class="big">WHITE BEACH · BORACAY</span>
+    </div>
+    <p class="hype reveal">Sunset sets, midnight bass, and the ocean at your back. Three days where the island turns into one giant dancefloor.</p>
+    <div class="hero-cta reveal">
+      <a class="btn" href="#tickets">Get tickets ↗</a>
+      <a class="btn ghost" href="#lineup">See the lineup</a>
+    </div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee">
+      <span>SOLARWAVE</span><span class="star">✦</span><span>DJ MALAYA</span><span class="star">✦</span>
+      <span>NEON BARRIO</span><span class="star">✦</span><span>THE TIDALS</span><span class="star">✦</span>
+      <span>KISLAP</span><span class="star">✦</span><span>VELVET MONSOON</span><span class="star">✦</span>
+      <span>AZUL COLLECTIVE</span><span class="star">✦</span><span>BAGYO SOUND</span><span class="star">✦</span>
+    </div>
+  </div>
+
+  <!-- LINEUP -->
+  <section id="lineup" class="wrap">
+    <div class="sec-head reveal" style="text-align:center">
+      <p class="eyebrow">2026 Lineup</p>
+      <h2 class="grad-text">The Lineup</h2>
+    </div>
+    <div class="poster reveal">
+      <p class="tier-label">Headliners</p>
+      <div class="head-acts">
+        <a class="grad-text" href="#tickets">SOLARWAVE</a>
+        <a class="grad-text" href="#tickets">DJ MALAYA</a>
+        <a class="grad-text" href="#tickets">NEON BARRIO</a>
+      </div>
+
+      <p class="tier-label">Main Stage</p>
+      <div class="mid-acts">
+        <a href="#tickets">THE TIDALS</a>
+        <a href="#tickets">KISLAP</a>
+        <a href="#tickets">VELVET MONSOON</a>
+        <a href="#tickets">AZUL COLLECTIVE</a>
+        <a href="#tickets">BAGYO SOUND</a>
+        <a href="#tickets">LUNA REYES</a>
+      </div>
+
+      <p class="tier-label">Rising · Local Heat</p>
+      <div class="support-acts">
+        <span>Mangga Beats</span><span>Salt & Static</span><span>Halo-Halo Disco</span>
+        <span>Baybayin</span><span>Coral Kids</span><span>Tag-init</span>
+        <span>Muni-Muni</span><span>Sundo</span><span>Pulang Araw</span>
+        <span>Alon</span><span>Sirena FM</span><span>Tabing Dagat</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule" class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">By day</p>
+      <h2>Two stages.<br>One island.</h2>
+      <p>The Shoreline Stage rides the sunset. The Underground goes till the tide comes in. Here's the shape of each night.</p>
+    </div>
+    <div class="days">
+      <div class="day reveal">
+        <div class="dnum">Day 01</div>
+        <div class="ddate">Fri · Apr 24 · Shoreline Stage</div>
+        <div class="slot"><span class="t">5:00 PM</span><span class="a">Coral Kids <span class="stage-tag">open</span></span></div>
+        <div class="slot"><span class="t">7:30 PM</span><span class="a">Velvet Monsoon</span></div>
+        <div class="slot"><span class="t">9:00 PM</span><span class="a">The Tidals</span></div>
+        <div class="slot"><span class="t">10:30 PM</span><span class="a">SOLARWAVE <span class="stage-tag">headline</span></span></div>
+      </div>
+      <div class="day reveal">
+        <div class="dnum">Day 02</div>
+        <div class="ddate">Sat · Apr 25 · The Underground</div>
+        <div class="slot"><span class="t">6:00 PM</span><span class="a">Sirena FM <span class="stage-tag">open</span></span></div>
+        <div class="slot"><span class="t">8:00 PM</span><span class="a">Azul Collective</span></div>
+        <div class="slot"><span class="t">9:45 PM</span><span class="a">Kislap</span></div>
+        <div class="slot"><span class="t">11:30 PM</span><span class="a">DJ MALAYA <span class="stage-tag">headline</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKETS -->
+  <section id="tickets" class="wrap">
+    <div class="sec-head reveal" style="text-align:center">
+      <p class="eyebrow">Passes</p>
+      <h2 class="grad-text">Get Tickets</h2>
+      <p style="margin-inline:auto">3-day passes only. Once they're gone, they're gone — last year sold out in 48 hours.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal">
+        <h3>General</h3>
+        <div class="price">₱4,500</div>
+        <div class="per">3-day pass · phase 1</div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#2FE0FF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>All 3 nights, both stages</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#2FE0FF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Beachfront general access</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#2FE0FF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Free re-entry all weekend</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#2FE0FF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Digital wristband</li>
+        </ul>
+        <a class="btn ghost" href="#tickets">Choose General</a>
+      </div>
+
+      <div class="tier feat reveal">
+        <span class="badge">Most popular</span>
+        <h3>VIP Tides</h3>
+        <div class="price">₱9,800</div>
+        <div class="per">3-day pass · phase 1</div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#FF2D9B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in General</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#FF2D9B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Elevated front-stage deck</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#FF2D9B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Fast-lane entry, no queue</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#FF2D9B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Premium bar + air-con lounge</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#FF2D9B" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Festival merch drop</li>
+        </ul>
+        <a class="btn" href="#tickets">Choose VIP</a>
+      </div>
+
+      <div class="tier reveal">
+        <h3>Island Club</h3>
+        <div class="price">₱18,500</div>
+        <div class="per">3-day pass · phase 1</div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#7B2FF7" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in VIP Tides</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#7B2FF7" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Private beachfront cabana</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#7B2FF7" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Bottle service + host</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#7B2FF7" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Artist meet-and-greet ballot</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16"><path d="M2 8l4 4 8-9" stroke="#7B2FF7" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Golf-cart island transfers</li>
+        </ul>
+        <a class="btn ghost" href="#tickets">Choose Club</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section id="info" class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Good to know</p>
+      <h2>Festival Info</h2>
+    </div>
+    <div class="info-grid">
+      <div class="facts">
+        <div class="fact reveal"><h4>Location</h4><p>Station 1, White Beach, Boracay, Aklan. 15 min from Caticlan Airport via boat + shuttle.</p></div>
+        <div class="fact reveal"><h4>Stages</h4><p>Shoreline Stage (main, oceanfront) and The Underground (bass tent, till late). Silent-disco after-hours nightly.</p></div>
+        <div class="fact reveal"><h4>Ages</h4><p>Strictly 18+. Valid government ID required at entry — no exceptions.</p></div>
+        <div class="fact reveal"><h4>Getting there</h4><p>Official festival shuttles from Caticlan &amp; Kalibo. Partner hotels bookable at checkout.</p></div>
+      </div>
+      <div class="faq">
+        <details class="reveal" open><summary>Are tickets refundable?</summary><p>Passes are non-refundable but fully transferable up to 7 days before the gates open. Manage yours in the app.</p></details>
+        <details class="reveal"><summary>Is there re-entry?</summary><p>Yes — your digital wristband lets you come and go all weekend across all pass tiers.</p></details>
+        <details class="reveal"><summary>What can I bring?</summary><p>Empty reusable bottles, sunscreen, and good vibes. No outside drinks, glass, or professional cameras.</p></details>
+        <details class="reveal"><summary>Where do I stay?</summary><p>Boracay has stays for every budget within walking distance. Island Club holders get priority partner-hotel rates.</p></details>
+        <details class="reveal"><summary>Is it cashless?</summary><p>100% cashless. Top up your wristband in-app or at any on-site kiosk with GCash, Maya, or card.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="wrap">
+    <div class="final reveal">
+      <p class="eyebrow" style="margin-bottom:18px">Phase 1 pricing ends soon</p>
+      <h2 class="grad-text pulse">Don't miss<br>the tide.</h2>
+      <p>Lock in the lowest price of the year. When phase 1 sells out, prices go up — and the island fills up fast.</p>
+      <a class="btn" href="#tickets" style="font-size:1.05rem;padding:15px 34px">Get your pass ↗</a>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="foot-in">
+    <a href="#top" class="logo"><span class="dot"></span>ISLA&nbsp;SONORA 2026</a>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#lineup">Lineup</a>
+      <a href="#tickets">Tickets</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#info">Info</a>
+      <a href="#top">FAQs</a>
+    </nav>
+  </div>
+  <p class="demo-note">ISLA SONORA is a fictional festival · portfolio demo. Not affiliated with any real event, venue, or artist. No tickets are for sale.</p>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hamburger
+  var ham = document.getElementById('hamburger');
+  var links = document.getElementById('navLinks');
+  ham.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    ham.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      links.classList.remove('open'); ham.classList.remove('open');
+      ham.setAttribute('aria-expanded','false');
+    });
+  });
+
+  // Duplicate marquee for seamless loop
+  var mq = document.getElementById('marquee');
+  if(mq && !reduce){ mq.innerHTML += mq.innerHTML; }
+
+  // Scroll reveal
+  var items = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el){ io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>

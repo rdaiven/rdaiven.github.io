@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLI Commands · Baybay Docs</title>
+<meta name="description" content="Reference for every Baybay command: new, dev, build, and deploy, with flags and examples.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <button class="nav-toggle" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="wordmark" href="index.html">baybay<span class="cursor-block">▮</span><span class="version">v1.4.2</span></a>
+  <div class="header-spacer"></div>
+  <button class="search-button" type="button">
+    <span aria-hidden="true">🔍</span>
+    <span class="search-label">Search docs…</span>
+    <span class="kbd-hint">Ctrl K</span>
+  </button>
+  <nav class="header-links" aria-label="External">
+    <a href="cli.html">CLI</a>
+    <a href="configuration.html">Config</a>
+  </nav>
+</header>
+
+<div class="layout with-toc">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation">
+    <h2>Introduction</h2>
+    <ul>
+      <li><a href="index.html">What is Baybay?</a></li>
+    </ul>
+    <h2>Guides</h2>
+    <ul>
+      <li><a href="getting-started.html">Getting Started</a></li>
+    </ul>
+    <h2>Reference</h2>
+    <ul>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="cli.html" aria-current="page">CLI Commands</a></li>
+    </ul>
+  </nav>
+  <button class="sidebar-backdrop" aria-label="Close navigation" tabindex="-1"></button>
+
+  <main class="content" id="main">
+    <article>
+      <p class="breadcrumb"><a href="index.html">Docs</a> / Reference / CLI Commands</p>
+      <h1>CLI Commands</h1>
+      <p class="lede">Baybay has four commands. Run <code>baybay &lt;command&gt; --help</code> anywhere for the same information in your terminal.</p>
+
+      <h2 id="global-flags">Global flags</h2>
+      <p>These flags work on every command:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Flag</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>--config &lt;path&gt;</code></td><td>Use a config file other than <code>./baybay.config.js</code>.</td></tr>
+            <tr><td><code>--quiet</code></td><td>Only print warnings and errors. Exit codes are unchanged.</td></tr>
+            <tr><td><code>--verbose</code></td><td>Print the resolved config and per-file timing.</td></tr>
+            <tr><td><code>--no-color</code></td><td>Disable ANSI colors (also respects the <code>NO_COLOR</code> env var).</td></tr>
+            <tr><td><code>--version</code>, <code>-v</code></td><td>Print version and platform, then exit.</td></tr>
+            <tr><td><code>--help</code>, <code>-h</code></td><td>Show usage for the command.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="baybay-new"><code>baybay new</code></h2>
+      <p>Scaffold a new project into a fresh directory. Refuses to write into a non-empty folder unless <code>--force</code> is given.</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">usage</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>baybay new &lt;directory&gt; [flags]</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>--template &lt;name&gt;</code></td><td><code>default</code></td><td>Starter template: <code>default</code>, <code>blog</code>, <code>docs</code>, or <code>bare</code> (no layout, no CSS).</td></tr>
+            <tr><td><code>--locale &lt;tag&gt;</code></td><td><code>en</code></td><td>Set the default locale in the generated config.</td></tr>
+            <tr><td><code>--no-git</code></td><td>—</td><td>Skip <code>git init</code> and the generated <code>.gitignore</code>.</td></tr>
+            <tr><td><code>--force</code></td><td>—</td><td>Scaffold into a non-empty directory, overwriting clashes.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="new-example">Example</h3>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay new field-notes --template blog --locale fil</span>
+<span class="ok">✔</span> Created field-notes/
+<span class="ok">✔</span> Wrote 11 files (blog template, locale: fil)
+<span class="ok">✔</span> Initialized git repository
+
+<span class="dim">  next:  cd field-notes && baybay dev</span></code></pre>
+      </div>
+
+      <h2 id="baybay-dev"><code>baybay dev</code></h2>
+      <p>Start the local development server with incremental rebuilds and live reload. Drafts (<code>draft: true</code>) are always included in dev.</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">usage</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>baybay dev [flags]</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>--port &lt;n&gt;</code></td><td><code>8484</code></td><td>Port to listen on. Falls through to the next free port if taken.</td></tr>
+            <tr><td><code>--host &lt;addr&gt;</code></td><td><code>localhost</code></td><td>Bind address. Use <code>0.0.0.0</code> to test from other devices on your network.</td></tr>
+            <tr><td><code>--open</code></td><td>—</td><td>Open the site in your default browser once the server is ready.</td></tr>
+            <tr><td><code>--no-reload</code></td><td>—</td><td>Disable live reload; rebuilds still happen, refresh manually.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="dev-example">Example</h3>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay dev --port 3000 --open</span>
+<span class="ok">baybay v1.4.2</span>  dev server
+
+  <span class="ok">➜</span> Local:    http://localhost:3000/
+
+<span class="dim">  built 12 pages in 96 ms · watching src/ and static/</span></code></pre>
+      </div>
+
+      <h2 id="baybay-build"><code>baybay build</code></h2>
+      <p>Compile the site for production into <code>outDir</code> (default <code>dist/</code>). Exits non-zero on any broken internal link, so it is safe to gate CI on.</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">usage</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>baybay build [flags]</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>--out &lt;dir&gt;</code></td><td><code>dist</code></td><td>Override <code>outDir</code> for this build.</td></tr>
+            <tr><td><code>--base &lt;path&gt;</code></td><td><code>/</code></td><td>Override the public base path (e.g. <code>/docs/</code>).</td></tr>
+            <tr><td><code>--drafts</code></td><td>—</td><td>Include pages marked <code>draft: true</code>.</td></tr>
+            <tr><td><code>--no-minify</code></td><td>—</td><td>Skip HTML/CSS minification (useful for diffing output).</td></tr>
+            <tr><td><code>--no-clean</code></td><td>—</td><td>Do not empty <code>outDir</code> before building.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="build-example">Example</h3>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay build --base /docs/ --verbose</span>
+<span class="ok">baybay v1.4.2</span>  production build
+
+<span class="dim">  config: baybay.config.js (base overridden by flag)</span>
+  <span class="ok">✔</span> 12 pages compiled (en: 6, fil: 6)
+  <span class="ok">✔</span> 5 assets copied from static/
+  <span class="ok">✔</span> 0 broken links · sitemap.xml written
+
+<span class="dim">  dist/ · 12 pages · 88.6 kB total · 104 ms</span></code></pre>
+      </div>
+
+      <h2 id="baybay-deploy"><code>baybay deploy</code></h2>
+      <p>Run a production build, then publish <code>outDir</code> to a hosting target. Credentials are read from the environment (<code>BAYBAY_TOKEN</code>) or the host's own CLI login — Baybay never writes secrets to disk.</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">usage</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>baybay deploy --target &lt;target&gt; [flags]</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>--target &lt;name&gt;</code></td><td>—</td><td>Required. One of <code>netlify</code>, <code>vercel</code>, <code>gh-pages</code>, <code>rsync</code>.</td></tr>
+            <tr><td><code>--dest &lt;spec&gt;</code></td><td>—</td><td>For <code>rsync</code>: destination, e.g. <code>user@host:/var/www/site</code>.</td></tr>
+            <tr><td><code>--branch &lt;name&gt;</code></td><td><code>gh-pages</code></td><td>For <code>gh-pages</code>: branch to push the build to.</td></tr>
+            <tr><td><code>--prod</code></td><td>—</td><td>For <code>netlify</code>/<code>vercel</code>: promote to the production URL instead of a preview.</td></tr>
+            <tr><td><code>--dry-run</code></td><td>—</td><td>Build and list what would be uploaded, then stop.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="deploy-example">Example</h3>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay deploy --target gh-pages --branch gh-pages</span>
+<span class="ok">✔</span> Built 12 pages in 101 ms
+<span class="ok">✔</span> Committed dist/ to gh-pages (17 files)
+<span class="ok">✔</span> Pushed to origin/gh-pages
+
+  <span class="ok">➜</span> Live: https://daiven.github.io/field-notes/
+
+<span class="dim">  deployed in 6.8 s</span></code></pre>
+      </div>
+      <h3 id="exit-codes">Exit codes</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>0</code></td><td>Success.</td></tr>
+            <tr><td><code>1</code></td><td>Build error (invalid config, template error, broken internal link).</td></tr>
+            <tr><td><code>2</code></td><td>Deploy error (auth failed, upload rejected). The build itself succeeded.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <nav class="pagination" aria-label="Previous and next">
+        <a href="configuration.html"><span class="dir">← Previous</span><span class="page-name">Configuration</span></a>
+        <a class="next" href="index.html"><span class="dir">Back to</span><span class="page-name">Docs home</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    <nav data-toc aria-label="Table of contents"></nav>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 Baybay — a fictional tool. Prototype for the Daiven Reyes Prototype Lab.</span>
+    <a href="../../index.html">← Prototype Lab</a>
+  </div>
+</footer>
+
+<dialog class="search-dialog" id="search-dialog" aria-label="Search documentation">
+  <form class="search-form" method="dialog">
+    <span aria-hidden="true">🔍</span>
+    <input type="search" placeholder="Search titles and headings…" aria-label="Search documentation" autocomplete="off">
+    <span class="esc-hint" aria-hidden="true">esc</span>
+  </form>
+  <ul class="search-results"></ul>
+  <p class="search-empty" hidden>No results. Try “config”, “deploy”, or “install”.</p>
+</dialog>
+
+<script src="assets/docs.js"></script>
+</body>
+</html>

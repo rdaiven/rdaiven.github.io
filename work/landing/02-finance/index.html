@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kaya — Money that just flows</title>
+<meta name="description" content="Kaya is the effortless money app for young Filipinos. Send for ₱0, save with a tap, spend smart, and see where every peso goes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBFCFB; --surface:#FFFFFF; --ink:#0C1B14; --muted:#5B6B62;
+  --mint:#0FB981; --mint-ink:#0A7A55; --amber:#FFC24B; --hairline:#E7ECE9;
+  --mint-soft:#E6F7F0; --amber-soft:#FFF3DC;
+  --r-sm:12px; --r:16px; --r-lg:22px; --r-xl:28px;
+  --shadow-sm:0 1px 2px rgba(12,27,20,.05), 0 2px 8px rgba(12,27,20,.04);
+  --shadow:0 10px 30px rgba(12,27,20,.08), 0 2px 8px rgba(12,27,20,.05);
+  --shadow-lg:0 30px 70px rgba(12,27,20,.16), 0 8px 24px rgba(12,27,20,.08);
+  --display:"Bricolage Grotesque","Space Grotesk",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,sans-serif;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--display); font-weight:700; line-height:1.05; letter-spacing:-.02em; margin:0}
+p{margin:0}
+a{color:inherit; text-decoration:none}
+img,svg{max-width:100%}
+ul{margin:0; padding:0; list-style:none}
+:focus-visible{outline:3px solid var(--mint); outline-offset:3px; border-radius:6px}
+.wrap{width:100%; max-width:var(--max); margin:0 auto; padding:0 24px}
+.eyebrow{font-family:var(--display); font-weight:600; font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:var(--mint-ink)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* buttons */
+.btn{display:inline-flex; align-items:center; gap:9px; font-family:var(--display); font-weight:600; font-size:1rem; padding:13px 22px; border-radius:999px; border:1px solid transparent; cursor:pointer; transition:transform .18s ease, box-shadow .18s ease, background .18s; white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--mint); color:#fff; box-shadow:0 8px 20px rgba(15,185,129,.28)}
+.btn-primary:hover{background:#0da978; box-shadow:0 12px 26px rgba(15,185,129,.34)}
+.btn-ghost{background:var(--surface); color:var(--ink); border-color:var(--hairline); box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{border-color:#cfe0d8}
+.btn-dark{background:var(--ink); color:#fff}
+.btn-dark:hover{background:#12291d}
+
+/* app-store style buttons */
+.store{display:inline-flex; align-items:center; gap:11px; padding:11px 18px; border-radius:14px; background:var(--ink); color:#fff; font-family:var(--body)}
+.store:hover{background:#12291d}
+.store small{display:block; font-size:.68rem; opacity:.75; line-height:1.1; letter-spacing:.02em}
+.store strong{display:block; font-family:var(--display); font-weight:600; font-size:1.02rem; line-height:1.15}
+.store svg{flex:0 0 auto}
+
+/* nav */
+header.nav{position:sticky; top:0; z-index:50; background:rgba(251,252,251,.82); backdrop-filter:saturate(160%) blur(12px); border-bottom:1px solid transparent; transition:border-color .2s, box-shadow .2s}
+header.nav.scrolled{border-color:var(--hairline); box-shadow:0 1px 0 rgba(12,27,20,.03)}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; height:72px; gap:20px}
+.brand{display:flex; align-items:center; gap:10px; font-family:var(--display); font-weight:700; font-size:1.28rem; letter-spacing:-.03em}
+.logo-mark{width:34px; height:34px; border-radius:10px; background:linear-gradient(140deg,var(--mint),#28d39a); display:grid; place-items:center; box-shadow:0 4px 12px rgba(15,185,129,.35)}
+.nav-links{display:none; align-items:center; gap:32px}
+.nav-links a{color:var(--muted); font-weight:500; font-size:.98rem; transition:color .15s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{display:flex; align-items:center; gap:14px}
+.nav-cta .login{font-family:var(--display); font-weight:600; color:var(--ink); display:none}
+.nav-cta .btn-ghost{display:none}
+.hamburger{display:flex; width:44px; height:44px; border:1px solid var(--hairline); background:var(--surface); border-radius:12px; cursor:pointer; align-items:center; justify-content:center; box-shadow:var(--shadow-sm)}
+.hamburger span{display:block; width:19px; height:2px; background:var(--ink); border-radius:2px; position:relative; transition:.22s}
+.hamburger span::before,.hamburger span::after{content:""; position:absolute; left:0; width:19px; height:2px; background:var(--ink); border-radius:2px; transition:.22s}
+.hamburger span::before{top:-6px} .hamburger span::after{top:6px}
+.nav-open .hamburger span{background:transparent}
+.nav-open .hamburger span::before{top:0; transform:rotate(45deg)}
+.nav-open .hamburger span::after{top:0; transform:rotate(-45deg)}
+
+/* mobile menu */
+.mobile-menu{display:block; position:fixed; inset:72px 0 auto 0; background:var(--surface); border-bottom:1px solid var(--hairline); box-shadow:var(--shadow); padding:18px 24px 26px; transform:translateY(-120%); transition:transform .28s cubic-bezier(.2,.7,.2,1); z-index:49}
+.nav-open .mobile-menu{transform:none}
+.mobile-menu a{display:block; padding:13px 0; font-family:var(--display); font-weight:600; font-size:1.1rem; border-bottom:1px solid var(--hairline)}
+.mobile-menu .btn{display:flex; justify-content:center; margin-top:16px; width:100%}
+
+/* hero */
+.hero{position:relative; padding:70px 0 40px; overflow:hidden}
+.hero::before{content:""; position:absolute; inset:0; z-index:-1;
+  background:
+    radial-gradient(60% 50% at 82% 8%, rgba(255,194,75,.18), transparent 60%),
+    radial-gradient(55% 55% at 8% 30%, rgba(15,185,129,.14), transparent 60%);}
+.hero-grid{display:grid; grid-template-columns:1fr; gap:20px; align-items:center; text-align:center}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem); font-weight:800}
+.hero h1 .hl{color:var(--mint-ink); position:relative; white-space:normal}
+.hero h1 .hl::after{content:""; position:absolute; left:0; right:0; bottom:.06em; height:.34em; background:var(--amber); opacity:.5; border-radius:6px; z-index:-1}
+.hero .sub{font-size:1.18rem; color:var(--muted); margin-top:22px; max-width:34ch; margin-left:auto; margin-right:auto}
+.hero-actions{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; justify-content:center}
+.hero-note{margin-top:20px; color:var(--muted); font-size:.95rem; display:flex; align-items:center; gap:8px; justify-content:center}
+.hero-note svg{flex:0 0 auto}
+
+/* phone mockup */
+.phone{position:relative; width:300px; margin:0 auto; aspect-ratio:300/620;
+  background:linear-gradient(160deg,#12241b,#0c1b14); border-radius:44px; padding:13px;
+  box-shadow:var(--shadow-lg); }
+.phone::after{content:""; position:absolute; top:20px; left:50%; transform:translateX(-50%); width:120px; height:26px; background:#0c1b14; border-radius:0 0 16px 16px; z-index:5}
+.phone-screen{position:relative; width:100%; height:100%; border-radius:32px; overflow:hidden; background:var(--bg); display:flex; flex-direction:column}
+.status-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 22px 6px; font-size:.72rem; font-weight:600; font-family:var(--display); color:var(--ink)}
+.status-bar .dots{display:flex; gap:4px; align-items:center}
+.status-bar .dots i{display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--ink)}
+
+.hero-phone-wrap{position:relative}
+.hero-phone-wrap .float{position:absolute; background:var(--surface); border:1px solid var(--hairline); border-radius:16px; box-shadow:var(--shadow); padding:12px 14px; display:flex; align-items:center; gap:11px; z-index:6}
+.float .fico{width:38px; height:38px; border-radius:11px; display:grid; place-items:center; flex:0 0 auto}
+.float b{font-family:var(--display); font-size:.95rem; display:block; line-height:1.2}
+.float small{color:var(--muted); font-size:.78rem}
+.float-1{top:60px; left:-6px}
+.float-2{bottom:96px; right:-8px}
+
+/* app screen bits */
+.app{padding:6px 20px 20px; display:flex; flex-direction:column; gap:14px; overflow:hidden; flex:1}
+.app-top{display:flex; align-items:center; justify-content:space-between}
+.avatar{width:38px; height:38px; border-radius:50%; background:linear-gradient(140deg,var(--amber),#ff9f45); display:grid; place-items:center; font-family:var(--display); font-weight:700; color:#3a2600; font-size:.9rem}
+.app-top .hi small{color:var(--muted); font-size:.72rem; display:block}
+.app-top .hi b{font-family:var(--display); font-size:.95rem}
+.bell{width:34px;height:34px;border-radius:10px;background:var(--surface);border:1px solid var(--hairline);display:grid;place-items:center}
+
+.balance-card{background:linear-gradient(155deg,#0FB981,#0a9c6c 60%,#0b8f63); border-radius:22px; padding:20px; color:#fff; position:relative; overflow:hidden; box-shadow:0 14px 30px rgba(10,122,76,.35)}
+.balance-card::after{content:""; position:absolute; right:-40px; top:-40px; width:150px; height:150px; border-radius:50%; background:rgba(255,255,255,.10)}
+.balance-card .lbl{font-size:.74rem; opacity:.85; letter-spacing:.04em; text-transform:uppercase; font-weight:600}
+.balance-card .amt{font-family:var(--display); font-weight:700; font-size:2.05rem; margin-top:5px; letter-spacing:-.02em}
+.balance-card .amt small{font-size:1.1rem; opacity:.8}
+.balance-card .card-foot{display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:.78rem}
+.balance-card .chip{background:rgba(255,255,255,.16); padding:5px 11px; border-radius:999px; font-weight:600; backdrop-filter:blur(4px)}
+
+.quick{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+.quick .q{background:var(--surface); border:1px solid var(--hairline); border-radius:15px; padding:11px 6px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px}
+.quick .q svg{width:20px;height:20px}
+.quick .q span{font-size:.68rem; font-weight:600; color:var(--muted); font-family:var(--display)}
+.qcirc{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--mint-soft)}
+
+.tx-list{display:flex; flex-direction:column; gap:2px}
+.tx-list .tt{font-family:var(--display); font-weight:600; font-size:.86rem; margin-bottom:4px; display:flex; justify-content:space-between; align-items:center}
+.tx-list .tt a{font-size:.72rem; color:var(--mint-ink); font-weight:600}
+.tx{display:flex; align-items:center; gap:11px; padding:8px 0; border-bottom:1px solid var(--hairline)}
+.tx:last-child{border-bottom:0}
+.tx .tico{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;flex:0 0 auto;font-size:1rem}
+.tx .tmid{flex:1; min-width:0}
+.tx .tmid b{font-family:var(--display); font-size:.84rem; font-weight:600; display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.tx .tmid small{color:var(--muted); font-size:.72rem}
+.tx .tamt{font-family:var(--display); font-weight:700; font-size:.86rem}
+.tx .tamt.in{color:var(--mint-ink)}
+
+/* generic section */
+section{padding:72px 0}
+.section-head{max-width:640px; margin-bottom:14px}
+.section-head.center{margin:0 auto 52px; text-align:center}
+.section-head h2{font-size:clamp(2rem,4vw,2.9rem); margin-top:14px}
+.section-head p{color:var(--muted); font-size:1.12rem; margin-top:16px}
+
+/* trust chips */
+.trust{padding:34px 0; border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); background:var(--surface)}
+.trust-inner{display:flex; flex-wrap:wrap; gap:14px 34px; align-items:center; justify-content:center}
+.chip-t{display:inline-flex; align-items:center; gap:10px; font-family:var(--display); font-weight:600; font-size:.98rem; color:var(--ink)}
+.chip-t .ci{width:30px;height:30px;border-radius:9px;background:var(--mint-soft); display:grid;place-items:center;color:var(--mint-ink)}
+.trust .sep{width:1px; height:20px; background:var(--hairline); display:none}
+@media (min-width:641px){.trust .sep{display:inline}}
+
+/* features (tab switcher) */
+.features .tabs{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:46px}
+.tab{font-family:var(--display); font-weight:600; font-size:.98rem; padding:11px 20px; border-radius:999px; border:1px solid var(--hairline); background:var(--surface); color:var(--muted); cursor:pointer; transition:.18s; box-shadow:var(--shadow-sm)}
+.tab[aria-selected="true"]{background:var(--ink); color:#fff; border-color:var(--ink)}
+.tab:hover:not([aria-selected="true"]){color:var(--ink); border-color:#cfe0d8}
+.feat-panel{display:grid; grid-template-columns:1fr; gap:34px; align-items:center}
+.feat-panel[hidden]{display:none}
+.feat-copy h3{font-size:clamp(1.7rem,3vw,2.3rem)}
+.feat-copy p{color:var(--muted); font-size:1.1rem; margin-top:16px}
+.feat-panel .feat-copy{order:2; text-align:center}
+.feat-list{margin-top:24px; display:flex; flex-direction:column; gap:14px; text-align:left; max-width:420px; margin-left:auto; margin-right:auto}
+.feat-list li{display:flex; gap:12px; align-items:flex-start; font-weight:500}
+.feat-list .lc{width:26px;height:26px;border-radius:8px;background:var(--mint-soft);color:var(--mint-ink);display:grid;place-items:center;flex:0 0 auto;margin-top:1px}
+.feat-visual{display:flex; justify-content:center; position:relative}
+.feat-visual::before{content:""; position:absolute; inset:8% 12%; background:radial-gradient(closest-side, rgba(15,185,129,.14), transparent); z-index:-1}
+.feat-panel.rev .feat-copy{order:2}
+
+/* send money screen */
+.send-screen{padding:18px 20px; display:flex; flex-direction:column; gap:14px; flex:1}
+.send-head{display:flex; align-items:center; gap:12px; font-family:var(--display); font-weight:600}
+.send-head .back{width:34px;height:34px;border-radius:10px;border:1px solid var(--hairline);display:grid;place-items:center;background:var(--surface)}
+.send-to{background:var(--surface); border:1px solid var(--hairline); border-radius:16px; padding:14px; display:flex; align-items:center; gap:12px}
+.send-to .avatar{background:linear-gradient(140deg,#7bd7ff,#4aa8ff); color:#062a45}
+.send-to b{font-family:var(--display); font-size:.95rem; display:block}
+.send-to small{color:var(--muted); font-size:.78rem}
+.send-amt{text-align:center; padding:14px 0}
+.send-amt small{color:var(--muted); font-size:.76rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em}
+.send-amt .big{font-family:var(--display); font-weight:800; font-size:3rem; letter-spacing:-.03em; margin-top:6px}
+.send-amt .fee{color:var(--mint-ink); font-weight:600; font-size:.82rem; margin-top:4px}
+.keypad{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:auto}
+.keypad button{font-family:var(--display); font-weight:600; font-size:1.25rem; padding:12px 0; border:0; background:var(--surface); border:1px solid var(--hairline); border-radius:14px; color:var(--ink); cursor:default}
+.send-cta{background:var(--mint); color:#fff; text-align:center; padding:15px; border-radius:16px; font-family:var(--display); font-weight:600; font-size:1.02rem; box-shadow:0 10px 22px rgba(15,185,129,.3)}
+
+/* spend / chart screen */
+.spend-screen{padding:18px 20px; display:flex; flex-direction:column; gap:14px; flex:1}
+.spend-head{font-family:var(--display); font-weight:600; display:flex; justify-content:space-between; align-items:center}
+.spend-head small{color:var(--muted); font-weight:500; font-size:.78rem}
+.spend-total{font-family:var(--display); font-weight:800; font-size:1.9rem; letter-spacing:-.02em}
+.spend-total span{font-size:.8rem; color:var(--muted); font-weight:500; display:block; letter-spacing:0}
+.bars{display:flex; align-items:flex-end; gap:9px; height:120px; padding:8px 4px; border-bottom:1px solid var(--hairline)}
+.bars .bar{flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end}
+.bars .bar .col{width:100%; border-radius:8px 8px 4px 4px; background:linear-gradient(180deg,#2fd39c,#0FB981); transition:height .8s cubic-bezier(.2,.7,.2,1)}
+.bars .bar.pk .col{background:linear-gradient(180deg,#ffce6b,#FFC24B)}
+.bars .bar small{font-size:.66rem; color:var(--muted); font-weight:600}
+.cat-list{display:flex; flex-direction:column; gap:10px; margin-top:4px}
+.cat{display:flex; align-items:center; gap:11px}
+.cat .cdot{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:.95rem;flex:0 0 auto}
+.cat .cmid{flex:1}
+.cat .cmid b{font-family:var(--display); font-size:.84rem; display:block}
+.cat .track{height:6px; background:var(--hairline); border-radius:4px; margin-top:5px; overflow:hidden}
+.cat .track i{display:block; height:100%; border-radius:4px; background:var(--mint)}
+.cat .cval{font-family:var(--display); font-weight:700; font-size:.82rem}
+
+/* save/goals screen */
+.save-screen{padding:18px 20px; display:flex; flex-direction:column; gap:14px; flex:1}
+.goal-card{border-radius:18px; padding:16px; color:#fff; position:relative; overflow:hidden}
+.goal-card.g1{background:linear-gradient(150deg,#0FB981,#0a8f63)}
+.goal-card.g2{background:linear-gradient(150deg,#4aa8ff,#2f7fe0)}
+.goal-card .gt{font-family:var(--display); font-weight:600; font-size:.95rem; display:flex; align-items:center; gap:8px}
+.goal-card .ga{font-family:var(--display); font-weight:800; font-size:1.5rem; margin-top:8px; letter-spacing:-.02em}
+.goal-card .ga small{font-weight:500; opacity:.8; font-size:.8rem}
+.goal-card .gtrack{height:7px; background:rgba(255,255,255,.28); border-radius:4px; margin-top:12px; overflow:hidden}
+.goal-card .gtrack i{display:block; height:100%; background:#fff; border-radius:4px}
+.goal-card .gmeta{display:flex; justify-content:space-between; font-size:.74rem; margin-top:8px; opacity:.9}
+.save-hint{background:var(--amber-soft); border:1px solid #ffe4a8; border-radius:14px; padding:12px 14px; display:flex; gap:10px; align-items:center; font-size:.82rem; font-weight:500}
+.save-hint .sh{width:32px;height:32px;border-radius:10px;background:var(--amber);display:grid;place-items:center;flex:0 0 auto}
+
+/* numbers band */
+.numbers{background:var(--ink); color:#fff; border-radius:0; padding:80px 0}
+.numbers .section-head h2{color:#fff}
+.num-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px 24px; margin-top:10px}
+.num{padding:8px 0}
+.num .big{font-family:var(--display); font-weight:800; font-size:clamp(2.2rem,4vw,3.1rem); letter-spacing:-.02em; color:#fff}
+.num .big .u{color:var(--amber)}
+.num .lbl{color:#9fb5aa; margin-top:6px; font-size:.98rem}
+.num-grid .num+.num{border-left:0; padding-left:0}
+
+/* testimonials */
+.t-grid{display:grid; grid-template-columns:1fr; gap:22px}
+.t-card{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-lg); padding:26px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:16px}
+.t-card .stars{color:var(--amber); font-size:1rem; letter-spacing:2px}
+.t-card blockquote{margin:0; font-size:1.04rem; line-height:1.55}
+.t-card .who{display:flex; align-items:center; gap:12px; margin-top:auto}
+.t-card .who .avatar{width:42px;height:42px;font-size:1rem}
+.t-card .who b{font-family:var(--display); font-size:.95rem; display:block}
+.t-card .who small{color:var(--muted); font-size:.82rem}
+
+/* download band */
+.download{padding:0 0 96px}
+.dl-card{background:linear-gradient(150deg,#0FB981,#0a8f63); border-radius:var(--r-xl); padding:40px 28px; color:#fff; position:relative; overflow:hidden; display:grid; grid-template-columns:1fr; gap:30px; align-items:center; box-shadow:var(--shadow-lg); text-align:center}
+.dl-card::before{content:""; position:absolute; right:-60px; bottom:-80px; width:280px; height:280px; border-radius:50%; background:rgba(255,255,255,.09)}
+.dl-card h2{color:#fff; font-size:clamp(1.9rem,3.4vw,2.7rem)}
+.dl-card p{margin-top:14px; font-size:1.1rem; opacity:.92; max-width:40ch}
+.dl-actions{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap; justify-content:center}
+.dl-card .store{background:rgba(255,255,255,.14); backdrop-filter:blur(4px)}
+.dl-card .store:hover{background:rgba(255,255,255,.22)}
+.qr-box{background:#fff; border-radius:20px; padding:20px; text-align:center; color:var(--ink); box-shadow:var(--shadow); justify-self:center; width:220px; position:relative; z-index:1}
+.qr-box .qr{width:150px; height:150px; margin:0 auto 12px; border-radius:12px; display:block}
+.qr-box b{font-family:var(--display); font-size:.92rem; display:block}
+.qr-box small{color:var(--muted); font-size:.78rem}
+
+/* footer */
+footer{background:var(--surface); border-top:1px solid var(--hairline); padding:64px 0 34px}
+.foot-grid{display:grid; grid-template-columns:1fr; gap:34px}
+.foot-brand p{color:var(--muted); margin-top:16px; font-size:.96rem; max-width:32ch}
+.foot-col h4{font-family:var(--display); font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:14px}
+.foot-col a{display:block; color:var(--ink); padding:6px 0; font-size:.96rem; font-weight:500}
+.foot-col a:hover{color:var(--mint-ink)}
+.foot-bottom{margin-top:48px; padding-top:24px; border-top:1px solid var(--hairline); display:flex; flex-direction:column; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; color:var(--muted); font-size:.9rem}
+.foot-bottom .demo{display:inline-flex; align-items:center; gap:8px; background:var(--mint-soft); color:var(--mint-ink); padding:6px 13px; border-radius:999px; font-weight:600; font-size:.82rem}
+
+/* reveal */
+.reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1; transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none}
+ .bars .bar .col{transition:none}}
+
+/* responsive (mobile-first) */
+@media (min-width:421px){
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .hero h1 .hl{white-space:nowrap}
+}
+@media (min-width:721px){
+  .nav-links{display:flex}
+  .nav-cta .login{display:inline}
+  .nav-cta .btn-ghost{display:inline-flex}
+  .hamburger{display:none}
+  .mobile-menu{display:none}
+  section{padding:96px 0}
+  .foot-bottom{flex-direction:row; align-items:center}
+}
+@media (min-width:961px){
+  .hero-grid{grid-template-columns:1.05fr .95fr; gap:40px; text-align:left}
+  .hero .sub{margin-left:0; margin-right:0}
+  .hero-actions{justify-content:flex-start}
+  .hero-note{justify-content:flex-start}
+  .float-1{left:-26px} .float-2{right:-30px}
+  .feat-panel{grid-template-columns:1fr 1fr; gap:60px}
+  .feat-panel .feat-copy{order:0; text-align:left}
+  .feat-list{max-width:none; margin-left:0; margin-right:0}
+  .num-grid{grid-template-columns:repeat(4,1fr); gap:24px}
+  .num-grid .num+.num{border-left:1px solid rgba(255,255,255,.1); padding-left:24px}
+  .t-grid{grid-template-columns:repeat(3,1fr)}
+  .dl-card{grid-template-columns:1.2fr .8fr; text-align:left; padding:56px}
+  .dl-actions{justify-content:flex-start}
+  .qr-box{justify-self:end}
+  .foot-grid{grid-template-columns:1.6fr 1fr 1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="Kaya home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3v18M6 12l9-9M6 12l9 9" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Kaya
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#numbers">Why Kaya</a>
+      <a href="#loved">Reviews</a>
+      <a href="#download">Download</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="login">Log in</a>
+      <a href="#download" class="btn btn-primary">Get the app</a>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="#features">Features</a>
+    <a href="#numbers">Why Kaya</a>
+    <a href="#loved">Reviews</a>
+    <a href="#download">Download</a>
+    <a href="#" class="login">Log in</a>
+    <a href="#download" class="btn btn-primary">Get the app</a>
+  </nav>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Money, made light</span>
+      <h1 id="hero-h">Your money,<br>finally <span class="hl">effortless</span>.</h1>
+      <p class="sub">Send for ₱0, save on autopilot, and see exactly where every peso goes — all from one friendly app built for how Filipinos really spend.</p>
+      <div class="hero-actions">
+        <a href="#download" class="store" aria-label="Download on the App Store">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.6c.1 1-.3 2-1 2.8-.6.8-1.7 1.4-2.7 1.3-.1-1 .4-2 1-2.7.7-.8 1.8-1.4 2.7-1.4zM19.9 17c-.5 1.2-.8 1.7-1.5 2.7-1 1.5-2.4 3.3-4.1 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.7 0-3-1.7-4-3.1C-.4 15.4-.7 9.3 1.9 6.4 3 5 4.7 4.2 6.3 4.2c1.7 0 2.8 1 4.2 1 1.4 0 2.2-1 4.2-1 1.5 0 3 .8 4.1 2.2-3.6 2-3 7.1 1.1 8.6z"/></svg>
+          <span><small>Download on the</small><strong>App Store</strong></span>
+        </a>
+        <a href="#download" class="store" aria-label="Get it on Google Play">
+          <svg width="22" height="22" viewBox="0 0 24 24"><path d="M3.6 1.8 13.9 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z" fill="#0FB981"/><path d="M17.5 8.3 14.9 12l2.6 3.7 3.2-1.8c.9-.5.9-1.8 0-2.3l-3.2-1.3z" fill="#FFC24B"/><path d="M3.6 1.8c.3-.2.7-.2 1.1 0l11.1 6.3-2.9 2.9L3.6 1.8z" fill="#28d39a"/><path d="M13.9 12l2.9 2.9L4.7 22.2c-.4.2-.8.2-1.1 0L13.9 12z" fill="#0a8f63"/></svg>
+          <span><small>Get it on</small><strong>Google Play</strong></span>
+        </a>
+      </div>
+      <p class="hero-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 4.5-3 8.3-7 9.5C8 19.3 5 15.5 5 11V5l7-3z" fill="#E6F7F0" stroke="#0FB981" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="#0FB981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Bank-grade security · Free to open · No hidden fees
+      </p>
+    </div>
+
+    <div class="hero-phone-wrap reveal">
+      <div class="float float-1">
+        <span class="fico" style="background:var(--mint-soft)" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0A7A55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span><b>+ ₱1,500</b><small>from Ate Jamie</small></span>
+      </div>
+      <div class="float float-2">
+        <span class="fico" style="background:var(--amber-soft)" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 8h7a3 3 0 010 6H8m9 3H9" stroke="#B57A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span><b>Goal 78%</b><small>Japan trip fund</small></span>
+      </div>
+
+      <!-- PHONE: Home / balance -->
+      <div class="phone" role="img" aria-label="Kaya app home screen showing a ₱42,860 balance, quick actions, and recent transactions">
+        <div class="phone-screen">
+          <div class="status-bar"><span>9:41</span><span class="dots"><i></i><i></i><i></i> Kaya</span></div>
+          <div class="app">
+            <div class="app-top">
+              <div style="display:flex;align-items:center;gap:11px">
+                <span class="avatar" aria-hidden="true">M</span>
+                <span class="hi"><small>Magandang umaga</small><b>Migs Reyes</b></span>
+              </div>
+              <span class="bell" aria-hidden="true">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 1112 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="#0C1B14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="#0C1B14" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </span>
+            </div>
+
+            <div class="balance-card">
+              <div class="lbl">Total balance</div>
+              <div class="amt">₱<span id="balCount" data-target="42860">0</span><small>.50</small></div>
+              <div class="card-foot">
+                <span class="chip">•••• 4921</span>
+                <span style="opacity:.9">+8.2% this month</span>
+              </div>
+            </div>
+
+            <div class="quick" aria-hidden="true">
+              <div class="q"><span class="qcirc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M14 6l6 6-6 6" stroke="#0A7A55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Send</span></div>
+              <div class="q"><span class="qcirc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 12H4M10 6L4 12l6 6" stroke="#0A7A55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Request</span></div>
+              <div class="q"><span class="qcirc" style="background:var(--amber-soft)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="#B57A00" stroke-width="2" stroke-linecap="round"/></svg></span><span>Top up</span></div>
+              <div class="q"><span class="qcirc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.5" stroke="#0A7A55" stroke-width="2"/><rect x="13" y="4" width="7" height="7" rx="1.5" stroke="#0A7A55" stroke-width="2"/><rect x="4" y="13" width="7" height="7" rx="1.5" stroke="#0A7A55" stroke-width="2"/></svg></span><span>Scan</span></div>
+            </div>
+
+            <div class="tx-list">
+              <div class="tt">Recent activity <a href="#" tabindex="-1" aria-hidden="true">See all</a></div>
+              <div class="tx">
+                <span class="tico" style="background:var(--mint-soft)" aria-hidden="true">🛵</span>
+                <span class="tmid"><b>Grab ride</b><small>Today · 8:12 AM</small></span>
+                <span class="tamt">−₱148</span>
+              </div>
+              <div class="tx">
+                <span class="tico" style="background:var(--amber-soft)" aria-hidden="true">☕</span>
+                <span class="tmid"><b>Kape Batangas</b><small>Today · 7:40 AM</small></span>
+                <span class="tamt">−₱95</span>
+              </div>
+              <div class="tx">
+                <span class="tico" style="background:var(--mint-soft)" aria-hidden="true">💸</span>
+                <span class="tmid"><b>From Ate Jamie</b><small>Yesterday · 9:02 PM</small></span>
+                <span class="tamt in">+₱1,500</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust reveal">
+  <div class="wrap trust-inner">
+    <span class="chip-t"><span class="ci"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 3v6c0 4.5-3 8.3-7 9.5C8 19.3 5 15.5 5 11V5l7-3z" stroke="#0A7A55" stroke-width="1.8"/><path d="M9 12l2 2 4-4" stroke="#0A7A55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bank-grade security</span>
+    <span class="sep"></span>
+    <span class="chip-t"><span class="ci"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-6 9 6v1H3v-1z" stroke="#0A7A55" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 11v7M10 11v7M14 11v7M19 11v7M3 20h18" stroke="#0A7A55" stroke-width="1.8" stroke-linecap="round"/></svg></span>BSP-regulated e-money</span>
+    <span class="sep"></span>
+    <span class="chip-t"><span class="ci"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 8h7a3 3 0 010 6H8" stroke="#0A7A55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>₱0 fees to send</span>
+    <span class="sep"></span>
+    <span class="chip-t"><span class="ci"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="#0A7A55" stroke-width="1.8"/><path d="M8 12l3 3 5-6" stroke="#0A7A55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Deposits insured</span>
+  </div>
+</div>
+
+<!-- FEATURES (tab switcher swaps phone screen) -->
+<section class="features" id="features" aria-labelledby="feat-h">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">One app, everything money</span>
+      <h2 id="feat-h">Do more with every peso</h2>
+      <p>Send, save, and spend without switching apps. Tap a feature to see it in action.</p>
+    </div>
+
+    <div class="tabs reveal" role="tablist" aria-label="App features">
+      <button class="tab" id="tab-send" role="tab" aria-selected="true" aria-controls="panel-send">Send money</button>
+      <button class="tab" id="tab-save" role="tab" aria-selected="false" aria-controls="panel-save" tabindex="-1">Save &amp; goals</button>
+      <button class="tab" id="tab-spend" role="tab" aria-selected="false" aria-controls="panel-spend" tabindex="-1">Track spending</button>
+    </div>
+
+    <!-- Panel: SEND -->
+    <div class="feat-panel reveal" id="panel-send" role="tabpanel" aria-labelledby="tab-send" tabindex="0">
+      <div class="feat-copy">
+        <span class="eyebrow">Send money</span>
+        <h3>Send to anyone, in seconds — for ₱0.</h3>
+        <p>Pay a friend, split the bill, or send load to Lola. Kaya moves money to any Kaya user, bank, or e-wallet instantly, with no fees eating into what you send.</p>
+        <ul class="feat-list">
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free transfers to Kaya, banks &amp; InstaPay</li>
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Split bills and request from the barkada</li>
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Scan-to-pay at 200,000+ stores nationwide</li>
+        </ul>
+      </div>
+      <div class="feat-visual">
+        <div class="phone" role="img" aria-label="Send money screen: sending ₱850 to Jerome Santos with ₱0 fee">
+          <div class="phone-screen">
+            <div class="status-bar"><span>9:41</span><span class="dots"><i></i><i></i><i></i> Kaya</span></div>
+            <div class="send-screen">
+              <div class="send-head"><span class="back" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#0C1B14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Send money</div>
+              <div class="send-to">
+                <span class="avatar" aria-hidden="true">J</span>
+                <span><b>Jerome Santos</b><small>Kaya · 0917 •• 4432</small></span>
+              </div>
+              <div class="send-amt">
+                <small>You're sending</small>
+                <div class="big">₱850</div>
+                <div class="fee">✓ ₱0 transfer fee</div>
+              </div>
+              <div class="keypad" aria-hidden="true">
+                <button>1</button><button>2</button><button>3</button>
+                <button>4</button><button>5</button><button>6</button>
+                <button>7</button><button>8</button><button>9</button>
+                <button>.</button><button>0</button><button>⌫</button>
+              </div>
+              <div class="send-cta" role="button" aria-hidden="true">Slide to send →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: SAVE -->
+    <div class="feat-panel rev reveal" id="panel-save" role="tabpanel" aria-labelledby="tab-save" tabindex="0" hidden>
+      <div class="feat-copy">
+        <span class="eyebrow">Save &amp; goals</span>
+        <h3>Reach your goals without thinking about it.</h3>
+        <p>Create a Pocket for anything — an emergency fund, a Japan trip, that new phone — and let Kaya round up your spare change and auto-save every payday.</p>
+        <ul class="feat-list">
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Earn up to 6% p.a. on your Savings Pocket</li>
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Auto-save on payday, round up spare change</li>
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Withdraw anytime, zero lock-in periods</li>
+        </ul>
+      </div>
+      <div class="feat-visual">
+        <div class="phone" role="img" aria-label="Savings goals screen showing a Japan trip fund at 78% and emergency fund at 45%">
+          <div class="phone-screen">
+            <div class="status-bar"><span>9:41</span><span class="dots"><i></i><i></i><i></i> Kaya</span></div>
+            <div class="save-screen">
+              <div class="spend-head" style="margin-bottom:2px">My Pockets <small>2 active</small></div>
+              <div class="goal-card g1">
+                <div class="gt">🗾 Japan trip fund</div>
+                <div class="ga">₱78,400 <small>/ ₱100,000</small></div>
+                <div class="gtrack"><i style="width:78%"></i></div>
+                <div class="gmeta"><span>78% saved</span><span>+₱1,200 / week</span></div>
+              </div>
+              <div class="goal-card g2">
+                <div class="gt">🛟 Emergency fund</div>
+                <div class="ga">₱22,500 <small>/ ₱50,000</small></div>
+                <div class="gtrack"><i style="width:45%"></i></div>
+                <div class="gmeta"><span>45% saved</span><span>Earning 6% p.a.</span></div>
+              </div>
+              <div class="save-hint">
+                <span class="sh" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M7 8h7a3 3 0 010 6H8" stroke="#3a2600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                Round-ups added <b style="font-family:var(--display)">&nbsp;₱42.50&nbsp;</b> this week.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: SPEND -->
+    <div class="feat-panel reveal" id="panel-spend" role="tabpanel" aria-labelledby="tab-spend" tabindex="0" hidden>
+      <div class="feat-copy">
+        <span class="eyebrow">Track spending</span>
+        <h3>See where your money really goes.</h3>
+        <p>Every transaction is sorted automatically into clear categories, so you always know what's left before the next payday — no spreadsheets required.</p>
+        <ul class="feat-list">
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Auto-categorised spending, updated live</li>
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Weekly insights &amp; budget nudges</li>
+          <li><span class="lc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 6" stroke="#0A7A55" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Set limits and get a ping before you overspend</li>
+        </ul>
+      </div>
+      <div class="feat-visual">
+        <div class="phone" role="img" aria-label="Spending tracker screen with a weekly bar chart and category breakdown">
+          <div class="phone-screen">
+            <div class="status-bar"><span>9:41</span><span class="dots"><i></i><i></i><i></i> Kaya</span></div>
+            <div class="spend-screen">
+              <div class="spend-head">Spending <small>This week</small></div>
+              <div class="spend-total">₱6,240<span>of ₱8,000 weekly budget</span></div>
+              <div class="bars" aria-hidden="true">
+                <div class="bar"><span class="col" style="height:40%"></span><small>M</small></div>
+                <div class="bar"><span class="col" style="height:62%"></span><small>T</small></div>
+                <div class="bar"><span class="col" style="height:35%"></span><small>W</small></div>
+                <div class="bar pk"><span class="col" style="height:88%"></span><small>T</small></div>
+                <div class="bar"><span class="col" style="height:54%"></span><small>F</small></div>
+                <div class="bar"><span class="col" style="height:70%"></span><small>S</small></div>
+                <div class="bar"><span class="col" style="height:28%"></span><small>S</small></div>
+              </div>
+              <div class="cat-list">
+                <div class="cat">
+                  <span class="cdot" style="background:var(--mint-soft)" aria-hidden="true">🍚</span>
+                  <span class="cmid"><b>Food &amp; drinks</b><span class="track"><i style="width:72%"></i></span></span>
+                  <span class="cval">₱2,480</span>
+                </div>
+                <div class="cat">
+                  <span class="cdot" style="background:var(--amber-soft)" aria-hidden="true">🛵</span>
+                  <span class="cmid"><b>Transport</b><span class="track"><i style="width:48%;background:var(--amber)"></i></span></span>
+                  <span class="cval">₱1,640</span>
+                </div>
+                <div class="cat">
+                  <span class="cdot" style="background:var(--mint-soft)" aria-hidden="true">🛍️</span>
+                  <span class="cmid"><b>Shopping</b><span class="track"><i style="width:34%"></i></span></span>
+                  <span class="cval">₱1,120</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="numbers" id="numbers" aria-labelledby="num-h">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-bottom:40px">
+      <span class="eyebrow" style="color:var(--amber)">Trusted across the PH</span>
+      <h2 id="num-h">Filipinos are moving money the Kaya way</h2>
+    </div>
+    <div class="num-grid reveal">
+      <div class="num"><div class="big">3.4<span class="u">M</span></div><div class="lbl">Active Kaya users</div></div>
+      <div class="num"><div class="big"><span class="u">₱</span>128<span class="u">B</span></div><div class="lbl">Moved every year</div></div>
+      <div class="num"><div class="big"><span class="u">₱</span>0</div><div class="lbl">Fees to send money</div></div>
+      <div class="num"><div class="big">4.9<span class="u">★</span></div><div class="lbl">Average app rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="loved" aria-labelledby="loved-h">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <span class="eyebrow">Loved by the community</span>
+      <h2 id="loved-h">People who switched aren't going back</h2>
+    </div>
+    <div class="t-grid">
+      <figure class="t-card reveal">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"Zero fees when I send to my mom in the province — that alone saved me thousands this year. Ang bilis pa mag-transfer."</blockquote>
+        <figcaption class="who"><span class="avatar" aria-hidden="true">A</span><span><b>Andrea Lim</b><small>Nurse · Cebu</small></span></figcaption>
+      </figure>
+      <figure class="t-card reveal">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"The Pockets feature made saving actually fun. I hit my emergency fund goal in six months without even noticing."</blockquote>
+        <figcaption class="who"><span class="avatar" aria-hidden="true">P</span><span><b>Paolo Mendoza</b><small>Freelancer · Manila</small></span></figcaption>
+      </figure>
+      <figure class="t-card reveal">
+        <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>"I finally see where my sahod goes each week. The spending chart is a wake-up call in the best way possible."</blockquote>
+        <figcaption class="who"><span class="avatar" aria-hidden="true">R</span><span><b>Rhea Villanueva</b><small>Teacher · Davao</small></span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="download" aria-labelledby="dl-h">
+  <div class="wrap">
+    <div class="dl-card reveal">
+      <div>
+        <span class="eyebrow" style="color:var(--amber)">Get started free</span>
+        <h2 id="dl-h">Open your Kaya account in 3 minutes</h2>
+        <p>No maintaining balance, no paperwork. Scan the code or grab it from your app store — your money, made light.</p>
+        <div class="dl-actions">
+          <a href="#" class="store" aria-label="Download on the App Store">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M16.5 1.6c.1 1-.3 2-1 2.8-.6.8-1.7 1.4-2.7 1.3-.1-1 .4-2 1-2.7.7-.8 1.8-1.4 2.7-1.4zM19.9 17c-.5 1.2-.8 1.7-1.5 2.7-1 1.5-2.4 3.3-4.1 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.7 0-3-1.7-4-3.1C-.4 15.4-.7 9.3 1.9 6.4 3 5 4.7 4.2 6.3 4.2c1.7 0 2.8 1 4.2 1 1.4 0 2.2-1 4.2-1 1.5 0 3 .8 4.1 2.2-3.6 2-3 7.1 1.1 8.6z"/></svg>
+            <span><small>Download on the</small><strong>App Store</strong></span>
+          </a>
+          <a href="#" class="store" aria-label="Get it on Google Play">
+            <svg width="22" height="22" viewBox="0 0 24 24"><path d="M3.6 1.8 13.9 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z" fill="#fff"/><path d="M17.5 8.3 14.9 12l2.6 3.7 3.2-1.8c.9-.5.9-1.8 0-2.3l-3.2-1.3z" fill="#FFC24B"/><path d="M3.6 1.8c.3-.2.7-.2 1.1 0l11.1 6.3-2.9 2.9L3.6 1.8z" fill="#bff0dd"/><path d="M13.9 12l2.9 2.9L4.7 22.2c-.4.2-.8.2-1.1 0L13.9 12z" fill="#d7f3e8"/></svg>
+            <span><small>Get it on</small><strong>Google Play</strong></span>
+          </a>
+        </div>
+      </div>
+      <div class="qr-box">
+        <svg class="qr" viewBox="0 0 100 100" role="img" aria-label="QR code to download the Kaya app (demo)">
+          <rect width="100" height="100" fill="#fff"/>
+          <g fill="#0C1B14">
+            <path d="M8 8h24v24H8zM12 12v16h16V12z" fill-rule="evenodd"/><rect x="16" y="16" width="8" height="8"/>
+            <path d="M68 8h24v24H68zM72 12v16h16V12z" fill-rule="evenodd"/><rect x="76" y="16" width="8" height="8"/>
+            <path d="M8 68h24v24H8zM12 72v16h16V72z" fill-rule="evenodd"/><rect x="16" y="76" width="8" height="8"/>
+            <rect x="40" y="8" width="6" height="6"/><rect x="52" y="8" width="6" height="6"/><rect x="40" y="20" width="6" height="6"/>
+            <rect x="60" y="20" width="6" height="6"/><rect x="8" y="40" width="6" height="6"/><rect x="20" y="40" width="6" height="6"/>
+            <rect x="32" y="40" width="6" height="6"/><rect x="44" y="40" width="6" height="6"/><rect x="56" y="40" width="6" height="6"/>
+            <rect x="68" y="40" width="6" height="6"/><rect x="80" y="40" width="6" height="6"/><rect x="40" y="52" width="6" height="6"/>
+            <rect x="52" y="52" width="6" height="6"/><rect x="64" y="52" width="6" height="6"/><rect x="76" y="52" width="6" height="6"/>
+            <rect x="40" y="64" width="6" height="6"/><rect x="88" y="52" width="6" height="6"/><rect x="52" y="64" width="6" height="6"/>
+            <rect x="72" y="64" width="6" height="6"/><rect x="84" y="64" width="6" height="6"/><rect x="40" y="76" width="6" height="6"/>
+            <rect x="60" y="72" width="6" height="6"/><rect x="52" y="84" width="6" height="6"/><rect x="64" y="84" width="6" height="6"/>
+            <rect x="76" y="76" width="6" height="6"/><rect x="88" y="84" width="6" height="6"/><rect x="72" y="88" width="6" height="6"/>
+          </g>
+        </svg>
+        <b>Scan to download</b>
+        <small>Point your camera here</small>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand" aria-label="Kaya home">
+          <span class="logo-mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3v18M6 12l9-9M6 12l9 9" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Kaya
+        </a>
+        <p>The effortless money app built for how Filipinos really send, save, and spend.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#features">Send money</a>
+        <a href="#features">Save &amp; goals</a>
+        <a href="#features">Track spending</a>
+        <a href="#download">Download</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">About Kaya</a>
+        <a href="#">Careers</a>
+        <a href="#">Newsroom</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Security</a>
+        <a href="#">Help Center</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Kaya Financial (demo). All rights reserved.</span>
+      <span class="demo">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#0A7A55" stroke-width="1.8"/><path d="M12 8h.01M11 12h1v4h1" stroke="#0A7A55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Fictional product · portfolio demo
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* sticky nav shadow */
+  var nav = document.getElementById("nav");
+  function onScroll(){ nav.classList.toggle("scrolled", window.scrollY > 8); }
+  onScroll(); window.addEventListener("scroll", onScroll, {passive:true});
+
+  /* hamburger */
+  var burger = document.getElementById("hamburger");
+  var body = document.body;
+  burger.addEventListener("click", function(){
+    var open = body.classList.toggle("nav-open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  document.getElementById("mobileMenu").addEventListener("click", function(e){
+    if(e.target.tagName === "A"){ body.classList.remove("nav-open"); burger.setAttribute("aria-expanded","false"); }
+  });
+
+  /* scroll reveal */
+  var reveals = document.querySelectorAll(".reveal");
+  if(reduce || !("IntersectionObserver" in window)){
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, {threshold:.14, rootMargin:"0px 0px -40px 0px"});
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* balance count-up */
+  var bal = document.getElementById("balCount");
+  function fmt(n){ return n.toLocaleString("en-PH"); }
+  function countUp(){
+    var target = parseInt(bal.dataset.target, 10);
+    if(reduce){ bal.textContent = fmt(target); return; }
+    var start = null, dur = 1400;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start)/dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      bal.textContent = fmt(Math.round(target * eased));
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if("IntersectionObserver" in window){
+    var bo = new IntersectionObserver(function(e){
+      if(e[0].isIntersecting){ countUp(); bo.disconnect(); }
+    }, {threshold:.5});
+    bo.observe(bal);
+  } else { countUp(); }
+
+  /* feature tab switcher */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab[role="tab"]'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute("aria-controls"));
+      panel.hidden = !on;
+      if(on) panel.classList.add("in");
+    });
+  }
+  tabs.forEach(function(tab, i){
+    tab.addEventListener("click", function(){ select(tab); });
+    tab.addEventListener("keydown", function(e){
+      var idx = null;
+      if(e.key === "ArrowRight") idx = (i+1) % tabs.length;
+      else if(e.key === "ArrowLeft") idx = (i-1+tabs.length) % tabs.length;
+      if(idx !== null){ e.preventDefault(); tabs[idx].focus(); select(tabs[idx]); }
+    });
+  });
+
+  /* smooth anchor focus handling for a11y (native smooth-scroll via CSS) */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click", function(e){
+      var id = a.getAttribute("href");
+      if(id.length < 2) return;
+      var el = document.querySelector(id);
+      if(el){ e.preventDefault(); el.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+        history.replaceState(null,"",id);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting Started · Baybay Docs</title>
+<meta name="description" content="Install Baybay, scaffold a project, run the dev server, write your first page, and deploy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <button class="nav-toggle" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="wordmark" href="index.html">baybay<span class="cursor-block">▮</span><span class="version">v1.4.2</span></a>
+  <div class="header-spacer"></div>
+  <button class="search-button" type="button">
+    <span aria-hidden="true">🔍</span>
+    <span class="search-label">Search docs…</span>
+    <span class="kbd-hint">Ctrl K</span>
+  </button>
+  <nav class="header-links" aria-label="External">
+    <a href="cli.html">CLI</a>
+    <a href="configuration.html">Config</a>
+  </nav>
+</header>
+
+<div class="layout with-toc">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation">
+    <h2>Introduction</h2>
+    <ul>
+      <li><a href="index.html">What is Baybay?</a></li>
+    </ul>
+    <h2>Guides</h2>
+    <ul>
+      <li><a href="getting-started.html" aria-current="page">Getting Started</a></li>
+    </ul>
+    <h2>Reference</h2>
+    <ul>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="cli.html">CLI Commands</a></li>
+    </ul>
+  </nav>
+  <button class="sidebar-backdrop" aria-label="Close navigation" tabindex="-1"></button>
+
+  <main class="content" id="main">
+    <article>
+      <p class="breadcrumb"><a href="index.html">Docs</a> / Guides / Getting Started</p>
+      <h1>Getting Started</h1>
+      <p class="lede">This tutorial takes you from an empty terminal to a deployed site. It should take about ten minutes, most of which is reading.</p>
+
+      <h2 id="prerequisites">Prerequisites</h2>
+      <p>You need exactly two things:</p>
+      <ul>
+        <li><strong>Node.js 18 or newer.</strong> Check with <code>node --version</code>.</li>
+        <li><strong>A terminal.</strong> Any shell works — the examples below use a POSIX prompt, but every command is identical on Windows.</li>
+      </ul>
+      <p>No global build tools, no Python, no Ruby. If you can run <code>npm</code>, you can run Baybay.</p>
+
+      <h2 id="install">1. Install the CLI</h2>
+      <p>Baybay ships as a single npm package with zero runtime dependencies:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">npm install -g baybay</span>
+<span class="dim">added 1 package in 3.1s</span></code></pre>
+      </div>
+      <p>Verify the install:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay --version</span>
+baybay/1.4.2 node/v20.11.1 (darwin-arm64)</code></pre>
+      </div>
+      <div class="callout">
+        <span class="callout-label">Note</span>
+        <p>Prefer project-local installs? <code>npx baybay</code> works for every command in these docs — nothing below assumes a global install.</p>
+      </div>
+
+      <h2 id="scaffold">2. Scaffold a project</h2>
+      <p><code>baybay new</code> creates a minimal, working site. It asks no questions unless you pass <code>--template</code>:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay new my-site</span>
+<span class="ok">✔</span> Created my-site/
+<span class="ok">✔</span> Wrote 7 files (default template)
+
+  my-site/
+  ├── baybay.config.js
+  ├── src/
+  │   ├── index.md
+  │   ├── about.md
+  │   └── _layout.html
+  ├── static/
+  │   └── style.css
+  ├── package.json
+  └── .gitignore
+
+<span class="dim">  next:  cd my-site && baybay dev</span></code></pre>
+      </div>
+      <p>Every file in the scaffold is meant to be read and edited. There is no hidden machinery: <code>src/</code> holds your content, <code>_layout.html</code> wraps every page, and <code>static/</code> is copied to the output verbatim.</p>
+
+      <h2 id="dev-server">3. Run the dev server</h2>
+      <p>From inside the project folder:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">cd my-site && baybay dev</span>
+<span class="ok">baybay v1.4.2</span>  dev server
+
+  <span class="ok">➜</span> Local:    http://localhost:8484/
+  <span class="ok">➜</span> Network:  http://192.168.1.24:8484/
+
+<span class="dim">  built 2 pages in 38 ms · watching src/ and static/</span></code></pre>
+      </div>
+      <p>Open <code>http://localhost:8484</code> and leave the server running. Every save triggers an incremental rebuild — only the changed page is recompiled, and the browser swaps content in place without a full reload.</p>
+      <div class="callout">
+        <span class="callout-label">Tip</span>
+        <p>Port taken? Pass <code>--port 3000</code>, or set <code>dev.port</code> in <a href="configuration.html#dev-build-options">your config file</a> to make it permanent.</p>
+      </div>
+
+      <h2 id="first-page">4. Write your first page</h2>
+      <p>Pages are Markdown files with YAML front matter. Create <code>src/guides/hello.md</code>:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">markdown</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code>---
+title: Hello, Baybay
+description: My first page.
+---
+
+# Hello, Baybay
+
+Routes mirror the `src/` tree, so this file becomes
+`/guides/hello/` — no route config needed.
+
+- Front matter fields are available in the layout as `{{ page.title }}`.
+- Relative links between `.md` files are rewritten to final URLs.</code></pre>
+      </div>
+      <p>Save the file and the dev server logs the rebuild:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="dim">[12:04:31]</span> src/guides/hello.md changed
+<span class="dim">[12:04:31]</span> <span class="ok">✔</span> rebuilt 1 page in 12 ms → /guides/hello/</code></pre>
+      </div>
+      <h3 id="routing-rules">How routing works</h3>
+      <p>Baybay maps files to clean URLs with three rules:</p>
+      <ul>
+        <li><code>src/index.md</code> → <code>/</code></li>
+        <li><code>src/about.md</code> → <code>/about/</code></li>
+        <li><code>src/guides/hello.md</code> → <code>/guides/hello/</code></li>
+      </ul>
+      <p>Files and folders starting with <code>_</code> (like <code>_layout.html</code>) are never emitted — they are templates and partials only.</p>
+
+      <h2 id="build">5. Build for production</h2>
+      <p>When you are ready to ship, produce the static output:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay build</span>
+<span class="ok">baybay v1.4.2</span>  production build
+
+  <span class="ok">✔</span> 3 pages compiled
+  <span class="ok">✔</span> 1 asset copied from static/
+  <span class="ok">✔</span> HTML minified, sitemap.xml written
+
+<span class="dim">  dist/ · 3 pages · 14.2 kB total · 61 ms</span></code></pre>
+      </div>
+      <p>Everything lands in <code>dist/</code> (configurable via <a href="configuration.html#core-options"><code>outDir</code></a>). The output is plain HTML and assets — you can host it on anything that serves files.</p>
+
+      <h2 id="deploy">6. Deploy</h2>
+      <p>The fastest path is the built-in deployer, which builds first and then pushes <code>dist/</code> to a target:</p>
+      <div class="code-block">
+        <div class="code-head"><span class="lang">shell</span><button class="copy-btn" type="button">Copy</button></div>
+        <pre><code><span class="prompt">$ </span><span class="cmd">baybay deploy --target netlify</span>
+<span class="ok">✔</span> Built 3 pages in 59 ms
+<span class="ok">✔</span> Uploaded 4 files (14.2 kB) to Netlify
+
+  <span class="ok">➜</span> Live: https://my-site-8f3a1c.netlify.app
+
+<span class="dim">  deployed in 9.4 s</span></code></pre>
+      </div>
+      <p>Supported targets are <code>netlify</code>, <code>vercel</code>, <code>gh-pages</code>, and <code>rsync</code>. See the <a href="cli.html#baybay-deploy"><code>baybay deploy</code> reference</a> for flags and credentials.</p>
+      <p>Prefer your own pipeline? Skip <code>deploy</code> entirely — run <code>baybay build</code> in CI and publish <code>dist/</code> however you like.</p>
+
+      <h2 id="next-steps">Next steps</h2>
+      <ul>
+        <li>Tune defaults in <a href="configuration.html">the configuration reference</a> — output directory, smart quotes, locales, minification.</li>
+        <li>Browse the <a href="cli.html">CLI reference</a> for every flag on <code>new</code>, <code>dev</code>, <code>build</code>, and <code>deploy</code>.</li>
+      </ul>
+
+      <nav class="pagination" aria-label="Previous and next">
+        <a href="index.html"><span class="dir">← Previous</span><span class="page-name">What is Baybay?</span></a>
+        <a class="next" href="configuration.html"><span class="dir">Next →</span><span class="page-name">Configuration</span></a>
+      </nav>
+    </article>
+  </main>
+
+  <aside class="toc" aria-label="On this page">
+    <p class="toc-title">On this page</p>
+    <nav data-toc aria-label="Table of contents"></nav>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 Baybay — a fictional tool. Prototype for the Daiven Reyes Prototype Lab.</span>
+    <a href="../../index.html">← Prototype Lab</a>
+  </div>
+</footer>
+
+<dialog class="search-dialog" id="search-dialog" aria-label="Search documentation">
+  <form class="search-form" method="dialog">
+    <span aria-hidden="true">🔍</span>
+    <input type="search" placeholder="Search titles and headings…" aria-label="Search documentation" autocomplete="off">
+    <span class="esc-hint" aria-hidden="true">esc</span>
+  </form>
+  <ul class="search-results"></ul>
+  <p class="search-empty" hidden>No results. Try “config”, “deploy”, or “install”.</p>
+</dialog>
+
+<script src="assets/docs.js"></script>
+</body>
+</html>

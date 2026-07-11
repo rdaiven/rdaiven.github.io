@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cohere · Product analytics for teams who ship</title>
+<meta name="description" content="Cohere turns raw product events into funnels, retention curves, and dashboards your whole team can read. Understand how people actually use your product." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F7F8FA; --surface:#FFFFFF; --ink:#0F172A; --muted:#64748B;
+    --hairline:#E6E9EF; --accent:#4F46E5; --accent-soft:#EEF0FE; --mint:#10B981; --mint-soft:#E7F7F0;
+    --r-lg:20px; --r-md:14px; --r-sm:10px;
+    --sh-sm:0 1px 2px rgba(15,23,42,.04), 0 1px 3px rgba(15,23,42,.06);
+    --sh-md:0 4px 12px rgba(15,23,42,.05), 0 12px 32px rgba(15,23,42,.06);
+    --sh-lg:0 10px 30px rgba(15,23,42,.07), 0 30px 60px rgba(15,23,42,.08);
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.55;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.05}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;
+    color:var(--accent);text-transform:uppercase;letter-spacing:.08em;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .muted{color:var(--muted)}
+  :focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:'Inter';font-weight:600;font-size:15px;border:1px solid transparent;
+    padding:11px 20px;border-radius:10px;cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--accent);color:#fff;box-shadow:0 1px 2px rgba(79,70,229,.35),0 6px 16px rgba(79,70,229,.25)}
+  .btn-primary:hover{background:#4338CA;transform:translateY(-1px)}
+  .btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--hairline);box-shadow:var(--sh-sm)}
+  .btn-ghost:hover{border-color:#cfd4e0;transform:translateY(-1px)}
+  .btn-lg{padding:14px 26px;font-size:16px}
+  @media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+
+  /* Nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(247,248,250,.8);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s,background .2s}
+  header.nav.scrolled{border-bottom-color:var(--hairline);background:rgba(247,248,250,.92)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:700;font-size:19px}
+  .logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#7C74F0);display:grid;place-items:center;box-shadow:0 4px 10px rgba(79,70,229,.35)}
+  .nav-links{display:none;align-items:center;gap:34px}
+  .nav-links a{font-size:15px;color:var(--muted);font-weight:500;transition:color .15s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{display:none;align-items:center;gap:14px}
+  .nav-cta .signin{font-size:15px;font-weight:600}
+  .hamburger{display:grid;background:none;border:1px solid var(--hairline);border-radius:9px;width:42px;height:42px;cursor:pointer;padding:0;place-items:center;background:var(--surface)}
+  .hamburger span{display:block;width:18px;height:2px;background:var(--ink);margin:3px auto;transition:.25s}
+  .hamburger.open span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+  .mobile-menu{display:none;flex-direction:column;gap:6px;padding:14px 24px 22px;background:var(--surface);border-bottom:1px solid var(--hairline)}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{padding:12px 8px;font-weight:600;border-radius:8px;color:var(--ink)}
+  .mobile-menu a:hover{background:var(--bg)}
+  .mobile-menu .btn{margin-top:6px}
+
+  /* Hero */
+  .hero{padding:48px 0 20px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+  .hero h1{font-size:clamp(36px,5vw,60px);font-weight:700;margin:20px 0 0}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),#8B5CF6);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.sub{font-size:clamp(16px,1.6vw,19px);color:var(--muted);margin:22px 0 30px;max-width:520px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-note{margin-top:20px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+  .hero-note svg{color:var(--mint)}
+
+  /* Hero dashboard mockup */
+  .dash{
+    background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);
+    box-shadow:var(--sh-lg);overflow:hidden;
+  }
+  .dash-top{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--hairline)}
+  .dash-dots{display:flex;gap:6px}
+  .dash-dots i{width:10px;height:10px;border-radius:50%;background:#E2E6EE;display:block}
+  .dash-url{margin-left:8px;font-size:12px;color:var(--muted);background:var(--bg);padding:4px 12px;border-radius:6px;flex:1}
+  .dash-body{padding:18px}
+  .dash-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+  .dash-head .t{font-family:'Space Grotesk';font-weight:600;font-size:16px}
+  .dash-head .s{font-size:12.5px;color:var(--muted)}
+  .pill{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:var(--mint-soft);color:#0B7A54;display:inline-flex;align-items:center;gap:5px}
+  .dash-cards{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:14px}
+  .mini{background:var(--bg);border:1px solid var(--hairline);border-radius:var(--r-sm);padding:12px}
+  .mini .lbl{font-size:11px;color:var(--muted);font-weight:500}
+  .mini .val{font-family:'Space Grotesk';font-weight:600;font-size:20px;margin-top:3px}
+  .mini .chg{font-size:11px;font-weight:600;color:var(--mint);margin-top:2px}
+  .chart-box{background:var(--bg);border:1px solid var(--hairline);border-radius:var(--r-md);padding:16px}
+  .chart-legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-bottom:6px}
+  .chart-legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+  /* Trust strip */
+  .trust{padding:34px 0 8px}
+  .trust p{text-align:center;font-size:13px;color:var(--muted);font-weight:500;letter-spacing:.02em;margin-bottom:22px}
+  .marks{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:24px}
+  .mark-word{font-family:'Space Grotesk';font-weight:600;font-size:19px;color:#94A0B4;letter-spacing:-.01em;opacity:.9;transition:color .2s}
+  .mark-word:hover{color:var(--muted)}
+
+  /* Section shell */
+  section{scroll-margin-top:90px}
+  .section{padding:60px 0}
+  .sec-head{max-width:640px;margin-bottom:44px}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .sec-head h2{font-size:clamp(28px,3.4vw,42px);font-weight:700;margin:14px 0 0}
+  .sec-head p{color:var(--muted);font-size:17px;margin-top:16px}
+
+  /* Bento */
+  .bento{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:minmax(0,auto);gap:18px}
+  .card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh-sm);transition:box-shadow .25s,transform .25s,border-color .25s;display:flex;flex-direction:column}
+  .card:hover{box-shadow:var(--sh-md);transform:translateY(-3px);border-color:#dbe0ea}
+  .card h3{font-size:19px;font-weight:600}
+  .card .ic{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:16px}
+  .card .ic.mint{background:var(--mint-soft);color:#0B7A54}
+  .card p.d{color:var(--muted);font-size:14.5px;margin-top:8px}
+  .c-wide{grid-column:span 6}
+  .c-tall{grid-column:span 6;grid-row:auto}
+  .c-2{grid-column:span 3}
+  .c-3{grid-column:span 3}
+  .card-lead{background:linear-gradient(160deg,#F4F5FF,#FFFFFF 60%);}
+
+  /* charts inside bento */
+  .bars{display:flex;align-items:flex-end;gap:8px;height:110px;margin-top:auto;padding-top:14px}
+  .bars .b{flex:1;background:linear-gradient(180deg,#8B84F2,var(--accent));border-radius:6px 6px 2px 2px;min-height:8px;transition:height .9s cubic-bezier(.2,.7,.2,1)}
+  .bars .b.mint{background:linear-gradient(180deg,#4CD9A2,var(--mint))}
+  .funnel{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+  .fstep{display:flex;flex-direction:column;gap:5px}
+  .fstep .fr{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);font-weight:500}
+  .fstep .fr b{color:var(--ink);font-family:'Space Grotesk'}
+  .ftrack{height:26px;background:var(--bg);border-radius:7px;overflow:hidden}
+  .ffill{height:100%;background:linear-gradient(90deg,var(--accent),#7C74F0);border-radius:7px;transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .stat-big{font-family:'Space Grotesk';font-weight:700;font-size:44px;line-height:1;margin-top:auto}
+  .stat-sub{color:var(--muted);font-size:14px;margin-top:8px}
+  .donut-wrap{display:flex;align-items:center;gap:18px;margin-top:auto}
+  .donut-legend{font-size:12.5px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+  .donut-legend span{display:flex;align-items:center;gap:7px}
+
+  /* Metrics band */
+  .metrics{background:var(--ink);color:#fff;border-radius:28px;padding:44px 22px;position:relative;overflow:hidden}
+  .metrics::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 300px at 15% 0%,rgba(79,70,229,.35),transparent 60%),radial-gradient(600px 300px at 90% 100%,rgba(16,185,129,.2),transparent 60%)}
+  .metrics-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:36px 24px;text-align:center}
+  .metric .n{font-family:'Space Grotesk';font-weight:700;font-size:clamp(34px,4vw,52px);line-height:1;background:linear-gradient(120deg,#fff,#C9C6F7);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .metric .l{color:#A7B0C4;font-size:14.5px;margin-top:10px}
+  .metrics h2{position:relative;text-align:center;color:#fff;font-size:clamp(24px,3vw,34px);margin-bottom:44px;font-weight:600}
+
+  /* Testimonial */
+  .quote{max-width:840px;margin:0 auto;text-align:center}
+  .quote blockquote{font-family:'Space Grotesk';font-weight:500;font-size:clamp(22px,2.8vw,32px);line-height:1.32;letter-spacing:-.015em}
+  .quote blockquote .hl{color:var(--accent)}
+  .quote .author{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:32px}
+  .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#8B5CF6);display:grid;place-items:center;color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:18px;position:relative;overflow:hidden;flex-shrink:0}
+  .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
+  .quote .who{text-align:left}
+  .quote .who .nm{font-weight:600}
+  .quote .who .rl{font-size:13.5px;color:var(--muted)}
+
+  /* Pricing */
+  .toggle{display:inline-flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--hairline);border-radius:30px;padding:5px;box-shadow:var(--sh-sm);margin:0 auto 44px;position:relative}
+  .toggle button{border:none;background:none;font-family:'Inter';font-weight:600;font-size:14px;padding:8px 18px;border-radius:24px;cursor:pointer;color:var(--muted);transition:.2s;position:relative;z-index:1}
+  .toggle button.active{color:#fff}
+  .toggle .slider{position:absolute;top:5px;left:5px;height:calc(100% - 10px);border-radius:24px;background:var(--accent);transition:.28s cubic-bezier(.4,.1,.2,1);z-index:0}
+  .save-tag{font-size:11px;font-weight:700;color:#0B7A54;background:var(--mint-soft);padding:2px 8px;border-radius:20px;margin-left:2px}
+  .tiers{display:grid;grid-template-columns:1fr;gap:20px;align-items:stretch;max-width:420px;margin:0 auto}
+  .tier{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);padding:30px;display:flex;flex-direction:column;box-shadow:var(--sh-sm);transition:box-shadow .25s}
+  .tier:hover{box-shadow:var(--sh-md)}
+  .tier.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--sh-md);position:relative;order:-1}
+  .tier .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 14px;border-radius:20px}
+  .tier .tname{font-family:'Space Grotesk';font-weight:600;font-size:18px}
+  .tier .tdesc{color:var(--muted);font-size:13.5px;margin-top:6px;min-height:38px}
+  .price{display:flex;align-items:baseline;gap:4px;margin:18px 0 6px}
+  .price .amt{font-family:'Space Grotesk';font-weight:700;font-size:42px;line-height:1}
+  .price .per{color:var(--muted);font-size:14px}
+  .tier ul{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:13px}
+  .tier li{display:flex;gap:10px;font-size:14.5px;align-items:flex-start}
+  .tier li svg{flex-shrink:0;color:var(--mint);margin-top:2px}
+  .tier .btn{margin-top:auto;width:100%}
+
+  /* Final CTA */
+  .final{background:linear-gradient(135deg,var(--accent),#6D28D9);border-radius:28px;padding:48px 24px;text-align:center;color:#fff;position:relative;overflow:hidden}
+  .final::after{content:"";position:absolute;inset:0;background:radial-gradient(500px 240px at 80% 20%,rgba(255,255,255,.15),transparent 60%)}
+  .final h2{position:relative;font-size:clamp(28px,3.6vw,44px);font-weight:700}
+  .final p{position:relative;color:#DBD9FB;font-size:18px;margin:16px auto 32px;max-width:520px}
+  .final .btn-primary{background:#fff;color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+  .final .btn-primary:hover{background:#F4F4FF}
+  .final .fcta{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .final .btn-line{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
+  .final .btn-line:hover{background:rgba(255,255,255,.1)}
+
+  /* Footer */
+  footer{padding:64px 0 40px;border-top:1px solid var(--hairline);margin-top:12px}
+  .foot-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:44px}
+  .foot-brand p{color:var(--muted);font-size:14px;margin-top:14px;max-width:280px}
+  .foot-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:16px;font-family:'Inter';font-weight:600}
+  .foot-col a{display:block;color:var(--ink);font-size:14.5px;margin-bottom:11px;transition:color .15s}
+  .foot-col a:hover{color:var(--accent)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:26px;border-top:1px solid var(--hairline);flex-wrap:wrap;gap:14px}
+  .foot-bottom .demo-note{font-size:13px;color:var(--muted)}
+  .foot-bottom .demo-note b{color:var(--ink);font-weight:600}
+  .foot-social{display:flex;gap:10px}
+  .foot-social a{width:36px;height:36px;border-radius:9px;border:1px solid var(--hairline);display:grid;place-items:center;color:var(--muted);transition:.2s}
+  .foot-social a:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .bars .b,.ffill,.toggle .slider{transition:none}
+  }
+
+  /* Responsive (mobile-first) */
+  @media (min-width:441px){
+    .wrap{padding:0 24px}
+    .marks{gap:44px}
+    .metrics-grid{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .dash-cards{grid-template-columns:1fr 1fr}
+  }
+  @media (min-width:761px){
+    .nav-links,.nav-cta{display:flex}
+    .hamburger{display:none}
+    .section{padding:84px 0}
+    .tiers{grid-template-columns:repeat(3,1fr);max-width:none;margin:0}
+    .tier.featured{order:0}
+    .metrics{padding:56px 40px}
+    .final{padding:66px 40px}
+    .dash-cards{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (min-width:981px){
+    .hero-grid{grid-template-columns:1.05fr 1fr;gap:56px}
+    .hero{padding:72px 0 40px}
+    .c-wide{grid-column:span 4}
+    .c-tall{grid-column:span 2;grid-row:span 2}
+    .c-2{grid-column:span 2}
+    .metrics-grid{grid-template-columns:repeat(4,1fr);gap:32px}
+    .foot-grid{grid-template-columns:1.4fr repeat(3,1fr);gap:40px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo" aria-label="Cohere home">
+      <span class="mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 11.5L6 6.5L9.5 9.5L14 3.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      Cohere
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#features">Product</a>
+      <a href="#metrics">Customers</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#testimonial">Story</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="signin">Sign in</a>
+      <a href="#pricing" class="btn btn-primary">Start free</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features">Product</a>
+    <a href="#metrics">Customers</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#testimonial">Story</a>
+    <a href="#" class="signin">Sign in</a>
+    <a href="#pricing" class="btn btn-primary">Start free</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Product analytics</span>
+      <h1>Understand how people <span class="grad">actually use</span> your product.</h1>
+      <p class="sub">Cohere turns raw events into funnels, retention curves, and dashboards your whole team can read — no SQL, no waiting on data. Ship with evidence, not opinions.</p>
+      <div class="hero-cta">
+        <a href="#pricing" class="btn btn-primary btn-lg">Start free</a>
+        <a href="#features" class="btn btn-ghost btn-lg">See it in action</a>
+      </div>
+      <p class="hero-note">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        No credit card · Free up to 1M events / month
+      </p>
+    </div>
+
+    <!-- Hero dashboard mockup -->
+    <div class="dash reveal" aria-hidden="true">
+      <div class="dash-top">
+        <div class="dash-dots"><i></i><i></i><i></i></div>
+        <div class="dash-url">app.cohere.io / dashboards / activation</div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-head">
+          <div>
+            <div class="t">Weekly active users</div>
+            <div class="s">Jun 1 – Jul 7, 2026</div>
+          </div>
+          <span class="pill">
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 8L5 5L7 7L10 3" stroke="#0B7A54" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            +18.4%
+          </span>
+        </div>
+        <div class="dash-cards">
+          <div class="mini"><div class="lbl">WAU</div><div class="val">48.2k</div><div class="chg">+12%</div></div>
+          <div class="mini"><div class="lbl">Activation</div><div class="val">64%</div><div class="chg">+5.1%</div></div>
+          <div class="mini"><div class="lbl">D30 retention</div><div class="val">41%</div><div class="chg">+3.4%</div></div>
+        </div>
+        <div class="chart-box">
+          <div class="chart-legend">
+            <span><i class="dot" style="background:var(--accent)"></i>This period</span>
+            <span><i class="dot" style="background:#C9CCF6"></i>Previous</span>
+          </div>
+          <svg viewBox="0 0 320 110" width="100%" height="110" preserveAspectRatio="none" role="img" aria-label="Weekly active users trend chart">
+            <defs>
+              <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#4F46E5" stop-opacity=".18"/>
+                <stop offset="1" stop-color="#4F46E5" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <line x1="0" y1="27" x2="320" y2="27" stroke="#EEF1F6" stroke-width="1"/>
+            <line x1="0" y1="60" x2="320" y2="60" stroke="#EEF1F6" stroke-width="1"/>
+            <line x1="0" y1="93" x2="320" y2="93" stroke="#EEF1F6" stroke-width="1"/>
+            <path d="M0,80 C40,78 60,84 90,74 C120,64 150,70 180,54 C210,40 250,48 320,30" fill="none" stroke="#C9CCF6" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M0,70 C40,66 60,60 90,58 C120,56 150,44 180,42 C210,40 250,26 320,18 L320,110 L0,110 Z" fill="url(#area)"/>
+            <path d="M0,70 C40,66 60,60 90,58 C120,56 150,44 180,42 C210,40 250,26 320,18" fill="none" stroke="#4F46E5" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="320" cy="18" r="4.5" fill="#4F46E5" stroke="#fff" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="wrap reveal">
+    <p>Trusted by product &amp; growth teams at fast-moving companies</p>
+    <div class="marks">
+      <span class="mark-word">Northwind</span>
+      <span class="mark-word">Loop&amp;Co</span>
+      <span class="mark-word">Vantage</span>
+      <span class="mark-word">Fernweh</span>
+      <span class="mark-word">Kapwa</span>
+      <span class="mark-word">Meridian</span>
+    </div>
+  </div>
+</section>
+
+<!-- BENTO FEATURES -->
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">One surface, every answer</span>
+      <h2>Everything you need to read your product.</h2>
+      <p>From the first pageview to long-term retention, Cohere gives every team a shared, trustworthy view of user behavior — built for the questions you ask next.</p>
+    </div>
+
+    <div class="bento">
+      <!-- Lead card with bar chart -->
+      <article class="card c-wide card-lead reveal">
+        <div class="ic mint" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 17V9M8 17V4M13 17V11M18 17V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Live dashboards, zero SQL</h3>
+        <p class="d">Build a dashboard by clicking. Segment by plan, cohort, or channel and watch the numbers update in real time — the whole team sees the same source of truth.</p>
+        <div class="bars" data-bars aria-hidden="true">
+          <span class="b" style="height:40%"></span>
+          <span class="b" style="height:58%"></span>
+          <span class="b" style="height:48%"></span>
+          <span class="b" style="height:72%"></span>
+          <span class="b mint" style="height:64%"></span>
+          <span class="b" style="height:86%"></span>
+          <span class="b mint" style="height:95%"></span>
+          <span class="b" style="height:78%"></span>
+        </div>
+      </article>
+
+      <!-- Tall funnel card -->
+      <article class="card c-tall reveal">
+        <div class="ic" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 3h16l-6 7v6l-4 2v-8L2 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Funnels that find the drop-off</h3>
+        <p class="d">See exactly where users fall out of onboarding, checkout, or any flow.</p>
+        <div class="funnel" data-funnel aria-hidden="true">
+          <div class="fstep"><div class="fr"><span>Signed up</span><b>12,480</b></div><div class="ftrack"><div class="ffill" style="width:100%"></div></div></div>
+          <div class="fstep"><div class="fr"><span>Created project</span><b>8,910</b></div><div class="ftrack"><div class="ffill" style="width:71%"></div></div></div>
+          <div class="fstep"><div class="fr"><span>Invited team</span><b>5,240</b></div><div class="ftrack"><div class="ffill" style="width:42%"></div></div></div>
+          <div class="fstep"><div class="fr"><span>Activated</span><b>3,180</b></div><div class="ftrack"><div class="ffill" style="width:25%"></div></div></div>
+        </div>
+      </article>
+
+      <!-- Stat tile -->
+      <article class="card c-2 reveal">
+        <div class="ic mint" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 12l4-4 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-size:15px;color:var(--muted);font-weight:600;font-family:'Inter'">Median time to insight</h3>
+        <div class="stat-big">2.4<span style="font-size:20px;color:var(--muted)">min</span></div>
+        <div class="stat-sub">Down from hours of data-team back-and-forth.</div>
+      </article>
+
+      <!-- Retention donut -->
+      <article class="card c-2 reveal">
+        <div class="ic" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M10 3a7 7 0 0 1 6 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Retention at a glance</h3>
+        <div class="donut-wrap">
+          <svg width="88" height="88" viewBox="0 0 42 42" aria-hidden="true">
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="#EEF1F6" stroke-width="6"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="#4F46E5" stroke-width="6" stroke-dasharray="41 100" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 21 21)"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="#10B981" stroke-width="6" stroke-dasharray="24 100" stroke-dashoffset="-41" stroke-linecap="round" transform="rotate(-90 21 21)"/>
+            <text x="21" y="23" text-anchor="middle" font-size="8" font-family="Space Grotesk" font-weight="700" fill="#0F172A">41%</text>
+          </svg>
+          <div class="donut-legend">
+            <span><i class="dot" style="background:var(--accent)"></i>Retained D30</span>
+            <span><i class="dot" style="background:var(--mint)"></i>Resurrected</span>
+            <span><i class="dot" style="background:#EEF1F6"></i>Churned</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- feature blurbs -->
+      <article class="card c-3 reveal">
+        <div class="ic" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2v16M2 10h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/></svg>
+        </div>
+        <h3>Behavioral cohorts</h3>
+        <p class="d">Group users by what they do, not just who they are. Compare "invited a teammate" against "solo" and see which behaviors predict retention.</p>
+      </article>
+
+      <article class="card c-3 reveal">
+        <div class="ic mint" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4h12v12H4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 8h12M8 8v8" stroke="currentColor" stroke-width="1.8"/></svg>
+        </div>
+        <h3>Warehouse-native</h3>
+        <p class="d">Sync clean, modeled events straight to BigQuery, Snowflake, or Redshift. Cohere plays nicely with the stack you already trust.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="section" id="metrics" style="padding-top:20px">
+  <div class="wrap reveal">
+    <div class="metrics">
+      <h2>The numbers teams see after switching</h2>
+      <div class="metrics-grid" id="counters">
+        <div class="metric"><div class="n" data-count="3200" data-suffix="+">0</div><div class="l">Product teams onboarded</div></div>
+        <div class="metric"><div class="n" data-count="18" data-suffix="B+" data-decimals="0">0</div><div class="l">Events processed monthly</div></div>
+        <div class="metric"><div class="n" data-count="42" data-suffix="%">0</div><div class="l">Avg. lift in activation</div></div>
+        <div class="metric"><div class="n" data-count="99.98" data-suffix="%" data-decimals="2">0</div><div class="l">Query uptime</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="section" id="testimonial" style="padding-top:20px">
+  <div class="wrap">
+    <div class="quote reveal">
+      <span class="eyebrow" style="margin-bottom:24px">Why teams switch</span>
+      <blockquote>"We used to wait days for the data team to answer 'is the new flow working?' With Cohere, our PMs answer it themselves in minutes — and we <span class="hl">shipped three winning experiments</span> in our first month."</blockquote>
+      <div class="author">
+        <div class="avatar">
+          <span aria-hidden="true">MR</span>
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=75" alt="Portrait of Mara Reyes" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="who">
+          <div class="nm">Mara Reyes</div>
+          <div class="rl">VP Product, Meridian</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">Simple, honest pricing</span>
+      <h2>Start free. Grow when you're ready.</h2>
+      <p>Every plan includes unlimited dashboards, funnels, and seats. Pay for the events you send, not the people who look.</p>
+    </div>
+
+    <div style="display:flex;justify-content:center" class="reveal">
+      <div class="toggle" role="group" aria-label="Billing period">
+        <span class="slider" id="slider"></span>
+        <button id="btnMonthly" class="active" aria-pressed="true">Monthly</button>
+        <button id="btnAnnual" aria-pressed="false">Annual <span class="save-tag">Save 20%</span></button>
+      </div>
+    </div>
+
+    <div class="tiers reveal">
+      <article class="tier">
+        <div class="tname">Starter</div>
+        <div class="tdesc">For side projects and small teams finding their footing.</div>
+        <div class="price"><span class="amt" data-m="0" data-a="0">₱0</span><span class="per">/ month</span></div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Up to 1M events / month</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited dashboards &amp; seats</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Funnels &amp; retention reports</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>90-day data history</li>
+        </ul>
+        <a href="#" class="btn btn-ghost">Start free</a>
+      </article>
+
+      <article class="tier featured">
+        <span class="badge">Most popular</span>
+        <div class="tname">Growth</div>
+        <div class="tdesc">For product teams running experiments every week.</div>
+        <div class="price"><span class="amt" data-m="4990" data-a="3990">₱4,990</span><span class="per">/ month</span></div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Up to 25M events / month</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Behavioral cohorts &amp; segments</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Warehouse sync &amp; API access</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>2-year data history</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Start free trial</a>
+      </article>
+
+      <article class="tier">
+        <div class="tname">Scale</div>
+        <div class="tdesc">For companies with serious volume and governance needs.</div>
+        <div class="price"><span class="amt" data-m="14990" data-a="11990">₱14,990</span><span class="per">/ month</span></div>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited events</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>SSO, roles &amp; audit logs</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated success manager</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>99.99% uptime SLA</li>
+        </ul>
+        <a href="#" class="btn btn-ghost">Talk to sales</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section" style="padding-top:20px">
+  <div class="wrap reveal">
+    <div class="final">
+      <h2>Stop guessing. Start seeing.</h2>
+      <p>Bring your product data into focus in under ten minutes. Free to start, no credit card, cancel anytime.</p>
+      <div class="fcta">
+        <a href="#" class="btn btn-primary btn-lg">Start free</a>
+        <a href="#" class="btn btn-line btn-lg">Book a demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="logo">
+          <span class="mark" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 11.5L6 6.5L9.5 9.5L14 3.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Cohere
+        </a>
+        <p>Product analytics that your whole team can read — funnels, retention, and dashboards without the SQL.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#features">Dashboards</a>
+        <a href="#features">Funnels</a>
+        <a href="#features">Retention</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Customers</a>
+      </div>
+      <div class="foot-col">
+        <h4>Resources</h4>
+        <a href="#">Docs</a>
+        <a href="#">Changelog</a>
+        <a href="#">Status</a>
+        <a href="#">Privacy</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="demo-note">© 2026 Cohere Analytics. <b>Fictional product · portfolio demo.</b></div>
+      <div class="foot-social">
+        <a href="#" aria-label="Cohere on X"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M12.5 1.5h2.1l-4.6 5.3L15.5 14h-4.2L8 9.7 4.2 14H2.1l4.9-5.6L1.5 1.5h4.3L8.8 5.4 12.5 1.5zm-.7 11.2h1.2L5.3 2.7H4L11.8 12.7z"/></svg></a>
+        <a href="#" aria-label="Cohere on GitHub"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 0 0-2.5 15.6c.4.1.5-.2.5-.4v-1.4c-2 .4-2.5-.5-2.7-1 0-.1-.5-1-.9-1.2-.3-.2-.7-.6 0-.6.6 0 1 .6 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1 0-.2-.3-1 .1-2.1 0 0 .7-.2 2.2.8a7.5 7.5 0 0 1 4 0c1.5-1 2.2-.8 2.2-.8.4 1.1.1 1.9.1 2.1.5.5.8 1.2.8 2.1 0 3.1-1.9 3.8-3.6 4 .3.2.5.7.5 1.4v2.2c0 .2.1.5.5.4A8 8 0 0 0 8 0z"/></svg></a>
+        <a href="#" aria-label="Cohere on LinkedIn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.6 2A1.6 1.6 0 1 0 3.6 5.2 1.6 1.6 0 0 0 3.6 2zM2.2 6.4h2.8V14H2.2V6.4zM6.8 6.4h2.7v1h0c.4-.7 1.3-1.4 2.6-1.4 2.8 0 3.3 1.8 3.3 4.2V14h-2.8v-3.4c0-.8 0-1.9-1.1-1.9s-1.3.9-1.3 1.8V14H6.8V6.4z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* Nav shadow on scroll */
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* Mobile menu */
+  var burger = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      menu.classList.remove('open'); burger.classList.remove('open');
+      burger.setAttribute('aria-expanded','false');
+    });
+  });
+
+  /* Scroll reveal */
+  var reveals = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:0, rootMargin:'0px 0px -40px 0px'});
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    reveals.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      /* Anything already inside the initial viewport: show it right away,
+         don't gate it behind observer thresholds. */
+      if(r.top < vh && r.bottom > 0){ el.classList.add('in'); }
+      else { io.observe(el); }
+    });
+    /* Hard failsafe: whatever happens, the hero is visible shortly after load. */
+    setTimeout(function(){
+      document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('in'); });
+    }, 700);
+  }
+
+  /* Count-up metrics */
+  var counters = document.getElementById('counters');
+  function fmt(n, dec){
+    return dec>0 ? n.toFixed(dec) : Math.round(n).toLocaleString('en-US');
+  }
+  function runCounters(){
+    counters.querySelectorAll('[data-count]').forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var dec = parseInt(el.getAttribute('data-decimals')||'0',10);
+      var suffix = el.getAttribute('data-suffix')||'';
+      if(reduce){ el.textContent = fmt(target,dec)+suffix; return; }
+      var start = performance.now(), dur = 1500;
+      function tick(now){
+        var p = Math.min((now-start)/dur, 1);
+        var eased = 1 - Math.pow(1-p, 3);
+        el.textContent = fmt(target*eased, dec) + suffix;
+        if(p<1) requestAnimationFrame(tick);
+        else el.textContent = fmt(target,dec)+suffix;
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  if('IntersectionObserver' in window){
+    var co = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ runCounters(); co.disconnect(); } });
+    }, {threshold:.4});
+    co.observe(counters);
+  } else { runCounters(); }
+
+  /* Pricing toggle */
+  var btnM = document.getElementById('btnMonthly');
+  var btnA = document.getElementById('btnAnnual');
+  var slider = document.getElementById('slider');
+  var amts = document.querySelectorAll('.amt');
+  function peso(v){ return '₱' + Number(v).toLocaleString('en-US'); }
+  function positionSlider(btn){
+    slider.style.width = btn.offsetWidth + 'px';
+    slider.style.transform = 'translateX(' + (btn.offsetLeft - 5) + 'px)';
+  }
+  function setPlan(annual){
+    btnM.classList.toggle('active', !annual);
+    btnA.classList.toggle('active', annual);
+    btnM.setAttribute('aria-pressed', String(!annual));
+    btnA.setAttribute('aria-pressed', String(annual));
+    positionSlider(annual ? btnA : btnM);
+    amts.forEach(function(el){
+      var v = annual ? el.getAttribute('data-a') : el.getAttribute('data-m');
+      el.textContent = peso(v);
+    });
+  }
+  btnM.addEventListener('click', function(){ setPlan(false); });
+  btnA.addEventListener('click', function(){ setPlan(true); });
+  window.addEventListener('load', function(){ positionSlider(btnM); });
+  window.addEventListener('resize', function(){
+    positionSlider(btnA.classList.contains('active') ? btnA : btnM);
+  });
+  positionSlider(btnM);
+})();
+</script>
+</body>
+</html>

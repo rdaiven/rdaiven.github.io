@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KINESIS — A Study in Motion</title>
+<meta name="description" content="KINESIS is a fictional motion studio page — an interaction & animation showcase built with vanilla HTML, CSS and JavaScript. No libraries.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============ CUSTOM CURSOR (01 — cursor) ============ -->
+  <div class="cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"><span class="cursor-label">view</span></div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-head">
+    <a class="brand" href="#top">KINESIS<span class="brand-dot">.</span></a>
+    <p class="head-tag mono">a study in motion</p>
+    <a class="head-link mono" href="#contact">start a project</a>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ 02 — ENTRANCE ============ -->
+    <section class="hero" aria-label="Introduction">
+      <p class="tag mono hero-tag"><span class="tag-no">01</span> — cursor&nbsp;&nbsp;·&nbsp;&nbsp;<span class="tag-no">02</span> — entrance</p>
+      <h1 class="hero-title">
+        <span class="line"><span class="line-inner">Motion is</span></span>
+        <span class="line"><span class="line-inner">the message<span class="accent">.</span></span></span>
+        <span class="line"><span class="line-inner line-outline">We write it.</span></span>
+      </h1>
+      <div class="hero-orb" aria-hidden="true"></div>
+      <p class="hero-sub">
+        KINESIS is an interaction studio. Every scroll, hover and press on this page
+        is a technique from our field kit — indexed, labeled, and built by hand in
+        vanilla JavaScript.
+      </p>
+      <div class="hero-foot">
+        <p class="mono hero-scroll">scroll to begin ↓</p>
+        <p class="mono hero-note">no libraries · no frameworks · 60fps intent</p>
+      </div>
+    </section>
+
+    <!-- ============ 07 — MARQUEE + VELOCITY ============ -->
+    <section class="marquee-wrap" aria-label="Capabilities ticker">
+      <p class="tag mono in-section"><span class="tag-no">07</span> — marquee + scroll velocity</p>
+      <div class="marquee" data-marquee>
+        <div class="marquee-track" data-marquee-track>
+          <span class="marquee-chunk">EASING&nbsp;<i>·</i>&nbsp;CHOREOGRAPHY&nbsp;<i>·</i>&nbsp;INTERPOLATION&nbsp;<i>·</i>&nbsp;SPRINGS&nbsp;<i>·</i>&nbsp;INERTIA&nbsp;<i>·</i>&nbsp;STAGGER&nbsp;<i>·</i>&nbsp;</span>
+          <span class="marquee-chunk" aria-hidden="true">EASING&nbsp;<i>·</i>&nbsp;CHOREOGRAPHY&nbsp;<i>·</i>&nbsp;INTERPOLATION&nbsp;<i>·</i>&nbsp;SPRINGS&nbsp;<i>·</i>&nbsp;INERTIA&nbsp;<i>·</i>&nbsp;STAGGER&nbsp;<i>·</i>&nbsp;</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 — SCROLL-DRIVEN STORY ============ -->
+    <section class="story" aria-label="Scroll-driven scene">
+      <div class="story-pin">
+        <p class="tag mono in-section"><span class="tag-no">03</span> — scroll-driven transform</p>
+        <div class="story-panel img-block" data-story-panel>
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=75"
+               alt="Low-angle view of white concrete architecture against sky"
+               loading="lazy" onerror="this.style.display='none'">
+          <div class="story-caption mono">frame scales with your scroll — 60% → 100%</div>
+        </div>
+        <p class="story-text" data-story-text>
+          Scroll is a timeline. We treat the wheel like a playhead — every frame of
+          this scene is a position, not a moment, so the story runs at exactly the
+          speed you read it.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 04 — PARALLAX DEPTH ============ -->
+    <section class="parallax" aria-label="Parallax depth scene">
+      <p class="tag mono in-section"><span class="tag-no">04</span> — parallax depth</p>
+      <div class="px-layer px-back" data-depth="-0.18" aria-hidden="true">
+        <div class="px-shape px-shape-a"></div>
+        <div class="px-shape px-shape-b"></div>
+      </div>
+      <div class="px-layer px-mid" data-depth="-0.08">
+        <figure class="px-figure img-block">
+          <img src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?auto=format&fit=crop&w=1200&q=75"
+               alt="Soft violet and blue gradient abstract"
+               loading="lazy" onerror="this.style.display='none'">
+        </figure>
+      </div>
+      <div class="px-layer px-front" data-depth="0.06">
+        <h2 class="px-title">Depth is a<br>speed difference<span class="accent">.</span></h2>
+        <p class="px-copy">
+          Three layers, three velocities. The background drifts, the image holds,
+          the type leads. Your eye reads the offset as space.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 06 — HOVER-REVEAL GALLERY ============ -->
+    <section class="gallery" aria-label="Selected work">
+      <p class="tag mono in-section"><span class="tag-no">06</span> — hover-reveal gallery</p>
+      <h2 class="section-title">Selected<br>work</h2>
+      <ul class="gallery-list">
+        <li><a href="#contact" class="gallery-item" data-cursor="view" data-preview="0">
+          <span class="g-name">Chromatic Drift</span><span class="g-meta mono">brand film · 2025</span></a></li>
+        <li><a href="#contact" class="gallery-item" data-cursor="view" data-preview="1">
+          <span class="g-name">Field of Color</span><span class="g-meta mono">installation · 2025</span></a></li>
+        <li><a href="#contact" class="gallery-item" data-cursor="view" data-preview="2">
+          <span class="g-name">Soft Machines</span><span class="g-meta mono">product launch · 2024</span></a></li>
+        <li><a href="#contact" class="gallery-item" data-cursor="view" data-preview="3">
+          <span class="g-name">Primitive Forms</span><span class="g-meta mono">web experience · 2024</span></a></li>
+        <li><a href="#contact" class="gallery-item" data-cursor="view" data-preview="4">
+          <span class="g-name">Concrete Light</span><span class="g-meta mono">art direction · 2023</span></a></li>
+        <li><a href="#contact" class="gallery-item" data-cursor="view" data-preview="5">
+          <span class="g-name">Loud Rooms</span><span class="g-meta mono">live visuals · 2023</span></a></li>
+      </ul>
+
+      <div class="gallery-preview img-block" data-gallery-preview aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?auto=format&fit=crop&w=800&q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800&q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?auto=format&fit=crop&w=800&q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=800&q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+      </div>
+    </section>
+
+    <!-- ============ 08 — STICKY STACKING CARDS ============ -->
+    <section class="stack" aria-label="Process">
+      <p class="tag mono in-section"><span class="tag-no">08</span> — sticky stacking cards</p>
+      <h2 class="section-title">How we<br>build motion</h2>
+      <div class="stack-cards">
+        <article class="stack-card" style="--i:0">
+          <div class="stack-card-head"><span class="stack-no mono">A</span><h3>Storyboard the feeling</h3></div>
+          <p>Before a single keyframe, we name the emotion each interaction should
+          leave behind. A press should feel decisive. A reveal should feel earned.
+          We sketch timing charts on paper, like animators do.</p>
+          <figure class="stack-fig img-block">
+            <img src="https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&w=800&q=75"
+                 alt="Vivid abstract wash of pink and blue color" loading="lazy" onerror="this.style.display='none'">
+          </figure>
+        </article>
+        <article class="stack-card" style="--i:1">
+          <div class="stack-card-head"><span class="stack-no mono">B</span><h3>Prototype in the browser</h3></div>
+          <p>Motion can't be approved in a static comp. We build the real thing early —
+          transform and opacity only, compositor-friendly, measured against a 60fps
+          budget on mid-range hardware, not our own machines.</p>
+          <figure class="stack-fig img-block">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=75"
+                 alt="Iridescent 3D rendered abstract form" loading="lazy" onerror="this.style.display='none'">
+          </figure>
+        </article>
+        <article class="stack-card" style="--i:2">
+          <div class="stack-card-head"><span class="stack-no mono">C</span><h3>Tune the easing</h3></div>
+          <p>The difference between "fine" and "expensive" is the curve. We hand-tune
+          every cubic-bezier and lerp factor until the motion has weight — then we cut
+          20% of the duration, because confidence is fast.</p>
+          <figure class="stack-fig img-block">
+            <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?auto=format&fit=crop&w=800&q=75"
+                 alt="Pastel 3D geometric shapes arranged in soft light" loading="lazy" onerror="this.style.display='none'">
+          </figure>
+        </article>
+        <article class="stack-card" style="--i:3">
+          <div class="stack-card-head"><span class="stack-no mono">D</span><h3>Respect the reader</h3></div>
+          <p>Every effect ships with an exit: reduced-motion users get a calm, fully
+          readable page; touch devices get native scrolling; keyboards get visible
+          focus. Motion is a layer, never a wall.</p>
+          <figure class="stack-fig img-block">
+            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=75"
+                 alt="Concert crowd under warm stage lights" loading="lazy" onerror="this.style.display='none'">
+          </figure>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 05 — MAGNETIC + CONTACT CTA ============ -->
+    <section class="contact" id="contact" aria-label="Contact">
+      <p class="tag mono in-section"><span class="tag-no">05</span> — magnetic buttons</p>
+      <h2 class="contact-title">Got something<br>that should <em>move</em><span class="accent">?</span></h2>
+      <p class="contact-copy">We take on four projects a year. Tell us about yours.</p>
+      <div class="contact-actions">
+        <a class="btn btn-solid" href="mailto:hello@kinesis.studio" data-magnetic><span data-magnetic-inner>hello@kinesis.studio</span></a>
+        <a class="btn btn-ghost" href="#top" data-magnetic><span data-magnetic-inner>back to top</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-foot">
+    <p class="mono">KINESIS — fictional studio · portfolio demo · Built with vanilla JS — no libraries.</p>
+    <p class="mono foot-index">techniques: 01 cursor · 02 entrance · 03 scroll story · 04 parallax · 05 magnetic · 06 hover gallery · 07 velocity marquee · 08 card stack</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

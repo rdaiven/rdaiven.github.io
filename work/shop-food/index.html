@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Root + Cellar — Farm-to-table pantry & fresh boxes</title>
+<meta name="description" content="Root + Cellar delivers gourmet pantry staples, single-origin coffee, and fresh produce boxes sourced from 40+ local farms across the Philippines." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Announcement bar -->
+<div class="announce" role="region" aria-label="Store announcements">
+  <div class="announce__track">
+    <span>Free delivery on orders over ₱1,500</span><span class="dot" aria-hidden="true">•</span>
+    <span>Same-day in Metro Manila</span><span class="dot" aria-hidden="true">•</span>
+    <span>Harvested this week from 40+ local farms</span><span class="dot" aria-hidden="true">•</span>
+    <span>Free delivery on orders over ₱1,500</span><span class="dot" aria-hidden="true">•</span>
+    <span>Same-day in Metro Manila</span><span class="dot" aria-hidden="true">•</span>
+    <span>Harvested this week from 40+ local farms</span><span class="dot" aria-hidden="true">•</span>
+  </div>
+</div>
+
+<!-- Sticky nav -->
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="Root and Cellar home">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="30" height="30" fill="none">
+          <path d="M16 3C10 8 8 13 8 18a8 8 0 0 0 16 0c0-5-2-10-8-15Z" fill="#1E3A2B"/>
+          <path d="M16 9v16" stroke="#F4B740" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M16 15c-2-1-4-1-5.5-.3M16 18c2-1 4-1 5.5-.3" stroke="#F4B740" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="brand__name">Root <em>+</em> Cellar</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#categories">Shop</a>
+      <a href="#buildbox">Boxes</a>
+      <a href="#bestsellers">Coffee</a>
+      <a href="#farmers">Our Farmers</a>
+      <a href="#newsletter">Recipes</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="cart-btn" id="cartBtn" aria-label="Open cart" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
+          <path d="M4 5h2l1.5 11h10L20 8H7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="9.5" cy="20" r="1.4" fill="currentColor"/>
+          <circle cx="17" cy="20" r="1.4" fill="currentColor"/>
+        </svg>
+        <span class="cart-count" id="cartCount" aria-live="polite">2</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile">
+    <a href="#categories">Shop</a>
+    <a href="#buildbox">Boxes</a>
+    <a href="#bestsellers">Coffee</a>
+    <a href="#farmers">Our Farmers</a>
+    <a href="#newsletter">Recipes</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__copy reveal">
+        <span class="eyebrow">Farm-to-table · Est. in the province</span>
+        <h1>Real food, grown by people you'd <span class="squiggle">actually</span> shake hands with.</h1>
+        <p class="lead">Gourmet pantry staples, single-origin coffee, and just-picked produce boxes — delivered from small Filipino farms to your kitchen.</p>
+        <div class="hero__cta">
+          <a href="#bestsellers" class="btn btn--primary">Shop the pantry</a>
+          <a href="#buildbox" class="btn btn--ghost">Build a box</a>
+        </div>
+        <p class="trust-line"><strong>Sourced from 40+ local farms</strong> · harvested-to-doorstep in under 48 hours</p>
+      </div>
+
+      <div class="hero__art reveal">
+        <span class="blob blob--yolk" aria-hidden="true"></span>
+        <span class="blob blob--tomato" aria-hidden="true"></span>
+        <div class="hero__stack">
+          <div class="food-card food-card--jar" role="img" aria-label="Jar of wild honey">
+            <span class="food-card__media">
+              <svg viewBox="0 0 120 140" class="illus" aria-hidden="true">
+                <rect x="34" y="18" width="52" height="10" rx="4" fill="#F4B740"/>
+                <rect x="30" y="30" width="60" height="92" rx="16" fill="#FBF6EC"/>
+                <rect x="30" y="66" width="60" height="56" rx="16" fill="#F4B740"/>
+                <path d="M30 66h60" stroke="#1E3A2B" stroke-width="3" opacity=".2"/>
+                <circle cx="60" cy="90" r="12" fill="#D6462F" opacity=".85"/>
+              </svg>
+              <img class="food-card__photo" src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=800&q=75" alt="Glass jar of golden wild honey with a dipper" onerror="this.style.display='none'">
+            </span>
+            <span class="food-card__tag">Wild Honey</span>
+          </div>
+          <div class="food-card food-card--leaf" role="img" aria-label="Bunch of fresh greens">
+            <span class="food-card__media">
+              <svg viewBox="0 0 120 140" class="illus" aria-hidden="true">
+                <path d="M60 120C40 100 26 78 34 50c14 6 30 22 30 48" fill="#2f5a41"/>
+                <path d="M60 120c20-20 34-42 26-70-14 6-30 22-30 48" fill="#1E3A2B"/>
+                <path d="M60 72v48" stroke="#F4B740" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+              <img class="food-card__photo" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=75" alt="Bowl of just-picked fresh green vegetables" onerror="this.style.display='none'">
+            </span>
+            <span class="food-card__tag">Just-picked greens</span>
+          </div>
+          <div class="food-card food-card--coffee" role="img" aria-label="Bag of coffee beans">
+            <span class="food-card__media">
+              <svg viewBox="0 0 120 140" class="illus" aria-hidden="true">
+                <path d="M32 40h56l-6 82H38z" fill="#1E3A2B"/>
+                <rect x="44" y="56" width="32" height="20" rx="4" fill="#FBF6EC"/>
+                <ellipse cx="54" cy="98" rx="7" ry="10" fill="#F4B740"/>
+                <ellipse cx="70" cy="104" rx="7" ry="10" fill="#D6462F"/>
+              </svg>
+              <img class="food-card__photo" src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=75" alt="Roasted single-origin coffee beans" onerror="this.style.display='none'">
+            </span>
+            <span class="food-card__tag">Single-origin</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust chips -->
+  <section class="chips" aria-label="Why shop with us">
+    <div class="wrap chips__row">
+      <span class="chip">🌾 Locally sourced</span>
+      <span class="chip">🚫 No preservatives</span>
+      <span class="chip">🥬 Delivered fresh</span>
+      <span class="chip">🌱 Carbon-neutral shipping</span>
+      <span class="chip">🤝 Fair pay for farmers</span>
+    </div>
+  </section>
+
+  <!-- Featured categories -->
+  <section class="section" id="categories">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <h2>Shop by the way you cook</h2>
+        <p>Four ways in — stock the shelves, fill the crisper, or let us curate.</p>
+      </header>
+      <div class="cat-grid">
+        <a class="cat-tile cat-tile--pantry reveal" href="#bestsellers">
+          <span class="cat-tile__kicker">01</span>
+          <h3>Pantry</h3>
+          <p>Oils, vinegars, sauces & slow-cooked staples.</p>
+          <span class="cat-tile__go" aria-hidden="true">→</span>
+        </a>
+        <a class="cat-tile cat-tile--produce reveal" href="#bestsellers">
+          <span class="cat-tile__kicker">02</span>
+          <h3>Fresh Produce</h3>
+          <p>Highland greens, heirloom tomatoes & roots.</p>
+          <span class="cat-tile__go" aria-hidden="true">→</span>
+        </a>
+        <a class="cat-tile cat-tile--coffee reveal" href="#bestsellers">
+          <span class="cat-tile__kicker">03</span>
+          <h3>Coffee & Tea</h3>
+          <p>Single-origin beans & small-batch blends.</p>
+          <span class="cat-tile__go" aria-hidden="true">→</span>
+        </a>
+        <a class="cat-tile cat-tile--boxes reveal" href="#buildbox">
+          <span class="cat-tile__kicker">04</span>
+          <h3>Curated Boxes</h3>
+          <p>Chef-built bundles, delivered on repeat.</p>
+          <span class="cat-tile__go" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bestsellers -->
+  <section class="section section--tint" id="bestsellers">
+    <div class="wrap">
+      <header class="section__head reveal">
+        <h2>This week's bestsellers</h2>
+        <p>The jars, bags, and bunches our kitchens keep reordering.</p>
+      </header>
+      <div class="prod-grid" id="prodGrid"><!-- products injected by app.js --></div>
+    </div>
+  </section>
+
+  <!-- Build your box (forest band) -->
+  <section class="band" id="buildbox">
+    <span class="band__leaf" aria-hidden="true">
+      <svg viewBox="0 0 200 200"><path d="M100 180C50 140 20 100 40 40c60 14 100 60 100 140" fill="#2f5a41"/></svg>
+    </span>
+    <div class="wrap band__grid">
+      <div class="band__copy reveal">
+        <span class="eyebrow eyebrow--light">Subscription · pause anytime</span>
+        <h2>Build your weekly box</h2>
+        <p>Tap what your table needs. We harvest to order, pack it cold, and drop it at your door every week.</p>
+        <ul class="band__perks">
+          <li>Skip, swap, or pause with a tap</li>
+          <li>Members save 12% on every order</li>
+          <li>First delivery free over ₱1,500</li>
+        </ul>
+      </div>
+
+      <div class="box-builder reveal" role="group" aria-label="Build your box">
+        <div class="box-builder__items" id="boxItems">
+          <button class="box-item" data-price="240" aria-pressed="false">
+            <span class="box-item__emoji" aria-hidden="true">🍅</span>
+            <span class="box-item__name">Heirloom tomatoes</span>
+            <span class="box-item__price">₱240</span>
+          </button>
+          <button class="box-item" data-price="180" aria-pressed="false">
+            <span class="box-item__emoji" aria-hidden="true">🥬</span>
+            <span class="box-item__name">Highland greens</span>
+            <span class="box-item__price">₱180</span>
+          </button>
+          <button class="box-item" data-price="320" aria-pressed="false">
+            <span class="box-item__emoji" aria-hidden="true">☕</span>
+            <span class="box-item__name">Kalinga coffee</span>
+            <span class="box-item__price">₱320</span>
+          </button>
+          <button class="box-item" data-price="260" aria-pressed="false">
+            <span class="box-item__emoji" aria-hidden="true">🍯</span>
+            <span class="box-item__name">Wild forest honey</span>
+            <span class="box-item__price">₱260</span>
+          </button>
+          <button class="box-item" data-price="150" aria-pressed="false">
+            <span class="box-item__emoji" aria-hidden="true">🥚</span>
+            <span class="box-item__name">Free-range eggs</span>
+            <span class="box-item__price">₱150</span>
+          </button>
+          <button class="box-item" data-price="210" aria-pressed="false">
+            <span class="box-item__emoji" aria-hidden="true">🧀</span>
+            <span class="box-item__name">Kesong puti</span>
+            <span class="box-item__price">₱210</span>
+          </button>
+        </div>
+        <div class="box-builder__foot">
+          <div>
+            <span class="box-builder__count" id="boxCount">0 items selected</span>
+            <span class="box-builder__total" id="boxTotal">₱0</span>
+          </div>
+          <button class="btn btn--yolk" id="boxAdd">Add box to cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Farmers story -->
+  <section class="section" id="farmers">
+    <div class="wrap farmers__grid">
+      <div class="farmers__art reveal" aria-hidden="true">
+        <span class="blob blob--forest"></span>
+        <div class="farmers__portrait">
+          <svg viewBox="0 0 200 200">
+            <rect width="200" height="200" rx="20" fill="#1E3A2B"/>
+            <circle cx="100" cy="80" r="34" fill="#F4B740"/>
+            <path d="M46 168c6-34 28-52 54-52s48 18 54 52z" fill="#FBF6EC"/>
+            <path d="M62 60c10-18 26-24 38-24" stroke="#D6462F" stroke-width="6" fill="none" stroke-linecap="round"/>
+          </svg>
+          <img class="farmers__photo" src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1200&q=75" alt="Hands preparing fresh farm ingredients in a rustic kitchen" loading="lazy" onerror="this.style.display='none'">
+        </div>
+      </div>
+      <div class="farmers__copy reveal">
+        <span class="eyebrow">Meet our farmers</span>
+        <blockquote>
+          “We've farmed this ridge for three generations. Root + Cellar was the first buyer that paid us before harvest — now our whole barangay plants with confidence.”
+        </blockquote>
+        <p class="farmers__by">— Aling Remy &amp; Kuya Boyet, Benguet highland growers</p>
+        <a href="#categories" class="btn btn--outline">Read their stories</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section section--tint" id="newsletter">
+    <div class="wrap news">
+      <div class="news__card reveal">
+        <span class="news__leaf" aria-hidden="true">🌿</span>
+        <h2>Get a recipe (and a discount) every Sunday</h2>
+        <p>Seasonal recipes built around what's fresh this week, plus first dibs on limited harvests. New subscribers get 10% off.</p>
+        <form class="news__form" onsubmit="return false;">
+          <label class="visually-hidden" for="newsEmail">Email address</label>
+          <input id="newsEmail" type="email" placeholder="you@kitchen.ph" autocomplete="email" />
+          <button class="btn btn--primary" type="submit">Send me recipes</button>
+        </form>
+        <p class="news__fine">No spam, just supper ideas. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand brand--foot">
+        <span class="brand__name">Root <em>+</em> Cellar</span>
+      </span>
+      <p>Good food has an address. We know every farm on our shelf by name.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Shop</h4>
+      <a href="#categories">Pantry</a>
+      <a href="#categories">Fresh Produce</a>
+      <a href="#bestsellers">Coffee & Tea</a>
+      <a href="#buildbox">Curated Boxes</a>
+    </div>
+    <div class="footer__col">
+      <h4>About</h4>
+      <a href="#farmers">Our Farmers</a>
+      <a href="#farmers">Sourcing</a>
+      <a href="#newsletter">Sustainability</a>
+      <a href="#top">Careers</a>
+    </div>
+    <div class="footer__col">
+      <h4>Support</h4>
+      <a href="#top">Delivery & areas</a>
+      <a href="#top">Returns</a>
+      <a href="#top">Track order</a>
+      <a href="#top">Contact</a>
+    </div>
+    <div class="footer__col">
+      <h4>Follow</h4>
+      <a href="#top">Instagram</a>
+      <a href="#top">Facebook</a>
+      <a href="#top">TikTok</a>
+      <a href="#top">Newsletter</a>
+    </div>
+  </div>
+  <div class="wrap footer__base">
+    <span>© 2026 Root + Cellar Provisions Co. · Made in the Philippines 🇵🇭</span>
+    <div class="pay" aria-label="Accepted payments">
+      <span class="pay__chip">GCash</span>
+      <span class="pay__chip">Maya</span>
+      <span class="pay__chip">Visa</span>
+      <span class="pay__chip">Mastercard</span>
+      <span class="pay__chip">COD</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="overlay" id="overlay" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer__head">
+    <h2>Your basket</h2>
+    <button class="drawer__close" id="drawerClose" aria-label="Close cart">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer__body" id="drawerBody"><!-- line items injected --></div>
+  <div class="drawer__foot">
+    <div class="drawer__sub">
+      <span>Subtotal</span>
+      <strong id="drawerSubtotal">₱0</strong>
+    </div>
+    <p class="drawer__note">Shipping & taxes calculated at checkout · Free over ₱1,500</p>
+    <button class="btn btn--primary btn--block">Checkout</button>
+    <button class="btn btn--ghost btn--block" id="keepShopping">Keep shopping</button>
+  </div>
+</aside>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

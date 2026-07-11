@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXIS One — The end of compromise</title>
+<meta name="description" content="AXIS One. Titanium unibody, 5x periscope camera, two-day battery. Fictional flagship phone — portfolio demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-tone="titanium">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <a class="brand" href="#top" aria-label="AXIS home">AXIS<span class="brand-dot">.</span></a>
+  <nav class="head-nav" aria-label="Page sections">
+    <a href="#camera">Camera</a>
+    <a href="#display">Display</a>
+    <a href="#battery">Battery</a>
+    <a href="#colors">Colors</a>
+  </nav>
+  <a class="btn btn-small" href="#buy">Pre-order</a>
+</header>
+
+<!-- Reusable CSS-built phone -->
+<template id="phone-template">
+  <div class="phone3d">
+    <div class="face face-front">
+      <div class="screen">
+        <div class="wall-fallback" aria-hidden="true"></div>
+        <img class="wallpaper" src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?auto=format&fit=crop&w=700&q=75" alt="" loading="lazy" onerror="this.style.display='none'">
+        <div class="screen-ui" aria-hidden="true">
+          <span class="lock-clock">9:41</span>
+          <span class="lock-date">Friday, July 10</span>
+        </div>
+        <span class="punch" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="face face-edge" aria-hidden="true"></div>
+    <div class="face face-back">
+      <div class="back-panel">
+        <div class="cam-island">
+          <span class="lens lens-a"><i></i></span>
+          <span class="lens lens-b"><i></i></span>
+          <span class="lens lens-c"><i></i></span>
+          <span class="flash"></span>
+        </div>
+        <span class="back-logo">AXIS</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<main id="main">
+
+<!-- ACT I — hero + titanium rotation share one pinned stage -->
+<section class="act-one" id="top" data-scroll>
+  <div class="stage">
+    <div class="hero-copy">
+      <p class="eyebrow">AXIS One</p>
+      <h1 class="hero-title">The end of<br><span class="metal-text">compromise.</span></h1>
+      <p class="hero-sub">Titanium unibody. 5x optical reach. Two days on a charge. One phone.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#buy">Pre-order</a>
+        <span class="price-tag">From ₱64,990</span>
+      </div>
+    </div>
+    <div class="phone-slot hero-phone" data-phone data-eager></div>
+    <div class="forge-copy">
+      <h2 class="chapter-title">Forged,<br>not assembled.</h2>
+      <p class="chapter-lede">One billet of grade-5 titanium, machined for eleven hours into a single seamless frame. No joints. No flex. 189 grams.</p>
+    </div>
+    <p class="scroll-hint" aria-hidden="true">Scroll</p>
+  </div>
+</section>
+
+<!-- CHAPTER — CAMERA -->
+<section class="chapter chapter-camera" id="camera" data-scroll>
+  <div class="pin">
+    <div class="chapter-phone">
+      <div class="phone-slot cam-zoom" data-phone data-face="back"></div>
+    </div>
+    <div class="chapter-copy">
+      <p class="eyebrow">Camera</p>
+      <h2 class="chapter-title">See <span class="metal-text">further.</span></h2>
+      <p class="chapter-lede">A 48MP main sensor the size of a coin. A folded periscope that pulls in 5x optical zoom. Night Engine turns street light into daylight.</p>
+      <ul class="stat-row" role="list">
+        <li class="stat-step"><strong>48MP</strong><span>main sensor</span></li>
+        <li class="stat-step"><strong>5x</strong><span>optical zoom</span></li>
+        <li class="stat-step"><strong>f/1.6</strong><span>night engine</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER — DISPLAY -->
+<section class="chapter chapter-display" id="display" data-scroll>
+  <div class="pin">
+    <div class="chapter-phone">
+      <div class="phone-slot display-glow" data-phone></div>
+    </div>
+    <div class="chapter-copy">
+      <p class="eyebrow">Display</p>
+      <h2 class="chapter-title">6.8 inches<br><span class="metal-text">of daylight.</span></h2>
+      <p class="chapter-lede">LTPO OLED that breathes between 1 and 120Hz. 3,000 nits peak — readable at noon, gentle at midnight.</p>
+      <ul class="stat-row" role="list">
+        <li class="stat-step"><strong>120Hz</strong><span>adaptive LTPO</span></li>
+        <li class="stat-step"><strong>3,000</strong><span>nits peak</span></li>
+        <li class="stat-step"><strong>2K</strong><span>micro-curve OLED</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER — BATTERY -->
+<section class="chapter chapter-battery" id="battery" data-scroll>
+  <div class="pin">
+    <div class="chapter-phone battery-visual">
+      <div class="charge-card" role="img" aria-label="Battery charging indicator filling as you scroll">
+        <div class="charge-pct"><span id="batt-pct">100</span><em>%</em></div>
+        <div class="charge-track"><div class="charge-fill"></div></div>
+        <p class="charge-note">5,400 mAh &middot; 80W wired &middot; 50W wireless</p>
+      </div>
+    </div>
+    <div class="chapter-copy">
+      <p class="eyebrow">Battery</p>
+      <h2 class="chapter-title">Two days.<br><span class="metal-text">Zero anxiety.</span></h2>
+      <p class="chapter-lede">A silicon-carbon cell with 18% more density in the same footprint. Ten minutes on the charger buys you a full day.</p>
+      <ul class="stat-row" role="list">
+        <li class="stat-step"><strong>51h</strong><span>typical use</span></li>
+        <li class="stat-step"><strong>10min</strong><span>= 1 full day</span></li>
+        <li class="stat-step"><strong>1,600</strong><span>cycle health</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTER — CHIP -->
+<section class="chapter chapter-chip" id="chip" data-scroll>
+  <div class="pin">
+    <div class="chapter-phone">
+      <div class="chip-diagram" role="img" aria-label="A1 Fusion chip diagram with radiating circuit traces">
+        <div class="traces" aria-hidden="true">
+          <span class="trace t-n" style="--d:0"></span><span class="trace t-n" style="--d:.12"></span><span class="trace t-n" style="--d:.24"></span>
+          <span class="trace t-s" style="--d:.06"></span><span class="trace t-s" style="--d:.18"></span><span class="trace t-s" style="--d:.3"></span>
+          <span class="trace t-e" style="--d:.09"></span><span class="trace t-e" style="--d:.21"></span><span class="trace t-e" style="--d:.33"></span>
+          <span class="trace t-w" style="--d:.03"></span><span class="trace t-w" style="--d:.15"></span><span class="trace t-w" style="--d:.27"></span>
+        </div>
+        <div class="chip-die">
+          <span class="chip-name">A1</span>
+          <span class="chip-sub">FUSION</span>
+        </div>
+      </div>
+    </div>
+    <div class="chapter-copy">
+      <p class="eyebrow">Chip</p>
+      <h2 class="chapter-title">A1 Fusion.<br><span class="metal-text">Quietly violent.</span></h2>
+      <p class="chapter-lede">Second-generation 3nm. Twenty GPU cores. A neural engine that runs 40-billion-parameter models without leaving the device.</p>
+      <ul class="stat-row" role="list">
+        <li class="stat-step"><strong>3nm</strong><span>process</span></li>
+        <li class="stat-step"><strong>45</strong><span>TOPS on-device AI</span></li>
+        <li class="stat-step"><strong>+38%</strong><span>perf per watt</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS STRIP -->
+<section class="specs" aria-labelledby="specs-title">
+  <h2 id="specs-title" class="section-label">Technical readout</h2>
+  <dl class="spec-grid">
+    <div class="spec"><dt>Display</dt><dd>6.8&Prime; LTPO OLED &middot; 1–120Hz</dd></div>
+    <div class="spec"><dt>Chip</dt><dd>A1 Fusion &middot; 3nm</dd></div>
+    <div class="spec"><dt>Camera</dt><dd>48MP + 5x periscope</dd></div>
+    <div class="spec"><dt>Battery</dt><dd>5,400 mAh Si/C</dd></div>
+    <div class="spec"><dt>Charging</dt><dd>80W wired &middot; 50W Qi2</dd></div>
+    <div class="spec"><dt>Frame</dt><dd>Grade-5 titanium</dd></div>
+    <div class="spec"><dt>Weight</dt><dd>189 g</dd></div>
+    <div class="spec"><dt>Rating</dt><dd>IP68 &middot; 2m / 30min</dd></div>
+  </dl>
+</section>
+
+<!-- COLOR PICKER -->
+<section class="colors" id="colors" aria-labelledby="colors-title">
+  <div class="colors-copy">
+    <p class="eyebrow">Finish</p>
+    <h2 id="colors-title" class="chapter-title">Three metals.<br><span class="metal-text">One temper.</span></h2>
+    <p class="chapter-lede">Every finish is anodized into the titanium itself — not painted on. It wears in, never off.</p>
+    <div class="swatch-row" role="group" aria-label="Choose a finish">
+      <button class="swatch is-active" type="button" data-tone="titanium" aria-pressed="true"><span class="swatch-chip chip-titanium" aria-hidden="true"></span>Titanium</button>
+      <button class="swatch" type="button" data-tone="midnight" aria-pressed="false"><span class="swatch-chip chip-midnight" aria-hidden="true"></span>Midnight</button>
+      <button class="swatch" type="button" data-tone="bone" aria-pressed="false"><span class="swatch-chip chip-bone" aria-hidden="true"></span>Bone</button>
+    </div>
+    <p class="tone-name" aria-live="polite">Titanium — raw machined finish</p>
+  </div>
+  <div class="colors-phone">
+    <div class="phone-slot color-phone" data-phone data-face="back"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" aria-labelledby="gallery-title">
+  <h2 id="gallery-title" class="section-label">In the wild</h2>
+  <div class="gallery-grid">
+    <figure class="shot shot-tall">
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=75" alt="AXIS One held in one hand against a warm pink backdrop" loading="lazy" onerror="this.style.display='none'">
+      <figcaption>Made for one hand.</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=900&q=75" alt="AXIS One face-down in low dramatic light" loading="lazy" onerror="this.style.display='none'">
+      <figcaption>Midnight, in Midnight.</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=900&q=75" alt="Close-up of the AXIS One display edge" loading="lazy" onerror="this.style.display='none'">
+      <figcaption>Edges you stop noticing.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="buy" id="buy" aria-labelledby="buy-title">
+  <p class="eyebrow">AXIS One</p>
+  <h2 id="buy-title" class="buy-title">Yours first.<br><span class="metal-text">October 2026.</span></h2>
+  <p class="buy-price">From <strong>₱64,990</strong> &middot; or ₱2,708/mo for 24 months</p>
+  <a class="btn btn-primary btn-large" href="#top">Pre-order now</a>
+  <p class="buy-fine">Reservation is free and fully refundable. Ships in Titanium, Midnight and Bone.</p>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <p><strong>AXIS</strong> is a fictional brand. This page is a portfolio demo — no real product, no real orders.</p>
+  <p class="foot-credit">Designed &amp; built with vanilla HTML, CSS and JavaScript.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

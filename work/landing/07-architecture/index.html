@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>STOA NORD — Architecture &amp; Design Studio</title>
+<meta name="description" content="STOA NORD is an architecture and design studio working across residential, cultural and civic scales. Selected works, studio, and contact." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --stone:#EDEAE4;
+    --paper:#F7F5F1;
+    --ink:#1A1A18;
+    --muted:#8A857C;
+    --hair:#DAD5CC;
+    --bronze:#9A7B4F;
+    --maxw:1360px;
+    --gutter:clamp(20px,5vw,64px);
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  h1,h2,h3{font-weight:300;margin:0;letter-spacing:-.01em}
+
+  /* focus */
+  a:focus-visible,button:focus-visible{
+    outline:1.5px solid var(--bronze);
+    outline-offset:4px;
+  }
+  .skip{
+    position:absolute;left:-9999px;top:0;z-index:200;
+    background:var(--ink);color:var(--paper);padding:12px 18px;
+    font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;
+  }
+  .skip:focus{left:16px;top:16px}
+
+  /* label / caption face */
+  .label{
+    font-family:"IBM Plex Mono",monospace;
+    font-weight:400;
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;top:0;z-index:100;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:1px solid var(--hair);
+  }
+  .nav__in{
+    display:flex;align-items:center;justify-content:space-between;
+    height:66px;
+  }
+  .word{
+    font-family:"Fraunces",serif;font-weight:400;font-size:19px;letter-spacing:.02em;
+    display:flex;align-items:baseline;gap:.5ch;
+  }
+  .word b{font-weight:400}
+  .word span{font-size:10px;letter-spacing:.22em;color:var(--muted);font-family:"IBM Plex Mono",monospace;text-transform:uppercase}
+  .nav__links{
+    display:flex;gap:0;align-items:center;
+    position:fixed;inset:66px 0 auto 0;flex-direction:column;
+    background:var(--paper);border-bottom:1px solid var(--hair);
+    transform:translateY(-140%);transition:transform .5s var(--ease);
+    padding:8px var(--gutter) 28px;
+  }
+  .nav__links.open{transform:translateY(0)}
+  .nav__links a{
+    font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+    position:relative;padding:16px 0;border-bottom:1px solid var(--hair);
+  }
+  .nav__links a::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--ink);
+    transition:width .5s var(--ease);display:none;
+  }
+  .nav__links a:hover::after,.nav__links a:focus-visible::after{width:100%}
+  .burger{
+    display:flex;background:none;border:0;cursor:pointer;padding:8px;
+    flex-direction:column;gap:5px;
+  }
+  .burger span{display:block;width:22px;height:1px;background:var(--ink);transition:.35s var(--ease)}
+  .burger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:clamp(70px,14vh,150px) 0 clamp(40px,8vh,90px)}
+  .hero__meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:clamp(44px,9vh,96px)}
+  .hero h1{
+    font-family:"Fraunces",serif;font-weight:300;
+    font-size:clamp(44px,8.4vw,132px);
+    line-height:.98;letter-spacing:-.02em;
+    max-width:14ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--muted)}
+  .hero__foot{
+    display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(24px,5vw,80px);
+    align-items:end;margin-top:clamp(40px,7vh,84px);
+  }
+  .hero__ethos{font-size:clamp(15px,1.5vw,19px);max-width:46ch;color:#3a3a36;font-weight:300}
+  .hero__ethos .lead{color:var(--ink)}
+
+  /* big hero visual */
+  .stage{
+    margin-top:clamp(40px,8vh,96px);
+    height:clamp(280px,52vh,560px);
+    border:1px solid var(--hair);
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 120% at 78% 0%, #f2efe9 0%, #e7e2d9 46%, #d9d3c8 100%);
+  }
+  .stage svg{position:absolute;inset:0;width:100%;height:100%}
+
+  /* ---------- section frame ---------- */
+  section{scroll-margin-top:80px}
+  .head{
+    display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    border-top:1px solid var(--ink);padding-top:18px;margin-bottom:clamp(34px,6vh,64px);
+  }
+  .head h2{font-family:"Fraunces",serif;font-size:clamp(22px,2.4vw,30px);font-weight:300}
+  .head .label{white-space:nowrap}
+
+  .work{padding:clamp(60px,10vh,120px) 0}
+
+  /* project index grid */
+  .projects{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(30px,5vw,64px) clamp(24px,4vw,48px)}
+  .proj{grid-column:1/-1;display:block;color:inherit}
+  @media(min-width:761px){
+    .proj{grid-column:span 6}
+    .proj--wide{grid-column:span 12}
+    .proj--tall{grid-column:span 5}
+    .proj--offset{grid-column:span 7}
+  }
+  .proj__frame{
+    position:relative;overflow:hidden;border:1px solid var(--hair);
+    aspect-ratio:4/3;background:var(--stone);
+  }
+  .proj--wide .proj__frame{aspect-ratio:16/7}
+  .proj--tall .proj__frame{aspect-ratio:3/4}
+  .proj__frame svg{position:absolute;inset:0;width:100%;height:100%}
+  .proj__frame::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 60%,rgba(26,26,24,.06));
+    opacity:0;transition:opacity .6s var(--ease);
+  }
+  .proj:hover .proj__frame::after{opacity:1}
+  .proj__frame img{transition:transform 1.2s var(--ease)}
+  .proj:hover svg .zoom{transform:scale(1.03);transform-origin:center;transition:transform 1.4s var(--ease)}
+  .proj__cap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:16px}
+  .proj__name{font-family:"Fraunces",serif;font-size:clamp(18px,1.8vw,23px);font-weight:400}
+  .proj__loc{font-size:13px;color:var(--muted)}
+  .proj__yr{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.06em}
+
+  /* ---------- studio statement ---------- */
+  .studio{padding:clamp(70px,12vh,140px) 0;background:var(--stone)}
+  .studio__grid{display:grid;grid-template-columns:1fr;gap:clamp(30px,6vh,60px)}
+  .statement{
+    font-family:"Fraunces",serif;font-weight:300;font-style:normal;
+    font-size:clamp(23px,3.2vw,44px);line-height:1.28;letter-spacing:-.01em;
+    max-width:20ch;
+  }
+  .statement em{font-style:italic;color:var(--muted)}
+  .studio__body{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,4vw,48px);align-items:start}
+  .studio__lede{grid-column:1/-1;font-size:clamp(15px,1.5vw,18px);color:#3a3a36;max-width:52ch}
+  .studio__aside{grid-column:1/-1}
+  @media(min-width:761px){.studio__lede{grid-column:1/8}.studio__aside{grid-column:9/13}}
+  .factlist{list-style:none;margin:0;padding:0}
+  .factlist li{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid var(--hair);font-size:13px}
+  .factlist li:last-child{border-bottom:1px solid var(--hair)}
+  .factlist .k{color:var(--muted)}
+
+  /* ---------- approach ---------- */
+  .approach{padding:clamp(60px,10vh,120px) 0}
+  .rows{border-top:1px solid var(--hair)}
+  .row{
+    display:grid;grid-template-columns:1fr;gap:8px;
+    padding:clamp(22px,3.4vh,34px) 0;border-bottom:1px solid var(--hair);
+    align-items:baseline;
+  }
+  .row__no{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);order:-1}
+  .row__t{font-family:"Fraunces",serif;font-size:clamp(19px,2vw,26px);font-weight:300}
+  .row__d{font-size:14px;color:#3a3a36;max-width:46ch}
+  @media(min-width:641px){
+    .row{grid-template-columns:56px 1fr 1.4fr;gap:clamp(16px,3vw,44px)}
+    .row__no{order:0}
+  }
+
+  /* ---------- press / awards ---------- */
+  .press{padding:clamp(60px,10vh,120px) 0;background:var(--stone)}
+  .press__list{border-top:1px solid var(--ink)}
+  .press__row{
+    display:grid;grid-template-columns:64px 1fr;gap:clamp(16px,3vw,40px);
+    padding:18px 0;border-bottom:1px solid var(--hair);align-items:baseline;
+  }
+  .press__yr{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--muted)}
+  .press__t{font-size:15px}
+  .press__src{font-size:12px;color:var(--muted);letter-spacing:.04em;grid-column:2}
+  @media(min-width:561px){
+    .press__row{grid-template-columns:88px 1fr auto}
+    .press__src{grid-column:auto}
+  }
+
+  /* ---------- contact ---------- */
+  .contact{padding:clamp(80px,14vh,160px) 0}
+  .contact__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(30px,5vw,60px)}
+  .contact__lead{grid-column:1/-1}
+  .contact__lead h2{
+    font-family:"Fraunces",serif;font-weight:300;font-size:clamp(30px,5vw,68px);
+    line-height:1.02;letter-spacing:-.02em;
+  }
+  .contact__mail{display:inline-block;margin-top:26px;font-size:clamp(16px,1.7vw,20px);border-bottom:1px solid var(--ink);padding-bottom:3px}
+  .contact__mail:hover{color:var(--bronze);border-color:var(--bronze)}
+  .contact__info{grid-column:1/-1;display:flex;flex-direction:column;gap:26px}
+  @media(min-width:821px){.contact__lead{grid-column:1/8}.contact__info{grid-column:9/13}}
+  .info__block .label{display:block;margin-bottom:8px}
+  .info__block address{font-style:normal;font-size:14px;color:#3a3a36;line-height:1.7}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--hair);padding:44px 0}
+  .foot__in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:baseline}
+  .foot__note{font-size:12px;color:var(--muted)}
+  .foot__demo{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+
+  /* ---------- desktop menu ---------- */
+  @media(min-width:841px){
+    .nav__links{
+      position:static;inset:auto;flex-direction:row;gap:34px;
+      background:transparent;border-bottom:0;
+      transform:none;transition:none;padding:0;
+    }
+    .nav__links a{padding:4px 0;border-bottom:0;font-size:12px}
+    .nav__links a::after{display:block}
+    .burger{display:none}
+  }
+
+  /* project photography */
+  .proj__frame img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:saturate(.72) sepia(.09) contrast(.95) brightness(1.02);
+  }
+  .proj:hover .proj__frame img{transform:scale(1.03)}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.in--now{transition:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    *{scroll-behavior:auto!important}
+    .proj:hover svg .zoom{transition:none}
+    .proj__frame img{transition:none}
+    .proj:hover .proj__frame img{transform:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="word" href="#top" aria-label="STOA NORD, home"><b>STOA&nbsp;NORD</b><span>est. 2009</span></a>
+    <nav class="nav__links" id="menu" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#studio">Studio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap" aria-label="Introduction">
+    <div class="hero__meta">
+      <span class="label">Architecture &amp; Design</span>
+      <span class="label">Manila · PH — 14.55°N</span>
+    </div>
+    <h1 class="reveal">Buildings that keep&nbsp;<em>quiet</em>, and hold light.</h1>
+    <div class="hero__foot">
+      <p class="hero__ethos reveal"><span class="lead">STOA NORD is an architecture studio working across residential, cultural and civic scales.</span> We design slowly — for climate, proportion and the long life of a place — favouring material honesty over gesture.</p>
+      <p class="label reveal">Selected works<br>2011 — 2026</p>
+    </div>
+
+    <div class="stage reveal" role="img" aria-label="Abstract architectural composition of arches and stacked volumes in warm stone tones.">
+      <svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e9e4da"/><stop offset="1" stop-color="#d6cfc3"/>
+          </linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#e2dccf"/><stop offset="1" stop-color="#cfc7b9"/>
+          </linearGradient>
+        </defs>
+        <rect x="120" y="70" width="360" height="470" fill="url(#g1)"/>
+        <path d="M540 540 V210 a150 150 0 0 1 300 0 V540 Z" fill="url(#g2)"/>
+        <path d="M560 540 V212 a130 130 0 0 1 260 0 V540 Z" fill="#efeae1"/>
+        <rect x="880" y="150" width="200" height="390" fill="url(#g1)"/>
+        <g stroke="#c7bfb0" stroke-width="1" opacity=".8">
+          <line x1="120" y1="150" x2="480" y2="150"/>
+          <line x1="120" y1="250" x2="480" y2="250"/>
+          <line x1="120" y1="350" x2="480" y2="350"/>
+          <line x1="120" y1="450" x2="480" y2="450"/>
+          <line x1="880" y1="240" x2="1080" y2="240"/>
+          <line x1="880" y1="340" x2="1080" y2="340"/>
+          <line x1="880" y1="440" x2="1080" y2="440"/>
+        </g>
+        <circle cx="690" cy="120" r="26" fill="#9A7B4F" opacity=".22"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="work wrap" id="work" aria-labelledby="work-h">
+    <div class="head">
+      <h2 id="work-h">Selected Works</h2>
+      <span class="label">Index / 06</span>
+    </div>
+
+    <div class="projects">
+
+      <a class="proj proj--wide reveal" href="#work">
+        <div class="proj__frame">
+          <svg viewBox="0 0 1200 525" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="1200" height="525" fill="#e7e1d6"/>
+            <g class="zoom">
+              <rect x="0" y="220" width="1200" height="305" fill="#ded7ca"/>
+              <rect x="140" y="90" width="260" height="435" fill="#efeae1"/>
+              <rect x="470" y="150" width="260" height="375" fill="#e2dccf"/>
+              <rect x="800" y="60" width="260" height="465" fill="#d8d0c2"/>
+              <line x1="0" y1="220" x2="1200" y2="220" stroke="#c9c1b2"/>
+              <circle cx="600" cy="120" r="40" fill="#9A7B4F" opacity=".16"/>
+            </g>
+          </svg>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=75" alt="Casa Terrado — a modern house of pale stone and glass under soft evening light" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="proj__cap">
+          <div><span class="proj__name">Casa Terrado</span> &nbsp; <span class="proj__loc">Batangas, PH</span></div>
+          <span class="proj__yr">2024</span>
+        </div>
+      </a>
+
+      <a class="proj proj--tall reveal" href="#work">
+        <div class="proj__frame">
+          <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="600" height="800" fill="#e2dccf"/>
+            <g class="zoom">
+              <path d="M120 800 V300 a180 180 0 0 1 360 0 V800 Z" fill="#efeae1"/>
+              <path d="M170 800 V310 a130 130 0 0 1 260 0 V800 Z" fill="#dcd4c6"/>
+              <line x1="300" y1="180" x2="300" y2="800" stroke="#c9c1b2"/>
+            </g>
+          </svg>
+          <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=800&q=75" alt="Chapel of the Reeds — minimal architecture rising in quiet vertical planes" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="proj__cap">
+          <div><span class="proj__name">Chapel of the Reeds</span> &nbsp; <span class="proj__loc">Laguna, PH</span></div>
+          <span class="proj__yr">2022</span>
+        </div>
+      </a>
+
+      <a class="proj proj--offset reveal" href="#work">
+        <div class="proj__frame">
+          <svg viewBox="0 0 840 630" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="840" height="630" fill="#ddd6c9"/>
+            <g class="zoom">
+              <rect x="60" y="120" width="300" height="510" fill="#efeae1"/>
+              <rect x="400" y="220" width="380" height="410" fill="#e5dfd2"/>
+              <g stroke="#c9c1b2"><line x1="400" y1="320" x2="780" y2="320"/><line x1="400" y1="420" x2="780" y2="420"/><line x1="400" y1="520" x2="780" y2="520"/></g>
+            </g>
+          </svg>
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1200&q=75" alt="Escolta Reading Rooms — city architecture seen from the street, facades in warm light" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="proj__cap">
+          <div><span class="proj__name">Escolta Reading Rooms</span> &nbsp; <span class="proj__loc">Manila, PH</span></div>
+          <span class="proj__yr">2023</span>
+        </div>
+      </a>
+
+      <a class="proj proj--tall reveal" href="#work">
+        <div class="proj__frame">
+          <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="600" height="800" fill="#e6e0d4"/>
+            <g class="zoom">
+              <rect x="90" y="70" width="180" height="730" fill="#efeae1"/>
+              <rect x="300" y="180" width="220" height="620" fill="#d9d1c3"/>
+              <circle cx="410" cy="360" r="60" fill="#9A7B4F" opacity=".14"/>
+            </g>
+          </svg>
+          <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=800&q=75" alt="House Between Two Walls — minimalist cast-concrete volumes with a narrow slot of light" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="proj__cap">
+          <div><span class="proj__name">House Between Two Walls</span> &nbsp; <span class="proj__loc">Tagaytay, PH</span></div>
+          <span class="proj__yr">2021</span>
+        </div>
+      </a>
+
+      <a class="proj proj--offset reveal" href="#work">
+        <div class="proj__frame">
+          <svg viewBox="0 0 840 630" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="840" height="630" fill="#ded7ca"/>
+            <g class="zoom">
+              <path d="M120 630 V250 a120 120 0 0 1 240 0 V630 Z" fill="#efeae1"/>
+              <path d="M400 630 V250 a120 120 0 0 1 240 0 V630 Z" fill="#e3ddd0"/>
+              <line x1="0" y1="430" x2="840" y2="430" stroke="#c9c1b2"/>
+            </g>
+          </svg>
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=75" alt="Pavilion for the Wind — white geometric building against an open sky" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="proj__cap">
+          <div><span class="proj__name">Pavilion for the Wind</span> &nbsp; <span class="proj__loc">Cebu, PH</span></div>
+          <span class="proj__yr">2019</span>
+        </div>
+      </a>
+
+      <a class="proj proj--wide reveal" href="#work">
+        <div class="proj__frame">
+          <svg viewBox="0 0 1200 525" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="1200" height="525" fill="#e3ddd0"/>
+            <g class="zoom">
+              <rect x="0" y="0" width="1200" height="525" fill="#e3ddd0"/>
+              <rect x="80" y="130" width="1040" height="330" fill="#efeae1"/>
+              <g stroke="#cfc7b8">
+                <line x1="80" y1="130" x2="80" y2="460"/><line x1="340" y1="130" x2="340" y2="460"/>
+                <line x1="600" y1="130" x2="600" y2="460"/><line x1="860" y1="130" x2="860" y2="460"/>
+                <line x1="1120" y1="130" x2="1120" y2="460"/>
+              </g>
+              <rect x="0" y="460" width="1200" height="65" fill="#d6cec0"/>
+            </g>
+          </svg>
+          <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=75" alt="Provincial Archives — a long civic facade with a measured rhythm of windows" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+        <div class="proj__cap">
+          <div><span class="proj__name">Provincial Archives</span> &nbsp; <span class="proj__loc">Iloilo, PH</span></div>
+          <span class="proj__yr">2017</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="studio" id="studio" aria-labelledby="studio-h">
+    <div class="wrap studio__grid">
+      <div class="head" style="margin-bottom:0;border-color:var(--ink)">
+        <h2 id="studio-h">The Studio</h2>
+        <span class="label">Since 2009</span>
+      </div>
+      <p class="statement reveal">We build for the <em>climate we have</em> — shade, mass, air and a long patience with material.</p>
+      <div class="studio__body">
+        <p class="studio__lede reveal">STOA NORD is a small practice of architects and makers based in Manila. We work at the pace a building deserves: reading the site before drawing, testing in physical models, and returning to a handful of enduring materials — lime, stone, timber, cast concrete. Each project is led by a partner from first sketch to final handover, and we take on only a few commissions each year so that attention never thins.</p>
+        <div class="studio__aside reveal">
+          <ul class="factlist">
+            <li><span class="k">Founded</span><span>2009 · Manila</span></li>
+            <li><span class="k">Team</span><span>11 architects</span></li>
+            <li><span class="k">Scales</span><span>Home to civic</span></li>
+            <li><span class="k">Practice</span><span>Design &amp; build</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach wrap" aria-labelledby="approach-h">
+    <div class="head">
+      <h2 id="approach-h">Approach</h2>
+      <span class="label">What we do</span>
+    </div>
+    <div class="rows">
+      <div class="row reveal">
+        <span class="row__no">01</span>
+        <span class="row__t">Architecture</span>
+        <span class="row__d">Full design of new buildings and additions — houses, chapels, cultural and civic work — from concept through construction drawings.</span>
+      </div>
+      <div class="row reveal">
+        <span class="row__no">02</span>
+        <span class="row__t">Adaptive Reuse</span>
+        <span class="row__d">Careful reworking of heritage and existing structures, keeping what holds value and quietly extending its life.</span>
+      </div>
+      <div class="row reveal">
+        <span class="row__no">03</span>
+        <span class="row__t">Interiors &amp; Objects</span>
+        <span class="row__d">Rooms, joinery and a small line of furniture drawn in-house and made with local workshops.</span>
+      </div>
+      <div class="row reveal">
+        <span class="row__no">04</span>
+        <span class="row__t">Site &amp; Landscape</span>
+        <span class="row__d">Grounds, courtyards and thresholds considered as one continuous work with the building.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS -->
+  <section class="press" aria-labelledby="press-h">
+    <div class="wrap">
+      <div class="head" style="border-color:var(--ink)">
+        <h2 id="press-h">Awards &amp; Press</h2>
+        <span class="label">Selected</span>
+      </div>
+      <div class="press__list">
+        <div class="press__row reveal"><span class="press__yr">2025</span><span class="press__t">Aga Khan Award — Nominee, Chapel of the Reeds</span><span class="press__src">Jury Cycle</span></div>
+        <div class="press__row reveal"><span class="press__yr">2024</span><span class="press__t">Casa Terrado — House of the Year, shortlist</span><span class="press__src">BLUEPRINT ASIA</span></div>
+        <div class="press__row reveal"><span class="press__yr">2023</span><span class="press__t">“The Quiet Practices” — studio profile</span><span class="press__src">DOMUS</span></div>
+        <div class="press__row reveal"><span class="press__yr">2022</span><span class="press__t">Philippine Institute of Architects — Gold Medal</span><span class="press__src">PIA</span></div>
+        <div class="press__row reveal"><span class="press__yr">2020</span><span class="press__t">“Building for Climate” — long-form feature</span><span class="press__src">A+U</span></div>
+        <div class="press__row reveal"><span class="press__yr">2018</span><span class="press__t">Provincial Archives — Civic Design, commendation</span><span class="press__src">WAF</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact wrap" id="contact" aria-labelledby="contact-h">
+    <div class="contact__grid">
+      <div class="contact__lead reveal">
+        <h2 id="contact-h">Let’s begin<br>a conversation.</h2>
+        <a class="contact__mail" href="mailto:studio@stoanord.ph">studio@stoanord.ph</a>
+      </div>
+      <div class="contact__info reveal">
+        <div class="info__block">
+          <span class="label">Studio</span>
+          <address>
+            STOA NORD Architecture<br>
+            4F Escolta Corner, Calle Real<br>
+            Binondo, Manila 1006<br>
+            Philippines
+          </address>
+        </div>
+        <div class="info__block">
+          <span class="label">Enquiries</span>
+          <address>
+            New work — studio@stoanord.ph<br>
+            Press — press@stoanord.ph<br>
+            +63 (2) 8000 0000
+          </address>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot__in">
+    <span class="foot__note">© 2026 STOA NORD Architecture. All rights reserved.</span>
+    <span class="foot__demo">Fictional studio · portfolio demo</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var burger=document.getElementById('burger');
+  var menu=document.getElementById('menu');
+  function closeMenu(){menu.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');}
+  burger.addEventListener('click',function(){
+    var open=menu.classList.toggle('open');
+    burger.classList.toggle('open',open);
+    burger.setAttribute('aria-expanded',String(open));
+  });
+  menu.addEventListener('click',function(e){if(e.target.tagName==='A')closeMenu();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+
+  // reveal
+  var els=Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduce||!('IntersectionObserver'in window)){
+    els.forEach(function(el){el.classList.add('in','in--now');});
+  }else{
+    // Anything already inside (or partly inside) the initial viewport shows
+    // immediately — no fade — so above-the-fold content is never dimmed.
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    var below=[];
+    els.forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top<vh&&r.bottom>0){el.classList.add('in','in--now');}
+      else{below.push(el);}
+    });
+    if(below.length){
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+        });
+      },{threshold:0,rootMargin:'0px 0px -8% 0px'});
+      below.forEach(function(el){io.observe(el);});
+    }
+    // hard failsafe: the hero must never stay hidden
+    window.setTimeout(function(){
+      document.querySelectorAll('.hero .reveal').forEach(function(el){el.classList.add('in');});
+    },700);
+  }
+
+  // gentle hero parallax
+  if(!reduce){
+    var stage=document.querySelector('.stage svg');
+    if(stage){
+      var ticking=false;
+      window.addEventListener('scroll',function(){
+        if(ticking)return;ticking=true;
+        window.requestAnimationFrame(function(){
+          var y=window.scrollY;
+          stage.style.transform='translateY('+(y*0.04)+'px)';
+          ticking=false;
+        });
+      },{passive:true});
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,624 @@
+/* LAMESA — Issue 04: Asim
+   Color-blocked contemporary magazine. No newsprint, no cream+terracotta. */
+
+:root {
+  --aubergine: #2E1633;
+  --blush: #F5D7C8;
+  --calamansi: #A8C256;
+  --tamarind: #6B3F23;
+  --ink: #1D1418;
+  --spine-w: 46px;
+  --measure: 68ch;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--blush);
+  color: var(--ink);
+  font-family: "Newsreader", Georgia, serif;
+  font-optical-sizing: auto;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--calamansi);
+  outline-offset: 3px;
+}
+
+/* ---------- Type utilities ---------- */
+
+.kicker {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.dek {
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 1.7rem);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* ---------- Header / masthead ---------- */
+
+.site-header {
+  background: var(--aubergine);
+  color: var(--blush);
+}
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.4rem clamp(1rem, 4vw, 3rem) 1.1rem;
+}
+
+.masthead-logo {
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(2.6rem, 2rem + 4vw, 4.6rem);
+  line-height: 0.9;
+  color: var(--blush);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.masthead-logo em {
+  font-style: italic;
+  color: var(--calamansi);
+}
+
+.masthead-tag {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.site-nav {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  padding: 0 clamp(1rem, 4vw, 3rem) 1.1rem;
+}
+.site-nav a {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--blush);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  border-bottom-color: var(--calamansi);
+}
+
+/* ---------- Issue band (index: horizontal strip) ---------- */
+
+.issue-band {
+  background: var(--calamansi);
+  color: var(--aubergine);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem clamp(1rem, 4vw, 3rem);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* ---------- Spine (article pages) ---------- */
+
+.spine {
+  position: fixed;
+  z-index: 40;
+  background: var(--aubergine);
+  color: var(--blush);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.spine-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--calamansi);
+  transform-origin: top left;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(var(--progress, 0));
+}
+.spine-label {
+  position: relative;
+  z-index: 1;
+  display: block;
+  white-space: nowrap;
+  mix-blend-mode: normal;
+}
+body.has-spine { padding-top: 30px; }
+
+@media (min-width: 861px) {
+  .spine {
+    right: auto;
+    bottom: 0;
+    width: var(--spine-w);
+    height: auto;
+    display: block;
+  }
+  .spine-fill {
+    transform: scaleY(var(--progress, 0));
+  }
+  .spine-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    color: var(--blush);
+  }
+  .spine .spine-label { color: var(--blush); }
+  body.has-spine { padding-left: var(--spine-w); padding-top: 0; }
+}
+
+/* ---------- Index: cover feature ---------- */
+
+.cover {
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--aubergine);
+  color: var(--blush);
+}
+.cover-media {
+  position: relative;
+  min-height: 300px;
+  background: var(--tamarind);
+}
+.cover-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.14) saturate(1.15);
+}
+.cover-text {
+  padding: clamp(1.6rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+}
+.cover-text .kicker { color: var(--calamansi); }
+.cover-text .display {
+  font-size: clamp(2.6rem, 1.6rem + 4.5vw, 5rem);
+}
+.cover-text .display a {
+  color: inherit;
+  text-decoration: none;
+}
+.cover-text .display a:hover { color: var(--calamansi); }
+.byline {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.cover-text .byline { opacity: 0.85; }
+
+@media (min-width: 861px) {
+  .cover { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .cover-media { min-height: 420px; }
+}
+
+/* ---------- Index: uneven editorial grid ---------- */
+
+.features {
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: clamp(1.4rem, 3vw, 2.5rem);
+}
+.section-head .kicker { color: var(--tamarind); }
+.section-head::after {
+  content: "";
+  flex: 1;
+  height: 10px;
+  background: var(--aubergine);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 2.2rem;
+}
+
+.card {
+  position: relative;
+}
+.card-media {
+  overflow: hidden;
+  background: var(--tamarind);
+}
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  filter: sepia(0.14) saturate(1.15);
+  transition: transform 0.5s ease;
+}
+.card:hover .card-media img { transform: scale(1.04); }
+@media (prefers-reduced-motion: reduce) {
+  .card:hover .card-media img { transform: none; }
+}
+.card h3 {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
+  line-height: 1.05;
+  margin: 0.7rem 0 0.35rem;
+}
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { color: var(--tamarind); }
+.card p.card-dek {
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  margin: 0 0 0.5rem;
+}
+.card .kicker { color: var(--tamarind); }
+.card .byline { color: var(--ink); opacity: 0.7; }
+
+/* Art-directed placements */
+.card-a, .card-b, .card-c, .card-d, .card-e { grid-column: 1 / span 12; margin-top: 0; }
+.card-b .card-media img { aspect-ratio: 16 / 10; }
+.card-c .card-media img { aspect-ratio: 3 / 4; }
+.card-e {
+  background: var(--tamarind);
+  color: var(--blush);
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.card-e .card-media img { aspect-ratio: 4 / 3; height: 100%; }
+.card-e .card-body { padding: clamp(1.2rem, 3vw, 2.5rem); }
+.card-e .kicker { color: var(--calamansi); }
+.card-e h3 a:hover { color: var(--calamansi); }
+
+@media (min-width: 861px) {
+  .feature-grid { gap: clamp(1rem, 2.5vw, 2rem); }
+  .card-a { grid-column: 1 / span 5; }
+  .card-b { grid-column: 7 / span 6; margin-top: clamp(2rem, 6vw, 5rem); }
+  .card-c { grid-column: 2 / span 4; margin-top: clamp(1rem, 3vw, 2.5rem); }
+  .card-d { grid-column: 8 / span 5; margin-top: clamp(-3rem, -4vw, -1rem); }
+  .card-e {
+    grid-column: 1 / span 12;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    margin-top: clamp(1.5rem, 3vw, 3rem);
+  }
+}
+
+/* ---------- Past issues strip ---------- */
+
+.past-issues {
+  background: var(--aubergine);
+  color: var(--blush);
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+}
+.past-issues .section-head .kicker { color: var(--calamansi); }
+.past-issues .section-head::after { background: var(--calamansi); height: 4px; }
+.issue-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+.issue-strip article { min-width: 0; }
+.issue-strip .card-media img { aspect-ratio: 16 / 10; }
+.issue-strip h3 { color: var(--blush); }
+.issue-strip h3 a:hover { color: var(--calamansi); }
+.issue-strip .kicker { color: var(--calamansi); }
+.issue-strip .issue-note {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin: 0;
+}
+@media (min-width: 701px) {
+  .issue-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Newsletter ---------- */
+
+.newsletter {
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.newsletter .display { font-size: clamp(2rem, 1.4rem + 3vw, 3.6rem); }
+.newsletter p { max-width: 46ch; }
+.btn {
+  display: inline-block;
+  background: var(--aubergine);
+  color: var(--blush);
+  border: none;
+  cursor: pointer;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 1rem 1.8rem;
+}
+.btn:hover { background: var(--tamarind); }
+@media (min-width: 701px) {
+  .newsletter { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+}
+
+/* ---------- Modal ---------- */
+
+.modal[hidden] { display: none; }
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgba(29, 20, 24, 0.6);
+  padding: 1rem;
+}
+.modal-box {
+  background: var(--blush);
+  color: var(--ink);
+  max-width: 30rem;
+  width: 100%;
+  padding: 2rem;
+  border-top: 12px solid var(--calamansi);
+}
+.modal-box h2 {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: 2rem;
+  margin: 0 0 0.6rem;
+}
+.modal-box .kicker { color: var(--tamarind); }
+.modal-box p { margin: 0.6rem 0 1.2rem; }
+
+/* ---------- Article pages ---------- */
+
+.article-head {
+  background: var(--aubergine);
+  color: var(--blush);
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1rem, 4vw, 3rem);
+}
+.article-head .kicker { color: var(--calamansi); }
+.article-head .display {
+  font-size: clamp(2.6rem, 1.8rem + 4.5vw, 5.4rem);
+  max-width: 16ch;
+  margin: 0.6rem 0 1rem;
+}
+.article-head .dek { max-width: 38ch; opacity: 0.92; }
+.article-meta {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.article-meta .byline { color: var(--blush); opacity: 0.85; }
+
+/* Tamarind accent variant (article 2) */
+.article-head.head-tamarind { background: var(--tamarind); }
+.article-head.head-tamarind .kicker { color: var(--blush); }
+.article-head.head-tamarind .display { color: var(--calamansi); }
+
+.article-hero {
+  margin: 0;
+  background: var(--tamarind);
+}
+.article-hero img {
+  width: 100%;
+  max-height: 68vh;
+  object-fit: cover;
+  filter: sepia(0.14) saturate(1.15);
+}
+.article-hero figcaption,
+.fullbleed figcaption {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tamarind);
+  padding: 0.6rem clamp(1rem, 4vw, 3rem) 0;
+}
+
+.article-body {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 3rem);
+  font-size: 1.16rem;
+}
+.article-body p { margin: 0 0 1.3em; }
+
+.article-body > p:first-of-type::first-letter {
+  font-family: "Instrument Serif", serif;
+  font-size: 4.4em;
+  line-height: 0.78;
+  float: left;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--aubergine);
+}
+.head-tamarind ~ main .article-body > p:first-of-type::first-letter,
+.article-body.dropcap-tamarind > p:first-of-type::first-letter {
+  color: var(--tamarind);
+}
+
+.pullquote {
+  border: none;
+  margin: 2.4rem 0;
+  padding: 0;
+}
+.pullquote p {
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.3rem);
+  line-height: 1.2;
+  color: var(--aubergine);
+  margin: 0;
+  padding-left: 1.2rem;
+  border-left: 10px solid var(--calamansi);
+}
+.pullquote.pq-tamarind p { color: var(--tamarind); }
+
+.fullbleed {
+  margin: clamp(2rem, 5vw, 3.5rem) 0;
+  background: var(--tamarind);
+}
+.fullbleed img {
+  width: 100%;
+  max-height: 62vh;
+  object-fit: cover;
+  filter: sepia(0.18) saturate(1.1);
+}
+
+/* Recipe card */
+.recipe-card {
+  background: var(--aubergine);
+  color: var(--blush);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  margin: 2.4rem 0;
+}
+@media (min-width: 1100px) {
+  .recipe-card {
+    float: right;
+    width: 22rem;
+    margin: 0.4rem calc((100% - var(--measure)) / -2 + -2rem) 1.5rem 2rem;
+  }
+}
+.recipe-card .kicker { color: var(--calamansi); }
+.recipe-card h2 {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: 1.9rem;
+  line-height: 1.05;
+  margin: 0.4rem 0 0.8rem;
+}
+.recipe-card h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--calamansi);
+  margin: 1.2rem 0 0.4rem;
+}
+.recipe-card ul, .recipe-card ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 1rem;
+}
+.recipe-card li { margin-bottom: 0.35rem; }
+.recipe-card .recipe-note {
+  font-size: 0.92rem;
+  font-style: italic;
+  opacity: 0.85;
+  margin: 1rem 0 0;
+}
+
+/* Next-article link */
+.next-article {
+  background: var(--calamansi);
+  color: var(--aubergine);
+  display: block;
+  text-decoration: none;
+  padding: clamp(1.6rem, 4vw, 2.6rem) clamp(1rem, 4vw, 3rem);
+}
+.next-article .kicker { display: block; margin-bottom: 0.4rem; }
+.next-article strong {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.6rem);
+  line-height: 1.05;
+}
+.next-article:hover strong { text-decoration: underline; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: var(--ink);
+  color: var(--blush);
+  padding: 2rem clamp(1rem, 4vw, 3rem);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.site-footer a { color: var(--calamansi); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.site-footer p { margin: 0; }
+
+/* ---------- Reveal (index cards only) ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}

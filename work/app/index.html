@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAWA — a maker's shipping log</title>
+  <meta name="description" content="GAWA — a working shipping log. Ship small. Learn by making. Every build counts. Part of the Daiven Reyes Prototype Lab." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">
+      <h1 class="wordmark">GAWA</h1>
+      <p class="manifesto">Ship small. Learn by making. Every build counts.</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn btn-primary" id="open-form-btn">+ Log a build</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Stats scoreboard -->
+    <section class="scoreboard" aria-label="Build statistics">
+      <div class="score-cells">
+        <div class="score-cell">
+          <span class="score-num score-flame" id="stat-streak">0</span>
+          <span class="score-label">day streak</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-num" id="stat-longest">0</span>
+          <span class="score-label">longest streak</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-num" id="stat-total">0</span>
+          <span class="score-label">total builds</span>
+        </div>
+        <div class="score-cell">
+          <span class="score-num" id="stat-month">0</span>
+          <span class="score-label">this month</span>
+        </div>
+      </div>
+      <div class="score-breakdown" id="type-breakdown" aria-label="Builds per type"></div>
+    </section>
+
+    <!-- Filters + search -->
+    <section class="toolbar" aria-label="Filter and search builds">
+      <div class="chips" id="filter-chips" role="group" aria-label="Filter by type"></div>
+      <div class="search-wrap">
+        <label class="visually-hidden" for="search-input">Search builds</label>
+        <input type="search" id="search-input" placeholder="Search the wall…" autocomplete="off" />
+      </div>
+    </section>
+
+    <!-- The Wall -->
+    <section aria-label="The wall of builds">
+      <h2 class="visually-hidden">The Wall</h2>
+      <div class="wall" id="wall"></div>
+      <div class="empty-state" id="empty-state" hidden>
+        <p class="empty-line">The wall is empty.</p>
+        <p class="empty-sub">Log the first thing you made today.</p>
+        <button type="button" class="btn btn-primary" id="empty-log-btn">+ Log a build</button>
+      </div>
+      <div class="empty-state" id="no-results" hidden>
+        <p class="empty-line">Nothing matches.</p>
+        <p class="empty-sub">Try a different search or clear the filters.</p>
+      </div>
+    </section>
+
+    <!-- Data tools -->
+    <section class="data-tools" aria-label="Export and import">
+      <button type="button" class="btn btn-ghost" id="export-btn">Export JSON</button>
+      <button type="button" class="btn btn-ghost" id="import-btn">Import JSON</button>
+      <input type="file" id="import-file" accept=".json,application/json" class="visually-hidden" tabindex="-1" />
+    </section>
+  </main>
+
+  <!-- Slide-over form panel -->
+  <div class="panel-backdrop" id="panel-backdrop" hidden></div>
+  <div class="panel" id="form-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>
+    <div class="panel-head">
+      <h2 id="panel-title" class="panel-title">Log a build</h2>
+      <button type="button" class="btn-close" id="close-panel-btn" aria-label="Close panel">&times;</button>
+    </div>
+    <form id="build-form" novalidate>
+      <div class="field">
+        <label for="f-title">Title <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="f-title" name="title" maxlength="80" autocomplete="off" aria-describedby="err-title" />
+        <p class="field-error" id="err-title" hidden></p>
+      </div>
+
+      <div class="field">
+        <label for="f-type">Type</label>
+        <select id="f-type" name="type">
+          <option value="Website">Website</option>
+          <option value="App">App</option>
+          <option value="Design">Design</option>
+          <option value="Experiment">Experiment</option>
+          <option value="Learning">Learning</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="f-learned">What I learned <span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="f-learned" name="learned" maxlength="160" autocomplete="off" aria-describedby="err-learned" />
+        <p class="field-error" id="err-learned" hidden></p>
+      </div>
+
+      <fieldset class="field effort-field">
+        <legend>Effort</legend>
+        <div class="segmented" role="radiogroup" aria-label="Effort">
+          <input type="radio" name="effort" id="effort-s" value="S" />
+          <label for="effort-s" class="seg seg-s">S</label>
+          <input type="radio" name="effort" id="effort-m" value="M" checked />
+          <label for="effort-m" class="seg seg-m">M</label>
+          <input type="radio" name="effort" id="effort-l" value="L" />
+          <label for="effort-l" class="seg seg-l">L</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="f-date">Date</label>
+        <input type="date" id="f-date" name="date" aria-describedby="err-date" />
+        <p class="field-error" id="err-date" hidden></p>
+      </div>
+
+      <div class="panel-actions">
+        <button type="submit" class="btn btn-primary" id="save-btn">Stamp it on the wall</button>
+        <button type="button" class="btn btn-ghost" id="cancel-btn">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 GAWA — a working mini app. Part of the Daiven Reyes Prototype Lab</p>
+    <a href="../index.html" class="back-link">&larr; Prototype Lab</a>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Craft Academy — Learn UI Design & Ship Real Products</title>
+<meta name="description" content="Craft Academy's UI Design Career Track. Go from beginner to job-ready designer in 12 focused weeks. 2,400+ students, real projects, lifetime access." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#FFFDF7; --surface:#FFFFFF; --ink:#1B1533; --muted:#6B6580;
+    --primary:#FFB800; --secondary:#6D28D9; --mint:#2DD4A7; --hairline:#EDE9E0;
+    --primary-soft:#FFF3D1; --secondary-soft:#F1EBFE; --mint-soft:#DFF7EF;
+    --shadow:0 12px 32px -12px rgba(27,21,51,.18);
+    --shadow-sm:0 6px 18px -10px rgba(27,21,51,.20);
+    --r:18px; --r-lg:28px; --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.brand{font-family:"Poppins",sans-serif;line-height:1.15;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none}
+  img,svg{max-width:100%;display:block}
+  section{padding:64px 0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:"Poppins";font-weight:600;
+    font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--secondary);
+    background:var(--secondary-soft);padding:7px 14px;border-radius:999px}
+  .lead{font-size:1.08rem;color:var(--muted);max-width:56ch}
+  :focus-visible{outline:3px solid var(--secondary);outline-offset:3px;border-radius:6px}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    font-family:"Poppins";font-weight:600;font-size:1rem;border:none;cursor:pointer;
+    padding:14px 26px;border-radius:999px;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+  .btn-primary{background:var(--primary);color:#3A2A00;box-shadow:0 8px 20px -8px rgba(255,184,0,.7)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 26px -8px rgba(255,184,0,.85)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{transform:translateY(-2px);background:#2a2150}
+  .btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--hairline)}
+  .btn-ghost:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm)}
+  @media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+
+  /* Nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,253,247,.85);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--hairline)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;
+    max-width:var(--maxw);margin:0 auto;padding:14px 24px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem}
+  .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--secondary),var(--mint));
+    display:grid;place-items:center;color:#fff;font-family:"Poppins";font-weight:700;font-size:1rem}
+  .nav-links{display:flex;align-items:center;position:fixed;inset:66px 0 auto 0;flex-direction:column;
+    background:var(--surface);padding:20px 24px;gap:16px;border-bottom:1px solid var(--hairline);
+    transform:translateY(-140%);transition:transform .28s ease;box-shadow:var(--shadow)}
+  .nav-links.open{transform:translateY(0)}
+  .nav-links a{font-weight:500;color:var(--muted);font-size:1.1rem}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{display:flex;align-items:center;gap:14px}
+  .nav-cta .btn-ghost{display:none}
+  .hamburger{display:grid;place-items:center;background:none;border:1.5px solid var(--hairline);border-radius:12px;
+    width:44px;height:44px;cursor:pointer;color:var(--ink)}
+  @media(min-width:861px){
+    .nav-links{position:static;inset:auto;flex-direction:row;background:transparent;
+      padding:0;gap:28px;border-bottom:0;transform:none;transition:none;box-shadow:none}
+    .nav-links a{font-size:.95rem}
+    .nav-cta .btn-ghost{display:inline-flex}
+    .hamburger{display:none}
+  }
+
+  /* Hero */
+  .hero{padding:64px 0 72px}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:44px;align-items:center}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;margin:18px 0 18px}
+  .hero h1 .hl{background:linear-gradient(120deg,var(--primary) 40%,#ffd35e);
+    padding:0 6px;border-radius:8px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin:28px 0 24px}
+  .social-proof{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .avatars{display:flex}
+  .avatars span{width:38px;height:38px;border-radius:50%;border:2.5px solid var(--bg);
+    margin-left:-12px;display:grid;place-items:center;color:#fff;font-weight:600;font-size:.8rem;font-family:"Poppins"}
+  .avatars span:first-child{margin-left:0}
+  .stars{color:var(--primary);letter-spacing:2px}
+  .proof-text{font-size:.9rem;color:var(--muted)}
+  .proof-text strong{color:var(--ink)}
+
+  /* Certificate mock */
+  .cert-card{position:relative;background:var(--surface);border:1px solid var(--hairline);
+    border-radius:var(--r-lg);padding:26px;box-shadow:var(--shadow)}
+  .cert-inner{border:2px dashed var(--hairline);border-radius:20px;padding:26px 22px;text-align:center;
+    background:linear-gradient(180deg,#fff, #fffaf0)}
+  .cert-badge{width:70px;height:70px;margin:0 auto 14px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,var(--mint),var(--secondary));
+    display:grid;place-items:center;color:#fff}
+  .cert-inner h3{font-size:1.4rem;margin-bottom:4px}
+  .cert-inner .cert-sub{font-size:.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+  .cert-name{font-family:"Poppins";font-weight:600;font-size:1.15rem;margin:14px 0 2px;color:var(--secondary)}
+  .cert-line{height:1px;background:var(--hairline);margin:16px 0}
+  .cert-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+  .float-chip{position:absolute;background:var(--surface);border:1px solid var(--hairline);
+    border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-sm);font-size:.85rem;font-weight:600;
+    display:flex;align-items:center;gap:8px;font-family:"Poppins"}
+  .float-chip .dot{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:.9rem}
+  .chip-1{top:-18px;right:-8px;animation:floaty 5s ease-in-out infinite}
+  .chip-2{bottom:-20px;left:-14px;animation:floaty 6s ease-in-out infinite .6s}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @media(prefers-reduced-motion:reduce){.chip-1,.chip-2{animation:none}}
+
+  .logos{display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:center;
+    margin-top:56px;padding-top:34px;border-top:1px solid var(--hairline);opacity:.85}
+  .logos span{font-family:"Poppins";font-weight:600;color:var(--muted);font-size:1rem;display:flex;align-items:center;gap:8px}
+
+  /* Section heading */
+  .sec-head{max-width:640px;margin-bottom:44px}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .sec-head h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:700;margin:14px 0 12px}
+
+  /* Outcomes grid */
+  .outcomes{background:var(--surface);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+  .grid-3{display:grid;grid-template-columns:1fr;gap:22px}
+  .out-card{background:var(--bg);border:1px solid var(--hairline);border-radius:var(--r);padding:26px}
+  .out-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:16px;color:#fff}
+  .out-card h3{font-size:1.12rem;margin-bottom:6px}
+  .out-card p{font-size:.94rem;color:var(--muted)}
+
+  /* Contextual photo */
+  .context-photo{margin:26px 0 0;border-radius:var(--r-lg);overflow:hidden;
+    border:1px solid var(--hairline);box-shadow:var(--shadow-sm);position:relative}
+  .context-photo img{width:100%;height:300px;object-fit:cover;filter:saturate(1.05) sepia(.08)}
+  .context-photo figcaption{position:absolute;left:16px;bottom:16px;background:rgba(255,253,247,.92);
+    border:1px solid var(--hairline);border-radius:999px;padding:7px 16px;
+    font-family:"Poppins";font-weight:600;font-size:.82rem;color:var(--ink)}
+
+  /* Curriculum */
+  .curr-top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:34px}
+  .curr-stats{display:flex;gap:20px;flex-wrap:wrap}
+  .curr-stats div{font-family:"Poppins"}
+  .curr-stats strong{display:block;font-size:1.6rem;font-weight:700;color:var(--secondary)}
+  .curr-stats span{font-size:.82rem;color:var(--muted)}
+  .modules{display:flex;flex-direction:column;gap:14px}
+  .module{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r);overflow:hidden;transition:box-shadow .2s ease}
+  .module:hover{box-shadow:var(--shadow-sm)}
+  .m-head{width:100%;display:flex;align-items:center;gap:18px;padding:20px 22px;background:none;border:none;
+    cursor:pointer;text-align:left;font-family:inherit;color:inherit}
+  .m-num{flex:none;width:44px;height:44px;border-radius:12px;background:var(--secondary-soft);color:var(--secondary);
+    display:grid;place-items:center;font-family:"Poppins";font-weight:700;font-size:1.05rem}
+  .m-title{flex:1}
+  .m-title h3{font-size:1.1rem;margin-bottom:2px}
+  .m-title p{font-size:.85rem;color:var(--muted)}
+  .m-meta{flex:none;display:flex;align-items:center;gap:16px;color:var(--muted);font-size:.85rem;font-weight:500}
+  .m-meta .m-time{display:none}
+  .m-lessons{font-family:"Poppins";font-weight:600;white-space:nowrap}
+  .chev{transition:transform .25s ease;flex:none;color:var(--muted)}
+  .m-head[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .m-head[aria-expanded="true"] .m-num{background:var(--secondary);color:#fff}
+  .m-panel{max-height:0;overflow:hidden;transition:max-height .32s ease}
+  @media(prefers-reduced-motion:reduce){.m-panel{transition:none}.chev{transition:none}}
+  .m-lesson-list{padding:2px 22px 22px 22px;display:flex;flex-direction:column;gap:2px}
+  .m-lesson-list li{display:flex;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--hairline);
+    font-size:.95rem;color:var(--muted);list-style:none}
+  .m-lesson-list li:first-child{border-top:none}
+  .m-lesson-list .tick{width:22px;height:22px;border-radius:50%;background:var(--mint-soft);color:var(--mint);
+    display:grid;place-items:center;flex:none}
+  .m-lesson-list .len{margin-left:auto;font-size:.8rem;font-variant-numeric:tabular-nums}
+
+  /* Instructor */
+  .instructor{background:var(--secondary);color:#fff}
+  .instructor .wrap{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
+  .inst-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-lg);
+    padding:32px;text-align:center}
+  .monogram{width:118px;height:118px;border-radius:50%;margin:0 auto 18px;
+    background:linear-gradient(135deg,var(--primary),var(--mint));display:grid;place-items:center;
+    font-family:"Poppins";font-weight:700;font-size:2.6rem;color:#3A2A00;
+    position:relative;overflow:hidden;border:3px solid rgba(255,255,255,.35)}
+  .monogram img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    border-radius:50%;filter:saturate(1.05) sepia(.06)}
+  .inst-card h3{font-size:1.4rem}
+  .inst-card .role{color:#E6DBFF;font-size:.92rem;margin-bottom:16px}
+  .inst-credits{display:flex;flex-direction:column;gap:10px;text-align:left;margin-top:18px}
+  .inst-credits li{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:#EFE9FF;list-style:none}
+  .inst-credits .c-tick{color:var(--mint);flex:none;margin-top:2px}
+  .instructor .eyebrow{background:rgba(255,255,255,.15);color:#fff}
+  .instructor h2{font-size:clamp(1.8rem,3.4vw,2.4rem);font-weight:700;margin:14px 0 16px}
+  .instructor p{color:#EAE2FF;max-width:52ch}
+  .inst-quote{margin-top:22px;padding-left:20px;border-left:3px solid var(--primary);font-style:italic;font-size:1.05rem}
+
+  /* Testimonials */
+  .grid-3.tst{align-items:start}
+  .tcard{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r);padding:26px;box-shadow:var(--shadow-sm)}
+  .tcard .stars{margin-bottom:12px;display:block}
+  .tcard blockquote{font-size:1rem;margin-bottom:20px}
+  .tperson{display:flex;align-items:center;gap:12px}
+  .tperson .tav{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-family:"Poppins";flex:none;
+    position:relative;overflow:hidden}
+  .tperson .tav img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    border-radius:50%;filter:saturate(1.05) sepia(.06)}
+  .tperson strong{display:block;font-size:.92rem}
+  .tperson span{font-size:.82rem;color:var(--muted)}
+  .result-badge{display:inline-block;margin-top:14px;font-size:.78rem;font-weight:600;font-family:"Poppins";
+    background:var(--mint-soft);color:#12876c;padding:5px 12px;border-radius:999px}
+
+  /* Pricing */
+  .pricing{background:var(--surface);border-top:1px solid var(--hairline)}
+  .price-grid{display:grid;grid-template-columns:1fr;gap:26px;align-items:stretch;max-width:900px;margin:0 auto}
+  .pcard{background:var(--bg);border:1.5px solid var(--hairline);border-radius:var(--r-lg);padding:34px;display:flex;flex-direction:column}
+  .pcard.featured{background:var(--ink);color:#fff;border-color:var(--ink);position:relative;box-shadow:var(--shadow)}
+  .pcard.featured .price-sub,.pcard.featured .incl li{color:#C9C3DE}
+  .pop-tag{position:absolute;top:20px;right:20px;background:var(--primary);color:#3A2A00;font-family:"Poppins";
+    font-weight:700;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
+  .pcard h3{font-size:1.25rem;margin-bottom:6px}
+  .price-sub{font-size:.9rem;color:var(--muted);margin-bottom:20px}
+  .price{font-family:"Poppins";font-weight:700;font-size:2.6rem;display:flex;align-items:baseline;gap:8px}
+  .price .old{font-size:1.1rem;font-weight:500;color:var(--muted);text-decoration:line-through}
+  .price-note{font-size:.82rem;color:var(--muted);margin:4px 0 22px}
+  .pcard.featured .price-note{color:#C9C3DE}
+  .incl{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;flex:1}
+  .incl li{display:flex;gap:11px;align-items:flex-start;font-size:.94rem}
+  .incl .i-tick{color:var(--mint);flex:none;margin-top:3px}
+  .guarantee{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:26px;
+    font-size:.9rem;color:var(--muted);max-width:520px;margin-left:auto;margin-right:auto;text-align:center}
+  .guarantee svg{color:var(--mint);flex:none}
+
+  /* FAQ */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  .faq{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r);overflow:hidden}
+  .faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;
+    background:none;border:none;cursor:pointer;text-align:left;font-family:"Poppins";font-weight:600;font-size:1.02rem;color:inherit}
+  .faq-panel{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  @media(prefers-reduced-motion:reduce){.faq-panel{transition:none}}
+  .faq-panel p{padding:0 22px 20px;color:var(--muted);font-size:.95rem}
+  .faq-q .chev{color:var(--muted)}
+  .faq-q[aria-expanded="true"] .chev{transform:rotate(180deg)}
+
+  /* Final CTA */
+  .final{background:linear-gradient(135deg,var(--secondary),#4c1d95);color:#fff;text-align:center}
+  .final-inner{max-width:680px;margin:0 auto}
+  .final h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:16px}
+  .final p{color:#EAE2FF;margin-bottom:28px;font-size:1.08rem}
+  .final .btn-primary{font-size:1.08rem;padding:16px 34px}
+  .final .mini{margin-top:16px;font-size:.85rem;color:#D6CBF5}
+
+  /* Footer */
+  footer.site{background:var(--ink);color:#B8B2CC;padding:56px 0 32px}
+  .foot-grid{display:grid;grid-template-columns:1fr;gap:34px;margin-bottom:34px}
+  footer .brand{color:#fff;margin-bottom:12px}
+  footer p{font-size:.9rem;max-width:34ch}
+  .foot-col h4{color:#fff;font-family:"Poppins";font-size:.95rem;margin-bottom:14px}
+  .foot-col a{display:block;font-size:.9rem;padding:5px 0;color:#B8B2CC}
+  .foot-col a:hover{color:#fff}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;display:flex;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;font-size:.82rem}
+  .demo-note{background:rgba(255,184,0,.14);color:var(--primary);padding:4px 12px;border-radius:999px;font-weight:600}
+
+  /* Reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  @media(min-width:561px){
+    .grid-3{grid-template-columns:1fr 1fr}
+    .curr-stats{gap:28px}
+    .m-lesson-list{padding-left:84px}
+    .m-meta .m-time{display:inline}
+    .foot-grid{grid-template-columns:1.4fr 1fr 1fr}
+  }
+  @media(min-width:861px){
+    .hero-grid{grid-template-columns:1.05fr .95fr;gap:56px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .instructor .wrap{grid-template-columns:.8fr 1.2fr;gap:48px}
+    .price-grid{grid-template-columns:1fr 1.15fr}
+    section{padding:88px 0}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="logo">C</span>Craft&nbsp;Academy</a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#outcomes">What you'll learn</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#instructor">Instructor</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#curriculum" class="btn btn-ghost">See curriculum</a>
+      <a href="#pricing" class="btn btn-primary">Enroll now</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">● 12-week UI Design Career Track</span>
+        <h1>Go from beginner to a <span class="hl">job-ready UI designer</span> — in 12 focused weeks.</h1>
+        <p class="lead">Learn the exact process real product designers use to turn ideas into polished, usable interfaces. Build a portfolio that gets interviews — no design degree required.</p>
+        <div class="hero-cta">
+          <a href="#pricing" class="btn btn-primary">Enroll now — ₱7,900</a>
+          <a href="#curriculum" class="btn btn-ghost">Explore the modules</a>
+        </div>
+        <div class="social-proof">
+          <div class="avatars" aria-hidden="true">
+            <span style="background:#6D28D9">MA</span>
+            <span style="background:#2DD4A7">JR</span>
+            <span style="background:#FFB800;color:#3A2A00">KL</span>
+            <span style="background:#1B1533">DV</span>
+          </div>
+          <div>
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <p class="proof-text"><strong>2,400+ students</strong> · rated 4.9/5 by graduates</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="cert-card">
+          <div class="float-chip chip-1"><span class="dot" style="background:var(--mint)">✓</span>Module 3 complete</div>
+          <div class="float-chip chip-2"><span class="dot" style="background:var(--secondary)">▶</span>68 lessons</div>
+          <div class="cert-inner">
+            <div class="cert-badge" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15l-3.5 2 1-4L6 10l4-.5L12 6l2 3.5 4 .5-3.5 3 1 4z"/></svg>
+            </div>
+            <p class="cert-sub">Certificate of Completion</p>
+            <h3>UI Design Career Track</h3>
+            <p class="cert-name">Awarded to a future designer</p>
+            <div class="cert-line"></div>
+            <div class="cert-meta"><span>Craft Academy</span><span>12 Weeks · 68 Lessons</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="logos reveal" aria-label="Graduates now work at">
+        <span>Graduates now design at</span>
+        <span>◆ Northwind</span>
+        <span>✦ Payly</span>
+        <span>◈ Cebu Labs</span>
+        <span>❖ Metroworks</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="outcomes" id="outcomes">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">What you'll learn</span>
+        <h2>Skills that turn into a real design career</h2>
+        <p class="lead" style="margin:0 auto">Every module ends with something tangible you can add to your portfolio. Here's what you'll walk away able to do.</p>
+      </div>
+      <div class="grid-3">
+        <article class="out-card reveal">
+          <div class="out-icon" style="background:var(--secondary)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h20v14H2z"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <h3>Design real interfaces</h3>
+          <p>Master layout, spacing, colour and type to build screens that look professional and feel effortless to use.</p>
+        </article>
+        <article class="out-card reveal">
+          <div class="out-icon" style="background:var(--mint)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20l9-16H3z"/><path d="M7 8h10"/></svg></div>
+          <h3>Think like a product designer</h3>
+          <p>Learn user flows, wireframing and validation so your work solves real problems, not just pretty pixels.</p>
+        </article>
+        <article class="out-card reveal">
+          <div class="out-icon" style="background:var(--primary);color:#3A2A00"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>Move fast in Figma</h3>
+          <p>Go from blank canvas to interactive prototype using components, auto-layout and design systems the pro way.</p>
+        </article>
+        <article class="out-card reveal">
+          <div class="out-icon" style="background:var(--ink)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+          <h3>Build a standout portfolio</h3>
+          <p>Ship three complete case studies that show how you think — the kind hiring managers actually shortlist.</p>
+        </article>
+        <article class="out-card reveal">
+          <div class="out-icon" style="background:var(--secondary)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <h3>Present & defend your work</h3>
+          <p>Communicate design decisions with confidence — critique, stakeholder feedback and interview walkthroughs.</p>
+        </article>
+        <article class="out-card reveal">
+          <div class="out-icon" style="background:var(--mint)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg></div>
+          <h3>Land your first role</h3>
+          <p>Job-search playbook: CV, portfolio review, mock interviews and outreach templates that get replies.</p>
+        </article>
+      </div>
+      <figure class="context-photo reveal">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=75" alt="Students learning together on laptops during a design study session" loading="lazy" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Learn alongside 2,400+ students</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section id="curriculum">
+    <div class="wrap">
+      <div class="curr-top reveal">
+        <div class="sec-head" style="margin-bottom:0">
+          <span class="eyebrow">The curriculum</span>
+          <h2>Eight modules. One clear path to job-ready.</h2>
+          <p class="lead">Follow a proven, sequential track — each module builds on the last, mixing short lessons, guided projects and feedback checkpoints.</p>
+        </div>
+        <div class="curr-stats">
+          <div><strong>8</strong><span>Modules</span></div>
+          <div><strong>68</strong><span>Lessons</span></div>
+          <div><strong>26h</strong><span>Content</span></div>
+        </div>
+      </div>
+
+      <div class="modules" id="modules">
+        <!-- Module template -->
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="true" aria-controls="mod-1">
+            <span class="m-num">01</span>
+            <span class="m-title"><h3>Design Foundations</h3><p>The visual grammar behind every good interface</p></span>
+            <span class="m-meta"><span class="m-time">3h 10m</span><span class="m-lessons">9 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-1" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>Why design is decisions, not decoration<span class="len">12m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Hierarchy, contrast & visual weight<span class="len">18m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Spacing systems & the 8-point grid<span class="len">22m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Colour that communicates<span class="len">20m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Project: redesign a messy screen<span class="len">45m</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="false" aria-controls="mod-2">
+            <span class="m-num">02</span>
+            <span class="m-title"><h3>Typography in Practice</h3><p>Make text readable, hierarchical and beautiful</p></span>
+            <span class="m-meta"><span class="m-time">2h 40m</span><span class="m-lessons">8 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-2" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>Anatomy of a typeface<span class="len">14m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Pairing fonts without fear<span class="len">16m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Type scales & line-height rhythm<span class="len">19m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Setting text for screens<span class="len">17m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Project: a typographic landing page<span class="len">40m</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="false" aria-controls="mod-3">
+            <span class="m-num">03</span>
+            <span class="m-title"><h3>UX & User Flows</h3><p>Design for people, not just pixels</p></span>
+            <span class="m-meta"><span class="m-time">3h 05m</span><span class="m-lessons">9 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-3" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>Research on a startup budget<span class="len">15m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Journey maps & user flows<span class="len">21m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Wireframing at the speed of thought<span class="len">24m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Information architecture basics<span class="len">18m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Project: map a checkout flow<span class="len">50m</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="false" aria-controls="mod-4">
+            <span class="m-num">04</span>
+            <span class="m-title"><h3>Mastering Figma</h3><p>From blank canvas to interactive prototype</p></span>
+            <span class="m-meta"><span class="m-time">4h 00m</span><span class="m-lessons">11 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-4" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>The Figma interface, demystified<span class="len">16m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Auto-layout that never breaks<span class="len">26m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Components, variants & properties<span class="len">28m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Prototyping interactions<span class="len">22m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Project: a clickable mobile app<span class="len">55m</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="false" aria-controls="mod-5">
+            <span class="m-num">05</span>
+            <span class="m-title"><h3>Design Systems</h3><p>Scale your work like a product team</p></span>
+            <span class="m-meta"><span class="m-time">3h 20m</span><span class="m-lessons">8 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-5" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>Design tokens & foundations<span class="len">19m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Building a component library<span class="len">30m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Documentation & handoff<span class="len">18m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Accessibility as a default<span class="len">23m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Project: a mini design system<span class="len">48m</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="false" aria-controls="mod-6">
+            <span class="m-num">06</span>
+            <span class="m-title"><h3>Interaction & Motion</h3><p>Bring interfaces to life with purpose</p></span>
+            <span class="m-meta"><span class="m-time">2h 30m</span><span class="m-lessons">7 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-6" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>Principles of good motion<span class="len">15m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Micro-interactions that delight<span class="len">20m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Easing, timing & feedback<span class="len">17m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Project: animate an onboarding flow<span class="len">42m</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="false" aria-controls="mod-7">
+            <span class="m-num">07</span>
+            <span class="m-title"><h3>Portfolio Case Studies</h3><p>Show how you think, not just what you made</p></span>
+            <span class="m-meta"><span class="m-time">3h 45m</span><span class="m-lessons">9 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-7" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>What hiring managers look for<span class="len">16m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Structuring a compelling case study<span class="len">24m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Writing about your process<span class="len">20m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Project: publish 3 case studies<span class="len">60m</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module reveal">
+          <button class="m-head" aria-expanded="false" aria-controls="mod-8">
+            <span class="m-num">08</span>
+            <span class="m-title"><h3>Landing the Job</h3><p>Your step-by-step job-search playbook</p></span>
+            <span class="m-meta"><span class="m-time">2h 55m</span><span class="m-lessons">7 lessons</span>
+              <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+          </button>
+          <div class="m-panel" id="mod-8" role="region">
+            <ul class="m-lesson-list">
+              <li><span class="tick" aria-hidden="true">✓</span>A CV that gets past the filter<span class="len">18m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Outreach templates that get replies<span class="len">16m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Acing the design interview<span class="len">25m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Negotiating your first offer<span class="len">19m</span></li>
+              <li><span class="tick" aria-hidden="true">✓</span>Live: mock interview & feedback<span class="len">44m</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTRUCTOR -->
+  <section class="instructor" id="instructor">
+    <div class="wrap">
+      <div class="inst-card reveal">
+        <div class="monogram">MR<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=75" alt="Maya Rivera, lead instructor at Craft Academy" loading="lazy" onerror="this.style.display='none'"></div>
+        <h3>Maya Rivera</h3>
+        <p class="role">Lead Instructor · Ex-Senior Product Designer</p>
+        <ul class="inst-credits">
+          <li><span class="c-tick">✓</span>10+ years designing products used by millions</li>
+          <li><span class="c-tick">✓</span>Former design lead at two fintech startups</li>
+          <li><span class="c-tick">✓</span>Mentored 500+ designers into their first roles</li>
+        </ul>
+      </div>
+      <div class="inst-copy reveal">
+        <span class="eyebrow">Meet your instructor</span>
+        <h2>You'll learn from someone who's shipped real products.</h2>
+        <p>Maya has spent a decade in the trenches — designing everything from payment flows to onboarding for teams big and small. She built Craft Academy to teach the craft the way she wishes she'd learned it: practical, honest, and focused on getting you hired.</p>
+        <p style="margin-top:14px">Every module reflects real product work, not textbook theory. You'll get direct feedback, live critique sessions, and a community of learners going through it right alongside you.</p>
+        <blockquote class="inst-quote">"You don't need talent you were born with. You need a process, honest feedback, and reps. That's exactly what this course gives you."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="results">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Student results</span>
+        <h2>Real people. Real career changes.</h2>
+      </div>
+      <div class="grid-3 tst">
+        <article class="tcard reveal">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <blockquote>"I came in as a call-centre agent with zero design background. Twelve weeks later I had three case studies and, two months after that, a junior designer offer."</blockquote>
+          <div class="tperson">
+            <span class="tav" style="background:#6D28D9">JR<img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=75" alt="Portrait of Joana Reyes" loading="lazy" onerror="this.style.display='none'"></span>
+            <div><strong>Joana Reyes</strong><span>Now Junior UI Designer</span></div>
+          </div>
+          <span class="result-badge">↑ Career switch in 5 months</span>
+        </article>
+        <article class="tcard reveal">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <blockquote>"The curriculum is so well structured. Every module built on the last one and I never felt lost. The Figma module alone was worth the price."</blockquote>
+          <div class="tperson">
+            <span class="tav" style="background:#2DD4A7">KL<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=75" alt="Portrait of Kevin Lim" loading="lazy" onerror="this.style.display='none'"></span>
+            <div><strong>Kevin Lim</strong><span>Freelance Product Designer</span></div>
+          </div>
+          <span class="result-badge">↑ ₱45k/mo freelance income</span>
+        </article>
+        <article class="tcard reveal">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <blockquote>"Maya's feedback changed how I see design. The mock interviews made the real one feel easy — I got the job on my second application."</blockquote>
+          <div class="tperson">
+            <span class="tav" style="background:#FFB800;color:#3A2A00">DA</span>
+            <div><strong>Danica Aquino</strong><span>Product Designer, fintech</span></div>
+          </div>
+          <span class="result-badge">↑ Hired after 2 applications</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Enrolment</span>
+        <h2>Invest once. Keep the skills for life.</h2>
+        <p class="lead" style="margin:0 auto">One-time payment, lifetime access to every lesson and future updates. Pick the track that fits your goals.</p>
+      </div>
+      <div class="price-grid">
+        <article class="pcard reveal">
+          <h3>Self-Paced</h3>
+          <p class="price-sub">Learn on your own schedule</p>
+          <div class="price">₱7,900</div>
+          <p class="price-note">One-time · lifetime access</p>
+          <ul class="incl">
+            <li><span class="i-tick">✓</span>All 8 modules · 68 lessons</li>
+            <li><span class="i-tick">✓</span>3 guided portfolio projects</li>
+            <li><span class="i-tick">✓</span>Downloadable Figma resources</li>
+            <li><span class="i-tick">✓</span>Certificate of completion</li>
+            <li><span class="i-tick">✓</span>Community forum access</li>
+          </ul>
+          <a href="#" class="btn btn-ghost" style="width:100%">Choose Self-Paced</a>
+        </article>
+        <article class="pcard featured reveal">
+          <span class="pop-tag">Most popular</span>
+          <h3>Mentored Track</h3>
+          <p class="price-sub">Everything, plus live feedback & support</p>
+          <div class="price">₱12,900 <span class="old">₱16,900</span></div>
+          <p class="price-note">One-time · save ₱4,000 this cohort</p>
+          <ul class="incl">
+            <li><span class="i-tick">✓</span>Everything in Self-Paced</li>
+            <li><span class="i-tick">✓</span>Weekly live critique sessions</li>
+            <li><span class="i-tick">✓</span>1:1 portfolio review with a mentor</li>
+            <li><span class="i-tick">✓</span>Mock interview + hiring playbook</li>
+            <li><span class="i-tick">✓</span>Private cohort community</li>
+            <li><span class="i-tick">✓</span>Priority support from instructors</li>
+          </ul>
+          <a href="#" class="btn btn-primary" style="width:100%">Enroll in Mentored Track</a>
+        </article>
+      </div>
+      <p class="guarantee reveal">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span><strong>14-day money-back guarantee.</strong> Try the first two modules risk-free. If it's not for you, email us and we'll refund every peso — no questions asked.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2>Questions, answered</h2>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq reveal">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-1">Do I need any design experience to start?
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-panel" id="faq-1" role="region"><p>None at all. The course is built for complete beginners and career switchers. We start from absolute foundations and build up step by step — if you can use a computer, you can follow along.</p></div>
+        </div>
+        <div class="faq reveal">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-2">How much time do I need each week?
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-panel" id="faq-2" role="region"><p>Most students spend 4–6 hours a week and finish comfortably in 12 weeks. Since you get lifetime access, you can go faster or slower — the pace is entirely yours.</p></div>
+        </div>
+        <div class="faq reveal">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-3">What software do I need?
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-panel" id="faq-3" role="region"><p>Just Figma, which has a free plan that covers everything in the course. We'll walk you through setting it up in Module 4 — no expensive tools or subscriptions required.</p></div>
+        </div>
+        <div class="faq reveal">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-4">Will this actually help me get a job?
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-panel" id="faq-4" role="region"><p>That's the whole point. You'll finish with three portfolio-ready case studies and a full job-search playbook — CV, outreach templates and mock interviews. The Mentored Track adds a 1:1 portfolio review to sharpen your edge.</p></div>
+        </div>
+        <div class="faq reveal">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-5">Is the certificate recognised?
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-panel" id="faq-5" role="region"><p>You'll earn a Craft Academy Certificate of Completion to showcase on LinkedIn and your CV. In design hiring, though, your portfolio does the heavy lifting — and that's exactly what this course is built to produce.</p></div>
+        </div>
+        <div class="faq reveal">
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-6">What if it's not right for me?
+            <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="faq-panel" id="faq-6" role="region"><p>You're covered by our 14-day money-back guarantee. Work through the first two modules, and if it's not a fit, email us within 14 days for a full refund — no questions asked.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="wrap final-inner reveal">
+      <h2>Your design career starts this week.</h2>
+      <p>Join 2,400+ students who bet on themselves. Twelve focused weeks from now, you could have the skills, the portfolio and the confidence to land your first design role.</p>
+      <a href="#pricing" class="btn btn-primary">Enroll now — from ₱7,900</a>
+      <p class="mini">14-day money-back guarantee · Lifetime access · Next cohort starts soon</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand"><span class="logo">C</span>Craft&nbsp;Academy</div>
+        <p>Practical, portfolio-first design education for aspiring designers and career switchers.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Course</h4>
+        <a href="#outcomes">What you'll learn</a>
+        <a href="#curriculum">Curriculum</a>
+        <a href="#instructor">Instructor</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Student stories</a>
+        <a href="#faq">FAQ</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Craft Academy. All rights reserved.</span>
+      <span class="demo-note">Fictional course · portfolio demo</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Hamburger
+  var burger=document.getElementById('hamburger'), links=document.getElementById('navLinks');
+  burger.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open?'true':'false');
+  });
+  links.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){links.classList.remove('open');burger.setAttribute('aria-expanded','false');}
+  });
+
+  // Accordion helper
+  function setup(btn,panel){
+    function toggle(){
+      var open=btn.getAttribute('aria-expanded')==='true';
+      btn.setAttribute('aria-expanded',open?'false':'true');
+      panel.style.maxHeight=open?null:panel.scrollHeight+'px';
+    }
+    btn.addEventListener('click',toggle);
+  }
+  function initGroup(sel){
+    document.querySelectorAll(sel).forEach(function(btn){
+      var panel=document.getElementById(btn.getAttribute('aria-controls'));
+      if(!panel)return;
+      if(btn.getAttribute('aria-expanded')==='true'){panel.style.maxHeight=panel.scrollHeight+'px';}
+      setup(btn,panel);
+    });
+  }
+  initGroup('.m-head');
+  initGroup('.faq-q');
+
+  // Recalc open panels on resize
+  var rt;
+  window.addEventListener('resize',function(){
+    clearTimeout(rt);
+    rt=setTimeout(function(){
+      document.querySelectorAll('[aria-expanded="true"].m-head,[aria-expanded="true"].faq-q').forEach(function(btn){
+        var p=document.getElementById(btn.getAttribute('aria-controls'));
+        if(p)p.style.maxHeight=p.scrollHeight+'px';
+      });
+    },150);
+  });
+
+  // Scroll reveal
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var reveals=Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  function show(el){el.classList.add('in');}
+  if(reduce||!('IntersectionObserver'in window)){
+    reveals.forEach(show);
+  }else{
+    // 1) Anything already inside the initial viewport reveals immediately —
+    //    no scrolling required (fixes ghosted hero on load).
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    var below=[];
+    reveals.forEach(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top<vh&&r.bottom>0){show(el);}else{below.push(el);}
+    });
+    // 2) Below-fold elements animate in on scroll. threshold 0 + small
+    //    negative rootMargin so tall elements still trigger reliably.
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){if(en.isIntersecting){show(en.target);io.unobserve(en.target);}});
+    },{threshold:0,rootMargin:'0px 0px -8% 0px'});
+    below.forEach(function(el){io.observe(el);});
+    // 3) Hard failsafe: force-reveal the hero shortly after load no matter what.
+    setTimeout(function(){
+      document.querySelectorAll('.hero .reveal').forEach(show);
+    },700);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tsokolate & Co. — Specialty Coffee, Roasted in Manila</title>
+<meta name="description" content="Tsokolate & Co. — a warm neighborhood café roasting small-batch specialty coffee in the heart of Manila. Menu, our beans, and where to find us." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --espresso:#241610;
+    --espresso-2:#2f1e14;
+    --cream:#F1E7D6;
+    --cream-2:#F7F0E4;
+    --ink:#2A1D12;
+    --mustard:#E4A11B;
+    --berry:#C0362C;
+    --foam:#EFE2CB;
+    --line:rgba(42,29,18,.16);
+    --shadow:0 18px 40px -20px rgba(36,22,16,.55);
+    --r:20px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+  body{
+    margin:0;
+    font-family:"DM Sans",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* subtle paper grain via layered radial dots */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:radial-gradient(rgba(42,29,18,.05) 1px,transparent 1.4px);
+    background-size:7px 7px;
+  }
+  main,header,footer{position:relative;z-index:1;}
+  h1,h2,h3{line-height:1.02;margin:0;}
+  .display{font-family:"Alfa Slab One",serif;font-weight:400;letter-spacing:.01em;}
+  .grotesk{font-family:"Bricolage Grotesque",sans-serif;}
+  a{color:inherit;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{width:min(1180px,92vw);margin:0 auto;}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+    font-size:1rem;text-decoration:none;cursor:pointer;border:none;
+    padding:.85rem 1.35rem;border-radius:999px;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn:focus-visible,a:focus-visible,button:focus-visible{
+    outline:3px solid var(--mustard);outline-offset:3px;border-radius:6px;
+  }
+  .btn-primary{background:var(--mustard);color:var(--ink);box-shadow:0 10px 0 -4px #b57e0e;}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 0 -4px #b57e0e;}
+  .btn-primary:active{transform:translateY(2px);box-shadow:0 6px 0 -4px #b57e0e;}
+  .btn-berry{background:var(--berry);color:#fff;box-shadow:0 10px 0 -4px #8f261e;}
+  .btn-berry:hover{transform:translateY(-2px);}
+  .btn-ghost{background:transparent;color:var(--cream);border:2px solid rgba(241,231,214,.4);}
+  .btn-ghost:hover{background:rgba(241,231,214,.12);}
+
+  /* NAV */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(241,231,214,.9);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0;}
+  .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink);}
+  .logo .mark{width:38px;height:38px;flex:none;}
+  .logo b{font-family:"Alfa Slab One",serif;font-size:1.2rem;line-height:1;letter-spacing:.01em;}
+  .logo small{display:block;font-family:"Bricolage Grotesque";font-weight:600;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--berry);}
+  .nav-links{
+    display:flex;list-style:none;margin:0;
+    position:fixed;top:0;right:0;height:100dvh;width:min(78vw,320px);
+    flex-direction:column;align-items:flex-start;justify-content:center;gap:1.6rem;
+    background:var(--espresso);color:var(--cream);padding:2rem 2.2rem;
+    transform:translateX(100%);transition:transform .3s ease;box-shadow:var(--shadow);
+  }
+  .nav-links.open{transform:translateX(0);}
+  .nav-links a{
+    text-decoration:none;font-family:"Bricolage Grotesque";font-weight:600;font-size:1.3rem;
+    color:var(--cream);padding:.3rem 0;position:relative;
+  }
+  .nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:2px;background:var(--berry);transition:right .25s ease;}
+  .nav-links a:hover::after{right:0;}
+  .nav-cta{margin-left:0;}
+  .burger{display:block;z-index:60;background:none;border:none;padding:.4rem;cursor:pointer;}
+  .burger span{display:block;width:26px;height:3px;background:var(--ink);border-radius:3px;margin:5px 0;transition:transform .3s ease,opacity .2s ease;}
+  .burger[aria-expanded="true"] span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+  .burger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+  .burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+
+  /* HERO */
+  .hero{padding:clamp(2.5rem,6vw,5rem) 0 clamp(3rem,7vw,6rem);position:relative;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-family:"Bricolage Grotesque";font-weight:800;font-size:.72rem;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--berry);background:#fff4dc;
+    padding:.4rem .8rem;border-radius:999px;border:1px solid rgba(192,54,44,.25);margin-bottom:1.2rem;
+  }
+  .hero h1{font-family:"Alfa Slab One",serif;font-size:2.5rem;letter-spacing:.005em;}
+  .hero h1 .pour{color:var(--berry);}
+  .hero h1 .warm{color:var(--mustard);-webkit-text-stroke:1.5px var(--ink);}
+  .hero p.sub{font-size:clamp(1.05rem,1.6vw,1.25rem);max-width:34ch;margin:1.3rem 0 1.9rem;color:#4a3626;}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:.9rem;align-items:center;}
+  .hero-note{font-size:.85rem;color:#6a533f;margin-top:1.4rem;display:flex;align-items:center;gap:.5rem;}
+  .stars{color:var(--mustard);letter-spacing:2px;}
+  .hero-art{position:relative;display:flex;justify-content:center;}
+  .cup-wrap{width:min(360px,80%);filter:drop-shadow(0 24px 30px rgba(36,22,16,.35));}
+  .steam{transform-origin:center bottom;}
+  @keyframes steam{
+    0%{opacity:0;transform:translateY(6px) scaleY(.9);}
+    35%{opacity:.85;}
+    100%{opacity:0;transform:translateY(-16px) scaleY(1.15);}
+  }
+  .s1{animation:steam 3.2s ease-in-out infinite;}
+  .s2{animation:steam 3.2s ease-in-out infinite .7s;}
+  .s3{animation:steam 3.2s ease-in-out infinite 1.4s;}
+  @media (prefers-reduced-motion:reduce){.s1,.s2,.s3{animation:none;opacity:.5;}}
+  .badge-spin{position:absolute;top:-6px;right:2%;width:120px;height:120px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .badge-spin .ring{animation:spin 22s linear infinite;transform-origin:center;}
+  @media (prefers-reduced-motion:reduce){.badge-spin .ring{animation:none;}}
+
+  /* SECTION HEADS */
+  .sec{padding:clamp(3.5rem,8vw,6rem) 0;}
+  .kicker{font-family:"Bricolage Grotesque";font-weight:800;letter-spacing:.2em;text-transform:uppercase;font-size:.75rem;color:var(--berry);margin-bottom:.9rem;}
+  .sec h2{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(1.9rem,4.5vw,3rem);letter-spacing:-.01em;}
+
+  /* STORY BAND (espresso) */
+  .story{background:var(--espresso);color:var(--foam);position:relative;overflow:hidden;}
+  .story::after{content:"";position:absolute;inset:0;opacity:.09;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.6) 1px,transparent 1.4px);background-size:9px 9px;}
+  .story-grid{display:grid;grid-template-columns:1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center;}
+  .story-grid .beans-art{order:-1;}
+  .story h2{color:var(--cream);}
+  .story .lead{font-size:clamp(1.1rem,1.8vw,1.35rem);color:#e7d6b8;}
+  .story p{color:#cdb896;}
+  .beans-art{display:flex;justify-content:center;}
+  .roast-stats{display:flex;gap:1.2rem;margin-top:1.6rem;flex-wrap:wrap;}
+  .roast-stats b{font-family:"Alfa Slab One",serif;font-size:1.8rem;color:var(--mustard);display:block;line-height:1;}
+  .roast-stats span{font-size:.82rem;color:#b7a081;text-transform:uppercase;letter-spacing:.12em;}
+
+  /* MENU BOARD */
+  .menu-board{
+    background:var(--espresso-2);color:var(--cream);border-radius:28px;
+    padding:clamp(1.5rem,4vw,3rem);box-shadow:var(--shadow);position:relative;overflow:hidden;
+    border:2px solid rgba(228,161,27,.25);
+  }
+  .menu-board::before{content:"";position:absolute;inset:14px;border:2px dashed rgba(228,161,27,.28);border-radius:18px;pointer-events:none;}
+  .menu-head{display:flex;align-items:center;justify-content:center;gap:1rem;text-align:center;flex-direction:column;margin-bottom:2rem;}
+  .menu-head h2{font-family:"Alfa Slab One",serif;color:var(--mustard);font-size:clamp(2rem,5vw,3rem);}
+  .menu-head .sub{color:#cbb28c;font-style:italic;}
+  .menu-cols{display:grid;grid-template-columns:1fr;gap:clamp(1.5rem,4vw,3.5rem);position:relative;z-index:1;}
+  .menu-cat h3{font-family:"Bricolage Grotesque";font-weight:800;color:var(--cream);font-size:1.35rem;display:flex;align-items:center;gap:.6rem;
+    padding-bottom:.6rem;margin-bottom:.8rem;border-bottom:2px solid rgba(228,161,27,.35);}
+  .menu-cat h3 .dot{width:10px;height:10px;border-radius:50%;background:var(--berry);flex:none;}
+  .menu-item{
+    display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;align-items:baseline;
+    padding:.55rem .6rem;border-radius:12px;transition:background .2s ease,transform .2s ease;
+  }
+  .menu-item:hover{background:rgba(228,161,27,.1);transform:translateX(4px);}
+  .menu-item .name{font-family:"Bricolage Grotesque";font-weight:600;font-size:1.05rem;color:var(--cream);}
+  .menu-item .price{font-family:"Bricolage Grotesque";font-weight:800;color:var(--mustard);white-space:nowrap;}
+  .menu-item .desc{grid-column:1/2;font-size:.85rem;color:#b39f82;line-height:1.4;}
+  .menu-item .tag{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--berry);color:#fff;padding:.1rem .45rem;border-radius:6px;margin-left:.4rem;vertical-align:middle;}
+  .menu-foot{text-align:center;margin-top:2rem;color:#cbb28c;font-size:.85rem;position:relative;z-index:1;}
+
+  /* BEANS / SOURCING */
+  .beans-grid{display:grid;grid-template-columns:1fr;gap:1.4rem;margin-top:2.4rem;}
+  .bean-card{
+    background:var(--cream-2);border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;
+    box-shadow:0 10px 24px -18px rgba(36,22,16,.5);transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .bean-card:hover{transform:translateY(-4px);box-shadow:0 20px 34px -20px rgba(36,22,16,.5);}
+  .bean-card .origin{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.25rem;margin:.9rem 0 .3rem;}
+  .bean-card .region{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--berry);font-weight:700;}
+  .bean-card p{font-size:.92rem;color:#5b4632;margin:.7rem 0 0;}
+  .bean-swatch{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;}
+  .notes{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.9rem;}
+  .notes span{font-size:.72rem;background:#f0dcb6;color:#6a4a1e;padding:.2rem .55rem;border-radius:999px;font-weight:600;}
+
+  /* VISIT */
+  .visit-grid{display:grid;grid-template-columns:1fr;gap:clamp(1.5rem,4vw,3rem);align-items:stretch;}
+  .visit-card{background:var(--cream-2);border:1px solid var(--line);border-radius:var(--r);padding:clamp(1.5rem,3vw,2.4rem);box-shadow:var(--shadow);}
+  .hours-row{display:flex;justify-content:space-between;padding:.55rem 0;border-bottom:1px dashed var(--line);font-size:1rem;}
+  .hours-row:last-child{border-bottom:none;}
+  .hours-row .day{font-weight:600;}
+  .hours-row.today{color:var(--berry);font-weight:700;}
+  .hours-row .pill{font-size:.68rem;background:var(--berry);color:#fff;padding:.1rem .5rem;border-radius:999px;margin-left:.5rem;vertical-align:middle;letter-spacing:.08em;}
+  .addr{display:flex;gap:.8rem;align-items:flex-start;margin-top:1.4rem;}
+  .addr svg{flex:none;margin-top:2px;}
+  .map-card{border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);position:relative;min-height:320px;background:#e9dcc4;}
+  .map-card svg{width:100%;height:100%;position:absolute;inset:0;}
+  .map-pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);z-index:2;text-align:center;}
+  @keyframes bob{0%,100%{transform:translate(-50%,-100%);}50%{transform:translate(-50%,-115%);}}
+  .map-pin .drop{animation:bob 2.4s ease-in-out infinite;}
+  @media (prefers-reduced-motion:reduce){.map-pin .drop{animation:none;}}
+  .map-label{background:var(--espresso);color:var(--cream);font-family:"Bricolage Grotesque";font-weight:700;font-size:.78rem;padding:.3rem .7rem;border-radius:999px;box-shadow:var(--shadow);white-space:nowrap;}
+
+  /* GALLERY */
+  .gallery{background:var(--espresso);color:var(--cream);}
+  .gallery h2{color:var(--cream);}
+  .gal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2.2rem;}
+  .tile{aspect-ratio:1;border-radius:16px;overflow:hidden;position:relative;transition:transform .25s ease;}
+  .tile:hover{transform:scale(1.03) rotate(-1deg);}
+  .tile svg{width:100%;height:100%;}
+  .ig-handle{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;color:var(--mustard);font-family:"Bricolage Grotesque";font-weight:700;text-decoration:none;}
+  .ig-handle:hover{text-decoration:underline;}
+
+  /* FOOTER */
+  footer{background:#1c110b;color:#b7a081;padding:clamp(2.5rem,6vw,4rem) 0 2rem;}
+  .foot-grid{display:grid;grid-template-columns:1fr;gap:2rem;}
+  footer h4{font-family:"Bricolage Grotesque";font-weight:800;color:var(--cream);font-size:1rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem;}
+  footer a{color:#cdb896;text-decoration:none;display:block;padding:.2rem 0;}
+  footer a:hover{color:var(--mustard);}
+  .foot-logo{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;}
+  .foot-logo b{font-family:"Alfa Slab One",serif;color:var(--cream);font-size:1.3rem;}
+  .foot-bar{border-top:1px solid rgba(255,255,255,.1);margin-top:2.5rem;padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;font-size:.82rem;}
+  .demo-note{color:var(--mustard);font-weight:600;}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.instant{transition:none;}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  /* PHOTOS */
+  .photo-frame{position:relative;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);background:var(--espresso-2);}
+  .photo-frame img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;}
+  .photo-frame::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(180deg,rgba(36,22,16,.06) 0%,rgba(36,22,16,0) 40%,rgba(36,22,16,.55) 100%);}
+  .photo-fallback{position:absolute;inset:0;margin:auto;width:65%;height:65%;}
+  .photo-cap{
+    position:absolute;left:16px;bottom:14px;z-index:3;color:var(--cream);
+    font-family:"Bricolage Grotesque";font-weight:700;font-size:.78rem;letter-spacing:.05em;
+    display:inline-flex;align-items:center;gap:.45rem;text-shadow:0 1px 8px rgba(36,22,16,.7);
+  }
+  .photo-cap .dot{width:8px;height:8px;border-radius:50%;background:var(--mustard);flex:none;}
+  .hero-photo{width:min(440px,100%);aspect-ratio:4/5;}
+  .cup-float{position:absolute;left:-2%;bottom:-14px;width:clamp(120px,32%,160px);pointer-events:none;filter:drop-shadow(0 18px 22px rgba(36,22,16,.4));}
+  .story-photo{width:min(420px,100%);aspect-ratio:4/5;}
+  .tile-photo{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;}
+  .tile-tint{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(36,22,16,.08),rgba(36,22,16,.34));}
+
+  /* RESPONSIVE (mobile-first) */
+  @media (min-width:561px){
+    .hero h1{font-size:clamp(2.6rem,7vw,5rem);}
+    .gal-grid{grid-template-columns:repeat(3,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .roast-stats{gap:2rem;}
+  }
+  @media (min-width:901px){
+    .hero-grid{grid-template-columns:1.1fr .9fr;}
+    .story-grid{grid-template-columns:.85fr 1.15fr;}
+    .visit-grid{grid-template-columns:1fr 1fr;}
+    .story-grid .beans-art{order:0;}
+    .menu-cols{grid-template-columns:1fr 1fr;}
+    .beans-grid{grid-template-columns:repeat(3,1fr);}
+    .gal-grid{grid-template-columns:repeat(4,1fr);}
+    .foot-grid{grid-template-columns:1.4fr 1fr 1fr;}
+    .nav-links{
+      position:static;height:auto;width:auto;
+      flex-direction:row;align-items:center;justify-content:normal;
+      background:transparent;color:inherit;padding:0;
+      transform:none;transition:none;box-shadow:none;
+    }
+    .nav-links a{color:var(--ink);font-size:1rem;}
+    .nav-links .nav-cta{margin-left:.4rem;}
+    .burger{display:none;}
+  }
+  .skip{position:absolute;left:-999px;top:0;background:var(--mustard);color:var(--ink);padding:.7rem 1.1rem;border-radius:0 0 10px 0;font-weight:700;z-index:100;}
+  .skip:focus{left:0;}
+</style>
+</head>
+<body>
+<a href="#menu" class="skip">Skip to menu</a>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" aria-label="Tsokolate and Co. home">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#241610"/>
+        <path d="M11 17h15a4 4 0 0 1 0 8h-1.5" fill="none" stroke="#E4A11B" stroke-width="2.4"/>
+        <path d="M11 17v6a5 5 0 0 0 5 5h4a5 5 0 0 0 5-5v-6z" fill="#C0362C"/>
+        <path d="M15 9c-1.2 1.5 1.2 2.5 0 4M20 9c-1.2 1.5 1.2 2.5 0 4" fill="none" stroke="#F1E7D6" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <span><b>Tsokolate</b><small>&amp; Co. · Manila</small></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#beans">Our Beans</a></li>
+        <li><a href="#visit">Visit</a></li>
+        <li class="nav-cta"><a href="#visit" class="btn btn-berry">Order ahead</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">Small-batch · roasted daily in Manila</span>
+        <h1 class="display">Kape na,<br><span class="pour">pahinga</span> na.</h1>
+        <p class="sub">A warm little corner for slow mornings and honest coffee — single-origin beans roasted a few steps from where you sip them.</p>
+        <div class="hero-cta">
+          <a href="#menu" class="btn btn-primary">See the menu
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 5l4 4-4 4" fill="none" stroke="#2A1D12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#visit" class="btn btn-berry">Visit us</a>
+        </div>
+        <p class="hero-note"><span class="stars">★★★★★</span> Loved by the Poblacion neighborhood since 2019</p>
+      </div>
+
+      <div class="hero-art reveal">
+        <div class="photo-frame hero-photo">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=1600&amp;q=75" alt="A freshly poured flat white in a ceramic cup on a rustic wooden café table" onerror="this.style.display='none'" />
+          <span class="photo-cap"><span class="dot"></span>Poured this morning in Poblacion</span>
+        </div>
+        <div class="cup-float" aria-hidden="true">
+          <svg viewBox="0 0 300 320" role="img" aria-label="A steaming cup of coffee on a saucer">
+            <!-- steam -->
+            <g stroke="#8a6a4e" stroke-width="7" stroke-linecap="round" fill="none">
+              <path class="s1" d="M120 70c-10-14 10-22 0-38"/>
+              <path class="s2" d="M150 66c-10-14 10-22 0-40"/>
+              <path class="s3" d="M180 70c-10-14 10-22 0-38"/>
+            </g>
+            <!-- saucer -->
+            <ellipse cx="150" cy="292" rx="120" ry="22" fill="#241610"/>
+            <ellipse cx="150" cy="286" rx="120" ry="20" fill="#3a2618"/>
+            <!-- cup body -->
+            <path d="M60 120h180l-12 118a34 34 0 0 1-34 30H106a34 34 0 0 1-34-30z" fill="#C0362C"/>
+            <path d="M60 120h180l-4 40H64z" fill="#a92c23"/>
+            <!-- coffee surface -->
+            <ellipse cx="150" cy="122" rx="90" ry="20" fill="#241610"/>
+            <ellipse cx="150" cy="120" rx="90" ry="20" fill="#3a2214"/>
+            <ellipse cx="150" cy="118" rx="72" ry="14" fill="#4a2c18"/>
+            <!-- foam heart -->
+            <path d="M150 108c-6-12-26-8-26 4 0 9 16 16 26 24 10-8 26-15 26-24 0-12-20-16-26-4z" fill="#E9D3Ae" opacity=".9"/>
+            <!-- handle -->
+            <path d="M240 150c34 0 46 20 40 44-5 20-24 30-44 30" fill="none" stroke="#C0362C" stroke-width="18"/>
+            <path d="M240 150c34 0 46 20 40 44-5 20-24 30-44 30" fill="none" stroke="#a92c23" stroke-width="8"/>
+          </svg>
+        </div><!-- /.cup-float -->
+        <svg class="badge-spin" viewBox="0 0 120 120" aria-hidden="true">
+          <g class="ring">
+            <circle cx="60" cy="60" r="52" fill="#E4A11B"/>
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#241610" stroke-width="2"/>
+            <path id="cir" d="M60 60 m-40 0 a40 40 0 1 1 80 0 a40 40 0 1 1 -80 0" fill="none"/>
+            <text font-family="Bricolage Grotesque" font-weight="800" font-size="12.5" fill="#241610" letter-spacing="1.5">
+              <textPath href="#cir" startOffset="0">FRESH ROAST · SLOW MORNINGS · FRESH ROAST · </textPath>
+            </text>
+          </g>
+          <circle cx="60" cy="60" r="20" fill="#241610"/>
+          <path d="M52 58h14a3 3 0 0 1 0 6h-1" fill="none" stroke="#E4A11B" stroke-width="2"/>
+          <path d="M52 58v5a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-5z" fill="#C0362C"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY / OUR ROAST -->
+  <section class="story sec" id="story">
+    <div class="wrap story-grid">
+      <div class="beans-art reveal">
+        <div class="photo-frame story-photo">
+        <svg class="photo-fallback" viewBox="0 0 240 240" width="260" role="img" aria-label="Roasted coffee beans">
+          <g fill="#5a3620" stroke="#2a170d" stroke-width="3">
+            <g transform="translate(70 60) rotate(20)"><ellipse cx="0" cy="0" rx="34" ry="46"/><path d="M0 -44C-8 -20 -8 20 0 44" fill="none" stroke="#2a170d" stroke-width="4"/></g>
+            <g transform="translate(150 90) rotate(-18)"><ellipse cx="0" cy="0" rx="34" ry="46" fill="#6b4326"/><path d="M0 -44C-8 -20 -8 20 0 44" fill="none" stroke="#2a170d" stroke-width="4"/></g>
+            <g transform="translate(100 160) rotate(8)"><ellipse cx="0" cy="0" rx="34" ry="46" fill="#4a2c18"/><path d="M0 -44C-8 -20 -8 20 0 44" fill="none" stroke="#2a170d" stroke-width="4"/></g>
+          </g>
+        </svg>
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Freshly roasted coffee beans spilling from a burlap sack" loading="lazy" onerror="this.style.display='none'" />
+        <span class="photo-cap"><span class="dot"></span>This week's roast, day one</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <p class="kicker">Our roast</p>
+        <h2 class="grotesk">We roast in small batches, so nothing sits still.</h2>
+        <p class="lead">Every bag leaves our drum roaster within the week — never a day older than it needs to be.</p>
+        <p>Tsokolate &amp; Co. started as a two-kilo roaster in a Poblacion garage and a stubborn belief that Filipino-grown coffee deserves a proper stage. We work directly with farms in Benguet, Sultan Kudarat, and Kalinga, roast light-to-medium to let each origin speak, and pull every shot on a lever machine we probably fuss over too much.</p>
+        <div class="roast-stats">
+          <div><b>7</b><span>Day freshness</span></div>
+          <div><b>3</b><span>Partner farms</span></div>
+          <div><b>2kg</b><span>Per batch</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="sec" id="menu">
+    <div class="wrap">
+      <div class="menu-board reveal">
+        <div class="menu-head">
+          <svg width="46" height="46" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M8 16h20a5 5 0 0 1 0 10h-2" fill="none" stroke="#E4A11B" stroke-width="2.6"/>
+            <path d="M8 16v8a7 7 0 0 0 7 7h6a7 7 0 0 0 7-7v-8z" fill="#C0362C"/>
+          </svg>
+          <h2>The Menu</h2>
+          <p class="sub">All day, every day — prices in Philippine Peso (₱)</p>
+        </div>
+        <div class="menu-cols">
+          <div class="menu-cat">
+            <h3><span class="dot"></span>Espresso Bar</h3>
+            <div class="menu-item">
+              <span class="name">Kapeng Barako Shot</span><span class="price">₱95</span>
+              <span class="desc">Bold Batangas Liberica, straight and unapologetic.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Flat White</span><span class="price">₱150</span>
+              <span class="desc">Double ristretto, silky micro-foam, no fuss.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Spanish Latte<span class="tag">House fave</span></span><span class="price">₱165</span>
+              <span class="desc">Sweetened with condensed milk, the way Manila likes it.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Tsokolate Mocha</span><span class="price">₱175</span>
+              <span class="desc">Tablea dark chocolate melted into a proper mocha.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Iced Salted Caramel</span><span class="price">₱180</span>
+              <span class="desc">Espresso, cold milk, house salted caramel.</span>
+            </div>
+
+            <h3 style="margin-top:1.8rem"><span class="dot"></span>Pour-over &amp; Cold</h3>
+            <div class="menu-item">
+              <span class="name">Benguet V60</span><span class="price">₱190</span>
+              <span class="desc">Single-origin, hand-poured — florals &amp; brown sugar.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Kalinga Cold Brew<span class="tag">Slow 18h</span></span><span class="price">₱185</span>
+              <span class="desc">Steeped overnight, smooth and low-acid.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Calamansi Espresso Tonic</span><span class="price">₱195</span>
+              <span class="desc">Bright, fizzy, a squeeze of local calamansi.</span>
+            </div>
+          </div>
+
+          <div class="menu-cat">
+            <h3><span class="dot"></span>Kitchen &amp; Pastries</h3>
+            <div class="menu-item">
+              <span class="name">Ensaymada, Warm</span><span class="price">₱120</span>
+              <span class="desc">Buttery, cheese-topped, baked in-house each morning.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Ube Cheese Croissant<span class="tag">Weekends</span></span><span class="price">₱155</span>
+              <span class="desc">Laminated by hand, purple yam &amp; queso de bola.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Bibingka Basque Cheesecake</span><span class="price">₱185</span>
+              <span class="desc">Burnt-top cheesecake with a rice-cake soul.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Tablea Brownie</span><span class="price">₱140</span>
+              <span class="desc">Fudgy, made with the same tablea we brew.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Longganisa Breakfast Toast</span><span class="price">₱210</span>
+              <span class="desc">Sourdough, garlic longganisa, fried egg, atchara.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Tinapa Rice Bowl</span><span class="price">₱225</span>
+              <span class="desc">Smoked fish flakes, garlic rice, salted egg, tomato.</span>
+            </div>
+            <div class="menu-item">
+              <span class="name">Retail Beans, 250g</span><span class="price">₱480</span>
+              <span class="desc">Take the roast home — whole bean or ground.</span>
+            </div>
+          </div>
+        </div>
+        <p class="menu-foot">Oat &amp; fresh carabao milk available (+₱30) · Ask about today's single-origin feature</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEANS / SOURCING -->
+  <section class="sec" id="beans">
+    <div class="wrap">
+      <div class="reveal" style="max-width:56ch">
+        <p class="kicker">Our beans</p>
+        <h2 class="grotesk">Grown in the Philippines, roasted by hand.</h2>
+        <p style="color:#5b4632;font-size:1.08rem;">Three farms, three altitudes, three very different cups. We buy direct, pay above market, and print the harvest on every bag.</p>
+      </div>
+      <div class="beans-grid">
+        <article class="bean-card reveal">
+          <div class="bean-swatch" style="background:#e9d3ae">
+            <svg width="30" height="30" viewBox="0 0 30 30"><path d="M15 3C9 9 9 21 15 27M6 8c4 4 4 14 0 18M24 8c-4 4-4 14 0 18" fill="none" stroke="#C0362C" stroke-width="2.4" stroke-linecap="round"/></svg>
+          </div>
+          <p class="region">Benguet · 1,500m</p>
+          <h3 class="origin">Sitio Belis</h3>
+          <p>Washed Arabica from the Cordillera highlands — delicate and floral, our go-to for pour-over.</p>
+          <div class="notes"><span>Jasmine</span><span>Brown sugar</span><span>Bergamot</span></div>
+        </article>
+        <article class="bean-card reveal">
+          <div class="bean-swatch" style="background:#f0dcb6">
+            <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="11" fill="none" stroke="#E4A11B" stroke-width="2.4"/><path d="M9 15h12" stroke="#241610" stroke-width="2.4"/></svg>
+          </div>
+          <p class="region">Sultan Kudarat · 1,100m</p>
+          <h3 class="origin">Mount Matutum</h3>
+          <p>Natural-process beans with a fruity, syrupy body — the backbone of our espresso blend.</p>
+          <div class="notes"><span>Dark cherry</span><span>Cocoa</span><span>Molasses</span></div>
+        </article>
+        <article class="bean-card reveal">
+          <div class="bean-swatch" style="background:#d9b98a">
+            <svg width="30" height="30" viewBox="0 0 30 30"><path d="M6 20c4-10 14-10 18 0" fill="none" stroke="#5a3620" stroke-width="2.6" stroke-linecap="round"/><circle cx="15" cy="10" r="4" fill="#5a3620"/></svg>
+          </div>
+          <p class="region">Kalinga · 1,300m</p>
+          <h3 class="origin">Balbalan Honey</h3>
+          <p>Honey-processed and slow-dried — sweet, clean, and made for our overnight cold brew.</p>
+          <div class="notes"><span>Honey</span><span>Red apple</span><span>Almond</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="sec" id="visit">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:2.2rem;max-width:56ch">
+        <p class="kicker">Visit us</p>
+        <h2 class="grotesk">Come sit a while.</h2>
+        <p style="color:#5b4632;font-size:1.08rem;">Tucked off Kalayaan Avenue in Poblacion. Free-flow water, fast Wi-Fi, and a corner seat with your name on it.</p>
+      </div>
+      <div class="visit-grid">
+        <div class="visit-card reveal">
+          <h3 class="grotesk" style="font-weight:800;font-size:1.4rem;margin-bottom:1rem;">Opening hours</h3>
+          <div class="hours-row"><span class="day">Monday – Thursday</span><span>7:00 AM – 9:00 PM</span></div>
+          <div class="hours-row today"><span class="day">Friday <span class="pill">Open now</span></span><span>7:00 AM – 11:00 PM</span></div>
+          <div class="hours-row"><span class="day">Saturday</span><span>8:00 AM – 11:00 PM</span></div>
+          <div class="hours-row"><span class="day">Sunday</span><span>8:00 AM – 6:00 PM</span></div>
+          <div class="addr">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z" fill="#C0362C"/><circle cx="12" cy="9" r="2.6" fill="#F1E7D6"/></svg>
+            <div>
+              <strong>42 Kalayaan Ave, Poblacion</strong><br>
+              <span style="color:#6a533f">Makati City, Metro Manila 1210</span>
+            </div>
+          </div>
+          <div class="hero-cta" style="margin-top:1.6rem">
+            <a href="#menu" class="btn btn-primary">Order ahead</a>
+            <a href="#top" class="btn btn-berry">Get directions</a>
+          </div>
+        </div>
+
+        <div class="map-card reveal" role="img" aria-label="Stylized map showing Tsokolate and Co. near Kalayaan Avenue">
+          <svg viewBox="0 0 400 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="340" fill="#e9dcc4"/>
+            <rect x="-20" y="-20" width="440" height="380" fill="#e4d5b8" opacity=".5"/>
+            <!-- blocks -->
+            <g fill="#dcc9a4">
+              <rect x="20" y="20" width="120" height="90" rx="6"/>
+              <rect x="160" y="20" width="100" height="60" rx="6"/>
+              <rect x="280" y="30" width="100" height="110" rx="6"/>
+              <rect x="30" y="150" width="90" height="120" rx="6"/>
+              <rect x="150" y="130" width="110" height="90" rx="6"/>
+              <rect x="290" y="180" width="90" height="130" rx="6"/>
+              <rect x="30" y="290" width="120" height="40" rx="6"/>
+              <rect x="180" y="250" width="90" height="80" rx="6"/>
+            </g>
+            <!-- roads -->
+            <g stroke="#f3ead8" stroke-width="16" fill="none" stroke-linecap="round">
+              <path d="M0 125h400"/>
+              <path d="M270 0v340"/>
+              <path d="M140 0v340"/>
+              <path d="M0 235h400"/>
+            </g>
+            <g stroke="#E4A11B" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round" fill="none">
+              <path d="M0 125h400"/><path d="M140 0v340"/>
+            </g>
+            <!-- little park -->
+            <circle cx="330" cy="255" r="26" fill="#c9d6a8"/>
+            <circle cx="330" cy="255" r="8" fill="#a9bb84"/>
+          </svg>
+          <div class="map-pin">
+            <div class="drop">
+              <svg width="46" height="46" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a8 8 0 0 0-8 8c0 6 8 14 8 14s8-8 8-14a8 8 0 0 0-8-8z" fill="#241610" stroke="#E4A11B" stroke-width="1.2"/><circle cx="12" cy="9" r="3" fill="#E4A11B"/></svg>
+            </div>
+            <div class="map-label">Tsokolate &amp; Co.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery sec" id="gallery">
+    <div class="wrap">
+      <div class="reveal" style="max-width:56ch">
+        <p class="kicker" style="color:var(--mustard)">From the café</p>
+        <h2 class="grotesk">Slow mornings, on repeat.</h2>
+      </div>
+      <div class="gal-grid">
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3a2618"/><ellipse cx="50" cy="52" rx="30" ry="30" fill="#4a2c18"/><path d="M35 46c8-14 22-14 30 0-8-6-22-6-30 0z" fill="#E9D3AE"/><rect x="30" y="72" width="40" height="6" rx="3" fill="#E4A11B"/></svg></div>
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#C0362C"/><path d="M30 40h30a8 8 0 0 1 0 16h-3" fill="none" stroke="#F1E7D6" stroke-width="4"/><path d="M30 40v14a10 10 0 0 0 10 10h6a10 10 0 0 0 10-10V40z" fill="#241610"/></svg><img class="tile-photo" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Barista pouring hot water over a coffee filter" loading="lazy" onerror="this.style.display='none'" /><span class="tile-tint" aria-hidden="true"></span></div>
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#E4A11B"/><g fill="#5a3620"><ellipse cx="38" cy="45" rx="14" ry="19" transform="rotate(18 38 45)"/><ellipse cx="62" cy="58" rx="14" ry="19" transform="rotate(-14 62 58)"/></g><path d="M38 27v36M62 40v36" stroke="#241610" stroke-width="2"/></svg></div>
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#2f1e14"/><rect x="26" y="34" width="48" height="34" rx="6" fill="#E4A11B"/><rect x="26" y="34" width="48" height="12" rx="6" fill="#C0362C"/><circle cx="50" cy="55" r="7" fill="#241610"/></svg><img class="tile-photo" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Warm café interior with wooden tables and hanging lights" loading="lazy" onerror="this.style.display='none'" /><span class="tile-tint" aria-hidden="true"></span></div>
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#f0dcb6"/><circle cx="50" cy="50" r="26" fill="#5a3620"/><circle cx="50" cy="50" r="12" fill="#3a2214"/><circle cx="50" cy="50" r="26" fill="none" stroke="#241610" stroke-width="3"/></svg></div>
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#4a2c18"/><path d="M50 20c-9 10-9 26 0 36M34 28c6 6 6 22 0 28M66 28c-6 6-6 22 0 28" fill="none" stroke="#E4A11B" stroke-width="4" stroke-linecap="round"/><rect x="30" y="64" width="40" height="18" rx="9" fill="#C0362C"/></svg></div>
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#E9D3AE"/><rect x="28" y="30" width="44" height="44" rx="8" fill="#C0362C"/><path d="M40 52l8 8 14-16" fill="none" stroke="#F1E7D6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><img class="tile-photo" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&amp;fit=crop&amp;w=800&amp;q=75" alt="Cozy café corner with a counter and espresso machine" loading="lazy" onerror="this.style.display='none'" /><span class="tile-tint" aria-hidden="true"></span></div>
+        <div class="tile reveal"><svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#241610"/><circle cx="50" cy="50" r="22" fill="none" stroke="#E4A11B" stroke-width="3"/><path d="M50 34v16l10 6" fill="none" stroke="#E4A11B" stroke-width="3" stroke-linecap="round"/><text x="50" y="80" font-family="Bricolage Grotesque" font-weight="800" font-size="10" fill="#E4A11B" text-anchor="middle">7AM</text></svg></div>
+      </div>
+      <a href="#top" class="ig-handle">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="#E4A11B" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="#E4A11B" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.4" fill="#E4A11B"/></svg>
+        @tsokolate.coffee
+      </a>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo">
+          <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#C0362C"/><path d="M11 17h15a4 4 0 0 1 0 8h-1.5" fill="none" stroke="#E4A11B" stroke-width="2.4"/><path d="M11 17v6a5 5 0 0 0 5 5h4a5 5 0 0 0 5-5v-6z" fill="#241610"/></svg>
+          <b>Tsokolate &amp; Co.</b>
+        </div>
+        <p style="max-width:34ch;">Small-batch specialty coffee, roasted by hand in Poblacion, Makati. Kape na, pahinga na.</p>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <p style="margin:0">Mon–Thu · 7AM–9PM<br>Fri · 7AM–11PM<br>Sat · 8AM–11PM<br>Sun · 8AM–6PM</p>
+      </div>
+      <div>
+        <h4>Find us</h4>
+        <a href="#menu">Menu</a>
+        <a href="#beans">Our Beans</a>
+        <a href="#visit">Visit</a>
+        <a href="#gallery">@tsokolate.coffee</a>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© 2026 Tsokolate &amp; Co. · 42 Kalayaan Ave, Makati City</span>
+      <span class="demo-note">Fictional café · portfolio demo</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  // Mobile nav
+  var burger = document.getElementById('burger');
+  var links = document.getElementById('navLinks');
+  function closeNav(){
+    links.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+    burger.setAttribute('aria-label','Open menu');
+  }
+  burger.addEventListener('click', function(){
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  links.addEventListener('click', function(e){
+    if(e.target.closest('a')) closeNav();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeNav();
+  });
+
+  // Scroll reveal — anything already in the viewport shows immediately;
+  // only below-the-fold content animates in on scroll.
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    items.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var below = [];
+    items.forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < vh && r.bottom > 0){
+        el.classList.add('instant', 'in'); // above the fold: visible right away
+      } else {
+        below.push(el);
+      }
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    below.forEach(function(el){ io.observe(el); });
+    // Failsafe: the hero must never stay hidden.
+    setTimeout(function(){
+      document.querySelectorAll('.hero .reveal').forEach(function(el){ el.classList.add('in'); });
+    }, 700);
+  }
+})();
+</script>
+</body>
+</html>

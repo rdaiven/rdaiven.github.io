@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baybay — a tiny static-site generator · Docs</title>
+<meta name="description" content="Documentation for Baybay, a fictional zero-config static-site generator. Prototype for the Daiven Reyes Prototype Lab.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <button class="nav-toggle" aria-expanded="false" aria-controls="sidebar" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <a class="wordmark" href="index.html">baybay<span class="cursor-block">▮</span><span class="version">v1.4.2</span></a>
+  <div class="header-spacer"></div>
+  <button class="search-button" type="button">
+    <span aria-hidden="true">🔍</span>
+    <span class="search-label">Search docs…</span>
+    <span class="kbd-hint">Ctrl K</span>
+  </button>
+  <nav class="header-links" aria-label="External">
+    <a href="cli.html">CLI</a>
+    <a href="configuration.html">Config</a>
+  </nav>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Documentation">
+    <h2>Introduction</h2>
+    <ul>
+      <li><a href="index.html" aria-current="page">What is Baybay?</a></li>
+    </ul>
+    <h2>Guides</h2>
+    <ul>
+      <li><a href="getting-started.html">Getting Started</a></li>
+    </ul>
+    <h2>Reference</h2>
+    <ul>
+      <li><a href="configuration.html">Configuration</a></li>
+      <li><a href="cli.html">CLI Commands</a></li>
+    </ul>
+  </nav>
+  <button class="sidebar-backdrop" aria-label="Close navigation" tabindex="-1"></button>
+
+  <main class="content" id="main">
+    <section class="hero">
+      <h1>Build sites at the speed of <span class="accent">save</span>.</h1>
+      <p class="lede">Baybay is a zero-config static-site generator. Markdown in, HTML out, deployed in under a minute — no bundler, no plugins required, no framework lock-in.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="getting-started.html">Get started →</a>
+        <a class="btn btn-secondary" href="cli.html">CLI reference</a>
+      </div>
+
+      <div class="terminal" role="img" aria-label="Terminal demo: npm i -g baybay && baybay new my-site installs the CLI and scaffolds a new site">
+        <div class="terminal-bar" aria-hidden="true">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="term-title">~/projects</span>
+        </div>
+        <div class="terminal-body" aria-hidden="true">
+          <span class="line"><span class="prompt">$ </span><span class="cmd" data-typing></span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-section" aria-labelledby="quick-start">
+      <h2 id="quick-start">Quick start</h2>
+      <p class="section-sub">Four steps from empty folder to live URL.</p>
+      <ul class="card-grid">
+        <li><a class="card" href="getting-started.html#install">
+          <span class="card-step">01 · install</span>
+          <h3>Install the CLI</h3>
+          <p>One global npm package. Node 18+ is the only dependency.</p>
+          <span class="card-cta">Install guide →</span>
+        </a></li>
+        <li><a class="card" href="getting-started.html#scaffold">
+          <span class="card-step">02 · scaffold</span>
+          <h3>Scaffold a site</h3>
+          <p><code>baybay new</code> creates a working project — seven files, no boilerplate maze.</p>
+          <span class="card-cta">Scaffold a project →</span>
+        </a></li>
+        <li><a class="card" href="getting-started.html#dev-server">
+          <span class="card-step">03 · develop</span>
+          <h3>Run the dev server</h3>
+          <p>Live reload on save, typically under 40&nbsp;ms per rebuild.</p>
+          <span class="card-cta">Start the server →</span>
+        </a></li>
+        <li><a class="card" href="getting-started.html#deploy">
+          <span class="card-step">04 · ship</span>
+          <h3>Deploy anywhere</h3>
+          <p><code>baybay deploy</code> pushes the <code>dist/</code> folder to your host of choice.</p>
+          <span class="card-cta">Deploy your site →</span>
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="landing-section" aria-labelledby="features">
+      <h2 id="features">Why Baybay</h2>
+      <p class="section-sub">Small on purpose. Every feature earns its bytes.</p>
+      <ul class="feature-grid">
+        <li class="feature">
+          <span class="feature-key">zero-config</span>
+          <h3>Sensible defaults</h3>
+          <p>A new project builds with no config file at all. Add <code>baybay.config.js</code> only when you need to override something.</p>
+        </li>
+        <li class="feature">
+          <span class="feature-key">markdown-first</span>
+          <h3>Markdown is the source</h3>
+          <p>CommonMark plus front matter, smart quotes, heading anchors, and footnotes. HTML files pass straight through.</p>
+        </li>
+        <li class="feature">
+          <span class="feature-key">&lt; 40 ms</span>
+          <h3>Incremental rebuilds</h3>
+          <p>The dev server rebuilds only what changed and hot-swaps the page in place. No full-refresh flicker.</p>
+        </li>
+        <li class="feature">
+          <span class="feature-key">i18n built in</span>
+          <h3>Multilingual by default</h3>
+          <p>Declare <code>i18n.locales</code> once and Baybay mirrors your routes per locale with automatic <code>hreflang</code> tags.</p>
+        </li>
+        <li class="feature">
+          <span class="feature-key">no lock-in</span>
+          <h3>Plain output</h3>
+          <p>The build is static HTML, CSS, and your own JS. Move hosts, or stop using Baybay entirely — your site still works.</p>
+        </li>
+        <li class="feature">
+          <span class="feature-key">one binary</span>
+          <h3>Deploys itself</h3>
+          <p><code>baybay deploy</code> talks to Netlify, Vercel, GitHub Pages, and plain rsync targets out of the box.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 Baybay — a fictional tool. Prototype for the Daiven Reyes Prototype Lab.</span>
+    <a href="../../index.html">← Prototype Lab</a>
+  </div>
+</footer>
+
+<dialog class="search-dialog" id="search-dialog" aria-label="Search documentation">
+  <form class="search-form" method="dialog">
+    <span aria-hidden="true">🔍</span>
+    <input type="search" placeholder="Search titles and headings…" aria-label="Search documentation" autocomplete="off">
+    <span class="esc-hint" aria-hidden="true">esc</span>
+  </form>
+  <ul class="search-results"></ul>
+  <p class="search-empty" hidden>No results. Try “config”, “deploy”, or “install”.</p>
+</dialog>
+
+<script src="assets/docs.js"></script>
+</body>
+</html>
