@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LISTAHAN — Move the work, see the work</title>
+  <meta name="description" content="LISTAHAN — a working kanban board with drag and drop, WIP limits, and localStorage persistence. Part of the Daiven Reyes Prototype Lab." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="masthead">
+      <div class="brand">
+        <h1>LISTAHAN</h1>
+        <p class="tagline">Move the work, see the work.</p>
+      </div>
+      <p class="stats" id="board-stats" aria-live="polite"></p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn" id="btn-labels">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 2h6l6 6-6 6-6-6V2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="5.5" cy="5.5" r="1.2" fill="currentColor"/></svg>
+        Labels
+      </button>
+      <button type="button" class="btn" id="btn-export">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Export
+      </button>
+      <button type="button" class="btn" id="btn-import">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M3 13h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Import
+      </button>
+      <button type="button" class="btn btn-primary" id="btn-add-column">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 3v10M3 8h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Column
+      </button>
+      <input type="file" id="import-file" accept="application/json,.json" hidden />
+    </div>
+  </header>
+
+  <section class="filter-row" aria-label="Filter cards">
+    <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by label"></div>
+    <div class="filter-search">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.5 10.5 14 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input type="search" id="filter-search" placeholder="Search cards…" aria-label="Search cards by title or note" />
+    </div>
+  </section>
+
+  <main class="board-wrap">
+    <div class="board" id="board"></div>
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2026 LISTAHAN — a working mini app. Part of the Daiven Reyes Prototype Lab</p>
+    <a href="../index.html" class="back-link">&larr; Prototype Lab</a>
+  </footer>
+
+  <!-- Card editor panel -->
+  <div class="overlay" id="card-overlay" hidden>
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="card-panel-title">
+      <h2 id="card-panel-title">Edit card</h2>
+      <form id="card-form">
+        <label class="field">
+          <span>Title <em aria-hidden="true">*</em></span>
+          <input type="text" id="card-title" required maxlength="140" autocomplete="off" />
+        </label>
+        <label class="field">
+          <span>Note</span>
+          <textarea id="card-note" rows="3" maxlength="500"></textarea>
+        </label>
+        <fieldset class="field">
+          <legend>Label</legend>
+          <div class="label-picker" id="card-label-picker"></div>
+        </fieldset>
+        <label class="field">
+          <span>Due date</span>
+          <input type="date" id="card-due" />
+        </label>
+        <div class="panel-actions">
+          <button type="button" class="btn btn-danger" id="card-delete">Delete</button>
+          <span class="spacer"></span>
+          <button type="button" class="btn" id="card-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="card-save">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Labels editor panel -->
+  <div class="overlay" id="labels-overlay" hidden>
+    <div class="panel" role="dialog" aria-modal="true" aria-labelledby="labels-panel-title">
+      <h2 id="labels-panel-title">Edit label names</h2>
+      <form id="labels-form">
+        <div id="labels-list"></div>
+        <div class="panel-actions">
+          <span class="spacer"></span>
+          <button type="button" class="btn" id="labels-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm panel -->
+  <div class="overlay" id="confirm-overlay" hidden>
+    <div class="panel panel-narrow" role="alertdialog" aria-modal="true" aria-labelledby="confirm-message">
+      <p id="confirm-message"></p>
+      <div class="panel-actions">
+        <span class="spacer"></span>
+        <button type="button" class="btn" id="confirm-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-ok">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Move menu (keyboard-accessible alternative to drag) -->
+  <div class="move-menu" id="move-menu" role="menu" aria-label="Move card" hidden></div>
+
+  <div class="toast-region" id="toast-region" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
