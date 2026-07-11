@@ -73,6 +73,13 @@
       font-family:'Space Grotesk',sans-serif;color:var(--accent);font-weight:500}
     .card:hover .open{gap:11px}
 
+    /* card with a second, independent link (e.g. a real repo) */
+    .card__main{display:flex;flex-direction:column;flex:1}
+    .card__repo{display:flex;align-items:center;gap:7px;border-top:1px solid var(--line);
+      padding:12px 20px;font-family:'Space Grotesk',sans-serif;font-size:13px;
+      color:var(--accent);font-weight:500}
+    .card__repo:hover{background:var(--surface-2);gap:11px}
+
     footer{margin:clamp(60px,9vw,120px) 0 60px;padding-top:28px;border-top:1px solid var(--line);
       display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:var(--faint);font-size:13px}
 
@@ -331,18 +338,24 @@
         </div>
       </a>
 
-      <a class="card" href="static/02-docs/index.html">
+      <div class="card">
+        <a class="card__main" href="static/02-docs/index.html">
         <div class="thumb" aria-hidden="true">
           <svg viewBox="0 0 320 200"><rect width="320" height="200" fill="#fff"/><rect x="0" y="0" width="88" height="200" fill="#F6F8F7"/><rect x="14" y="24" width="56" height="7" rx="2" fill="#0B6B4F"/><rect x="14" y="44" width="48" height="5" rx="2" fill="#C2CCC8"/><rect x="14" y="58" width="52" height="5" rx="2" fill="#C2CCC8"/><rect x="14" y="72" width="42" height="5" rx="2" fill="#C2CCC8"/><rect x="106" y="26" width="150" height="9" rx="2" fill="#1E2523"/><rect x="106" y="52" width="190" height="72" rx="6" fill="#10201B"/><text x="118" y="82" font-family="monospace" font-size="11" fill="#7BD8B4">$ npm i -g baybay</text><text x="118" y="102" font-family="monospace" font-size="11" fill="#E3F1EB">$ baybay new my-site▮</text><rect x="106" y="140" width="180" height="5" rx="2" fill="#C2CCC8"/><rect x="106" y="154" width="160" height="5" rx="2" fill="#C2CCC8"/></svg>
         </div>
         <div class="card__body">
-          <span class="kicker">Documentation · 4 pages</span>
+          <span class="kicker">Documentation · Became a real tool</span>
           <h3>Baybay — Docs Site</h3>
-          <p>Full docs architecture for a fictional static-site CLI: sidebar nav, scroll-spy table of contents, copyable code blocks, Ctrl+K search modal, and a typing-terminal hero.</p>
+          <p>Docs architecture for a static-site CLI: sidebar nav, scroll-spy table of contents, copyable code blocks, Ctrl+K search modal, and a typing-terminal hero. The prototype that turned into a real project.</p>
           <div class="tags"><span>Sidebar + TOC</span><span>⌘K search</span><span>IBM Plex</span></div>
           <span class="open">Open docs →</span>
         </div>
-      </a>
+        </a>
+        <a class="card__repo" href="https://github.com/rdaiven/baybay" rel="noopener" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.27 5.66.41.36.78 1.06.78 2.14v3.17c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+          baybay v0.1.0 — now a real tool on GitHub ↗
+        </a>
+      </div>
 
       <a class="card" href="static/03-magazine/index.html">
         <div class="thumb" aria-hidden="true">
