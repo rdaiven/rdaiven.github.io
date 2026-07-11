@@ -452,6 +452,8 @@ button { font: inherit; color: inherit; }
 
 /* ---------- panels / overlays ---------- */
 
+[hidden] { display: none !important; }
+
 .overlay {
   position: fixed;
   inset: 0;
