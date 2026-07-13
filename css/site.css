@@ -107,6 +107,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .kicker{font-family:var(--display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 .card h3{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:-.01em}
 .card p{font-size:13.5px;color:var(--muted);line-height:1.55}
+.card p code{font-family:ui-monospace,'JetBrains Mono',monospace;font-size:12px;
+  background:var(--surface-2,rgba(255,255,255,.05));border:1px solid var(--line);
+  border-radius:5px;padding:1px 6px;color:var(--ink)}
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:12px}
 .pills span{
   font-size:11px;color:var(--faint);border:1px solid var(--line);
