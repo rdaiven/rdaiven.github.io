@@ -219,6 +219,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .r-proj b{font-family:var(--display);font-weight:600;color:var(--ink)}
 .r-proj a{color:var(--accent)}
 .r-proj a:hover{text-decoration:underline}
+.r-proj-group{font-family:var(--display);font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--faint);font-weight:600;margin:22px 0 2px}
+.r-proj-group:first-of-type{margin-top:6px}
+.r-proj-group + .r-proj{border-top:0;padding-top:4px}
 
 .r-list{list-style:none}
 .r-list li{padding:8px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
@@ -266,6 +270,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .r-main{max-width:none}
   .r-head{padding:0 0 16px}
   .r-head h1,.r-job__head h3,.r-skill h3,.r-proj b,.r-list b{color:#000}
+  .r-proj-group{color:#333}
   .r-head .r-sub,.r-head .r-loc,.r-sec p,.r-job li,.r-job__org,.r-job__when,
   .r-proj,.r-list li,.r-skill p{color:#222}
   .r-sec>h2{color:#000}
