@@ -9,7 +9,7 @@
      - 700ms failsafe adds .in to everything
      - reduced-motion users get everything instantly
   ------------------------------------------------------------ */
-  var els = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  var els = Array.prototype.slice.call(document.querySelectorAll('.rv, .rv-stagger'));
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function showAll() {
@@ -37,6 +37,130 @@
     });
     // failsafe: never leave content hidden
     window.setTimeout(showAll, 700);
+  }
+
+  /* ------------------------------------------------------------
+     Count-up — animate [data-count] numbers into view once.
+     HTML already holds the final value, so reduced-motion (or no
+     IntersectionObserver) simply leaves it untouched.
+  ------------------------------------------------------------ */
+  var counters = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
+  if (counters.length && !reduce && 'IntersectionObserver' in window && 'requestAnimationFrame' in window) {
+    var runCount = function (el) {
+      var target = parseFloat(el.getAttribute('data-count'));
+      if (isNaN(target)) return;
+      var suffix = el.getAttribute('data-suffix') || '';
+      var dur = 1000, start = null;
+      var ease = function (t) { return 1 - Math.pow(1 - t, 3); }; // easeOutCubic
+      var step = function (ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        el.textContent = Math.round(ease(p) * target) + suffix;
+        if (p < 1) window.requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      };
+      window.requestAnimationFrame(step);
+    };
+    var co = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { runCount(en.target); co.unobserve(en.target); }
+      });
+    }, { threshold: 0 });
+    counters.forEach(function (el) { co.observe(el); });
+  }
+
+  /* ------------------------------------------------------------
+     Scroll progress bar — a thin top rail tracking read position.
+  ------------------------------------------------------------ */
+  if ('requestAnimationFrame' in window) {
+    var bar = document.createElement('div');
+    bar.className = 'progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+    var ticking = false;
+    var draw = function () {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - doc.clientHeight;
+      var pct = max > 0 ? (doc.scrollTop || window.pageYOffset) / max : 0;
+      bar.style.width = (pct * 100).toFixed(2) + '%';
+      ticking = false;
+    };
+    var onScroll = function () {
+      if (!ticking) { window.requestAnimationFrame(draw); ticking = true; }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    draw();
+  }
+
+  /* ------------------------------------------------------------
+     Pointer tilt — subtle 3D response on [data-tilt] elements.
+     Desktop + fine-pointer only; never on touch or reduced-motion.
+  ------------------------------------------------------------ */
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var tilts = Array.prototype.slice.call(document.querySelectorAll('[data-tilt]'));
+  if (fine && !reduce && tilts.length) {
+    var MAX = 4; // degrees
+    tilts.forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect();
+        var dx = (e.clientX - r.left) / r.width - 0.5;
+        var dy = (e.clientY - r.top) / r.height - 0.5;
+        el.style.transform =
+          'perspective(760px) rotateX(' + (-dy * MAX).toFixed(2) + 'deg) rotateY(' +
+          (dx * MAX).toFixed(2) + 'deg) translateY(-4px)';
+      });
+      el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Lab hover preview — hovering a batch row reveals a live,
+     scaled-down demo of that build beside it. Progressive
+     enhancement: desktop + fine-pointer + motion only; touch and
+     no-JS visitors just get the plain linked rows.
+  ------------------------------------------------------------ */
+  var lab = document.querySelector('.lab');
+  var fineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (lab && fineHover && !reduce) {
+    var preview = document.createElement('div');
+    preview.className = 'lab-preview';
+    preview.setAttribute('aria-hidden', 'true');
+    lab.appendChild(preview);
+
+    var demoFrames = {};
+    var rows = Array.prototype.slice.call(lab.querySelectorAll('.labrow'));
+
+    var showRow = function (row) {
+      var url = row.getAttribute('data-demo');
+      if (!url) return;
+      if (!demoFrames[url]) {                       // lazy-load once, then cache
+        var f = document.createElement('iframe');
+        f.src = url;
+        f.setAttribute('tabindex', '-1');
+        f.setAttribute('aria-hidden', 'true');
+        f.setAttribute('scrolling', 'no');
+        f.loading = 'lazy';
+        preview.appendChild(f);
+        demoFrames[url] = f;
+      }
+      Object.keys(demoFrames).forEach(function (u) {
+        demoFrames[u].classList.toggle('on', u === url);
+      });
+      var top = Math.min(row.offsetTop, lab.clientHeight - preview.offsetHeight);
+      preview.style.top = Math.max(0, top) + 'px';
+      preview.classList.add('show');
+    };
+    var hide = function () { preview.classList.remove('show'); };
+
+    rows.forEach(function (r) {
+      r.addEventListener('mouseenter', function () { showRow(r); });
+      r.addEventListener('focus', function () { showRow(r); });
+    });
+    lab.addEventListener('mouseleave', hide);
+    lab.addEventListener('focusout', function (e) {
+      if (!lab.contains(e.relatedTarget)) hide();
+    });
   }
 
   /* ------------------------------------------------------------

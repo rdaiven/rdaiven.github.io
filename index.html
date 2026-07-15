@@ -5,6 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daiven Reyes — Web Systems &amp; Automation Engineer</title>
   <meta name="description" content="Daiven Reyes — Senior Web Systems &amp; Automation Engineer in the Philippines. WordPress architecture, full-stack systems, SEO engineering, and AI-assisted development. Home of the Prototype Lab." />
+  <link rel="canonical" href="https://rdaiven.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Daiven Reyes" />
+  <meta property="og:title" content="Daiven Reyes — Web Systems &amp; Automation Engineer" />
+  <meta property="og:description" content="WordPress architecture, full-stack systems, SEO engineering, and AI-assisted development. Home of the Prototype Lab." />
+  <meta property="og:url" content="https://rdaiven.github.io/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Daiven Reyes — Web Systems &amp; Automation Engineer" />
+  <meta name="twitter:description" content="WordPress architecture, full-stack systems, SEO engineering, and AI-assisted development. Home of the Prototype Lab." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daiven Reyes",
+    "jobTitle": "Senior Web Systems & Automation Engineer",
+    "url": "https://rdaiven.github.io/",
+    "sameAs": [
+      "https://github.com/rdaiven",
+      "https://www.linkedin.com/in/daivenr"
+    ],
+    "knowsAbout": ["WordPress", "Full-stack development", "Technical SEO", "CSS", "AI-assisted development"],
+    "address": { "@type": "PostalAddress", "addressCountry": "PH" }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -30,9 +54,9 @@
         <h1>I build websites and systems. <em>This is my workbench.</em></h1>
         <p class="manifesto">Ship small. Learn by making. Every build counts.</p>
         <p class="statline" aria-label="At a glance">
-          <b>21</b>&nbsp;<span>prototypes</span><span class="dot">·</span>
-          <b>5</b>&nbsp;<span>design batches</span><span class="dot">·</span>
-          <b>7+</b>&nbsp;<span>years building</span>
+          <b data-count="21">21</b>&nbsp;<span>prototypes</span><span class="dot">·</span>
+          <b data-count="5">5</b>&nbsp;<span>design batches</span><span class="dot">·</span>
+          <b data-count="7" data-suffix="+">7+</b>&nbsp;<span>years building</span>
         </p>
       </section>
 
@@ -44,35 +68,35 @@
         </div>
         <p class="sec__intro">Fictional brands and small tools I design and code from scratch to practice and explore — each with its own design system. All of them are live demos you can click through.</p>
 
-        <nav aria-label="Prototype Lab batches">
-          <a class="labrow" href="work/index.html">
+        <nav class="lab rv-stagger" aria-label="Prototype Lab batches">
+          <a class="labrow" href="work/index.html#ecommerce" data-demo="work/shop-apparel/index.html">
             <span class="labrow__no">01</span>
             <span class="labrow__name">E-commerce</span>
             <span class="labrow__count">3 storefronts</span>
             <span class="labrow__go">Open →</span>
           </a>
-          <a class="labrow" href="work/index.html">
+          <a class="labrow" href="work/index.html#landing" data-demo="work/landing/05-cafe/index.html">
             <span class="labrow__no">02</span>
             <span class="labrow__name">Landing pages</span>
             <span class="labrow__count">10 brands, 10 aesthetics</span>
             <span class="labrow__go">Open →</span>
           </a>
-          <a class="labrow" href="work/index.html">
+          <a class="labrow" href="work/index.html#motion" data-demo="work/motion/index.html">
             <span class="labrow__no">03</span>
             <span class="labrow__name">Motion &amp; interaction</span>
             <span class="labrow__count">2 showcases · vanilla JS</span>
             <span class="labrow__go">Open →</span>
           </a>
-          <a class="labrow" href="work/index.html">
+          <a class="labrow" href="work/index.html#static" data-demo="work/static/03-magazine/index.html">
             <span class="labrow__no">04</span>
             <span class="labrow__name">Static sites &amp; structures</span>
             <span class="labrow__count">3 sites · 10 pages</span>
             <span class="labrow__go">Open →</span>
           </a>
-          <a class="labrow" href="work/index.html">
+          <a class="labrow" href="work/index.html#systems" data-demo="work/app/index.html">
             <span class="labrow__no">05</span>
             <span class="labrow__name">Working systems</span>
-            <span class="labrow__count">GAWA · PERA · LISTAHAN — 3 working apps</span>
+            <span class="labrow__count">keel · 3 working apps · a live site</span>
             <span class="labrow__go">Open →</span>
           </a>
         </nav>
@@ -86,20 +110,27 @@
           <h2 id="shop-h">In the shop</h2>
           <span class="tag">Building</span>
         </div>
-        <p class="sec__intro">Two tools I'm building for myself — both started as prototypes in the lab and became real. <b>keel</b> is open source now; <b>inwright</b> is private while it grows.</p>
+        <p class="sec__intro">Two tools I'm building for myself — both started as prototypes in the lab and became real — plus a live site one of them already powers. <b>keel</b> is open source now; <b>inwright</b> is private while it grows.</p>
         <div class="cards">
-          <div class="card">
+          <div class="card" data-tilt>
             <span class="kicker">Tool · Coming soon</span>
             <h3>inwright</h3>
             <p>A zero-dependency static site generator and flat-file CMS with a local visual studio. Markdown files in, a finished website out — always in the act of building.</p>
             <div class="pills"><span>Node</span><span>Zero deps</span><span>Flat files</span><span>Local studio</span></div>
           </div>
-          <div class="card">
+          <div class="card card--live" data-tilt>
             <span class="kicker">Framework · Live</span>
             <h3>keel</h3>
             <p>A standalone, zero-dependency CSS framework: five native cascade layers, fluid type and spacing, a full component library, and a design-system generator that seeds a whole token system from a few brand colors and a type scale — WCAG AA enforced in code. Install with <code>npm i keelcss</code> or link one CSS file.</p>
             <div class="pills"><span>npm i keelcss</span><span>@layer</span><span>Zero JS</span><span>WCAG AA built in</span></div>
             <p><a href="https://rdaiven.github.io/keel" target="_blank" rel="noopener">rdaiven.github.io/keel →</a> &nbsp;·&nbsp; <a href="https://www.npmjs.com/package/keelcss" target="_blank" rel="noopener">npm →</a> &nbsp;·&nbsp; <a href="https://rdaiven.github.io/keel/docs/frameworks.html" target="_blank" rel="noopener">Framework guides →</a></p>
+          </div>
+          <div class="card card--live" data-tilt>
+            <span class="kicker">Live site · Built with keel</span>
+            <h3>Cut Above Media</h3>
+            <p>A real, shipped website for an AI-powered creative &amp; video-ads studio — built entirely on keel. Proof the framework holds up in production, not just in demos.</p>
+            <div class="pills"><span>keel in production</span><span>Motion</span><span>Mobile-first</span></div>
+            <p><a href="https://cut-above-j7qd-zeta.vercel.app" target="_blank" rel="noopener">View the live site →</a></p>
           </div>
         </div>
       </section>
@@ -110,7 +141,7 @@
           <h2 id="what-h">What I do</h2>
           <span class="tag">Capabilities</span>
         </div>
-        <div class="cards">
+        <div class="cards rv-stagger">
           <div class="card">
             <span class="kicker">Foundation</span>
             <h3>WordPress architecture &amp; custom development</h3>
