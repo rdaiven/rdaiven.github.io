@@ -1,21 +1,16 @@
 /* Prototype Lab — floating "back" affordance for standalone demo pages.
-   Included on every demo so a visitor is never stranded. Absolute paths
-   resolve the same locally (served from the Portfolio root) and on
-   rdaiven.github.io (a user-pages root). aria-labelled, keyboard focusable,
-   safe-area aware, and styled to read on both light and dark demos. */
+   Included on every demo so a visitor is never stranded. The portfolio
+   deploys at the domain root (rdaiven.github.io), so absolute paths are
+   correct both there and when served locally from the Portfolio root.
+   aria-labelled, keyboard focusable, safe-area aware, reads on light + dark. */
 (function () {
   'use strict';
+  if (window.top !== window.self) return;   // don't render inside the lab preview iframe
   if (document.getElementById('pl-back')) return;
-
-  // derive the hub path from the current URL's /work/ segment, so it works
-  // at the domain root, in a subdirectory, or from file:// — no hard-coding.
-  var path = location.pathname;
-  var i = path.lastIndexOf('/work/');
-  var hub = i >= 0 ? path.slice(0, i + 6) + 'index.html' : '/work/index.html';
 
   var a = document.createElement('a');
   a.id = 'pl-back';
-  a.href = hub;
+  a.href = '/work/index.html';
   a.setAttribute('aria-label', 'Back to the Prototype Lab');
   a.innerHTML = '<span aria-hidden="true" style="font-size:15px;line-height:1">←</span>' +
     '<span>Prototype&nbsp;Lab</span>';

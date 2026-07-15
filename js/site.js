@@ -132,6 +132,8 @@
     var rows = Array.prototype.slice.call(lab.querySelectorAll('.labrow'));
 
     var showRow = function (row) {
+      // the preview card is CSS-hidden below 880px — don't load hidden iframes there
+      if (!window.matchMedia('(min-width: 880px)').matches) return;
       var url = row.getAttribute('data-demo');
       if (!url) return;
       if (!demoFrames[url]) {                       // lazy-load once, then cache

@@ -483,8 +483,15 @@
     document.body.classList.add('reveal');
     var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
     cards.forEach(function (c) {
-      var i = Array.prototype.indexOf.call(c.parentNode.children, c);
-      c.style.transitionDelay = (Math.min(i, 5) * 0.05).toFixed(2) + 's';
+      // stagger by VISUAL order (CSS `order` then DOM), so an order:-1 card leads
+      var sibs = Array.prototype.slice.call(c.parentNode.children);
+      var co = parseInt(window.getComputedStyle(c).order, 10) || 0, ci = sibs.indexOf(c), vi = 0;
+      sibs.forEach(function (s, si) {
+        if (s === c) return;
+        var so = parseInt(window.getComputedStyle(s).order, 10) || 0;
+        if (so < co || (so === co && si < ci)) vi++;
+      });
+      c.style.transitionDelay = (Math.min(vi, 5) * 0.05).toFixed(2) + 's';
       var r = c.getBoundingClientRect();
       if (r.top < window.innerHeight && r.bottom > 0) c.classList.add('in');
     });
