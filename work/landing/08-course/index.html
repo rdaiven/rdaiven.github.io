@@ -62,15 +62,17 @@
   .nav-links.open{transform:translateY(0)}
   .nav-links a{font-weight:500;color:var(--muted);font-size:1.1rem}
   .nav-links a:hover{color:var(--ink)}
-  .nav-cta{display:flex;align-items:center;gap:14px}
-  .nav-cta .btn-ghost{display:none}
+  .nav-cta{display:flex;align-items:center;gap:10px}
+  /* on small screens the header shows brand + burger only; the hero CTA carries the action */
+  .nav-cta .btn-ghost,.nav-cta .btn-primary{display:none}
   .hamburger{display:grid;place-items:center;background:none;border:1.5px solid var(--hairline);border-radius:12px;
     width:44px;height:44px;cursor:pointer;color:var(--ink)}
   @media(min-width:861px){
     .nav-links{position:static;inset:auto;flex-direction:row;background:transparent;
       padding:0;gap:28px;border-bottom:0;transform:none;transition:none;box-shadow:none}
     .nav-links a{font-size:.95rem}
-    .nav-cta .btn-ghost{display:inline-flex}
+    .nav-cta{gap:14px}
+    .nav-cta .btn-ghost,.nav-cta .btn-primary{display:inline-flex}
     .hamburger{display:none}
   }
 
@@ -829,5 +831,6 @@
   }
 })();
 </script>
+  <script src="/work/_back.js" defer></script>
 </body>
 </html>
