@@ -11,7 +11,7 @@
   <style>
     :root{
       --bg:#0d0e12; --surface:#15171d; --surface-2:#1b1e26; --line:#262a34;
-      --ink:#f2f3f5; --muted:#9aa0ab; --faint:#5f6672; --accent:#6b8afd;
+      --ink:#f2f3f5; --muted:#9aa0ab; --faint:#7c8392; --accent:#6b8afd;
     }
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -41,8 +41,8 @@
     .back:hover{color:var(--ink)}
 
     /* batch heading */
-    .batch{display:flex;align-items:baseline;gap:16px;margin:clamp(40px,6vw,72px) 0 22px;
-      padding-top:28px;border-top:1px solid var(--line)}
+    .batch{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin:clamp(40px,6vw,72px) 0 22px;
+      padding-top:28px;border-top:1px solid var(--line);scroll-margin-top:28px}
     .batch h2{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em}
     .batch span{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.14em;
       text-transform:uppercase;color:var(--faint)}
@@ -55,12 +55,18 @@
 
     .card{
       background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;
-      display:flex;flex-direction:column;transition:transform .25s ease,border-color .25s ease,background .25s ease;
+      display:flex;flex-direction:column;
+      transition:transform .25s ease,border-color .25s ease,background .25s ease,opacity .55s ease;
     }
     .card:hover{transform:translateY(-4px);border-color:#39404e;background:var(--surface-2)}
     .card--soon{opacity:.5;pointer-events:none}
+    /* reveal: cards only start hidden when JS + motion are on (body.reveal) */
+    body.reveal .card{opacity:0;transform:translateY(16px)}
+    body.reveal .card.in{opacity:1;transform:none}
+    body.reveal .card.in:hover{transform:translateY(-4px)}
     .thumb{aspect-ratio:16/10;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
-    .thumb svg{width:100%;height:100%;display:block}
+    .thumb svg{width:100%;height:100%;display:block;transition:transform .45s ease}
+    .card:hover .thumb svg{transform:scale(1.035)}
     .card__body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
     .kicker{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.14em;
       text-transform:uppercase;color:var(--faint)}
@@ -99,7 +105,7 @@
     </header>
 
     <!-- BATCH 1 -->
-    <div class="batch">
+    <div class="batch" id="ecommerce">
       <h2>E-commerce</h2>
       <span>Batch 01</span>
       <span class="count">3 storefronts</span>
@@ -147,7 +153,7 @@
     </div>
 
     <!-- BATCH 2 -->
-    <div class="batch">
+    <div class="batch" id="landing">
       <h2>Landing pages</h2>
       <span>Batch 02</span>
       <span class="count">10 pages, 10 aesthetics</span>
@@ -286,7 +292,7 @@
     </div>
 
     <!-- BATCH 3 -->
-    <div class="batch">
+    <div class="batch" id="motion">
       <h2>Motion &amp; interaction</h2>
       <span>Batch 03</span>
       <span class="count">2 showcases · vanilla JS, no libraries</span>
@@ -321,7 +327,7 @@
     </div>
 
     <!-- BATCH 4 -->
-    <div class="batch">
+    <div class="batch" id="static">
       <h2>Static sites &amp; structures</h2>
       <span>Batch 04</span>
       <span class="count">3 sites · 10 pages · multi-page architectures</span>
@@ -375,10 +381,10 @@
     </div>
 
     <!-- BATCH 5 -->
-    <div class="batch">
+    <div class="batch" id="systems">
       <h2>Working systems</h2>
       <span>Batch 05</span>
-      <span class="count">3 apps · fully functional, localStorage-backed — plus a framework in the works</span>
+      <span class="count">keel · 3 working apps · and a live site built on it</span>
     </div>
 
     <div class="grid">
@@ -421,7 +427,7 @@
         </div>
       </a>
 
-      <div class="card">
+      <div class="card" style="order:-1">
         <div class="card__main">
           <div class="thumb" aria-hidden="true">
             <svg viewBox="0 0 320 200"><rect width="320" height="200" fill="#F5F6FA"/><rect width="320" height="26" fill="#FFFFFF"/><rect y="25" width="320" height="1" fill="#E2E4EC"/><text x="16" y="17" font-family="monospace" font-weight="700" font-size="11" fill="#1B2035">keel</text><rect x="236" y="11" width="18" height="4" rx="2" fill="#9AA0AF"/><rect x="260" y="11" width="18" height="4" rx="2" fill="#9AA0AF"/><rect x="284" y="11" width="18" height="4" rx="2" fill="#9AA0AF"/><text x="16" y="54" font-family="monospace" font-size="8" letter-spacing="2" fill="#4A5DF0">KEEL · A CSS FRAMEWORK</text><text x="16" y="82" font-family="Arial" font-weight="800" font-size="23" fill="#171B2E">The first timber.</text><text x="16" y="102" font-family="Arial" font-size="10" fill="#5A6072">Five layers. Zero JS. Your design system, not ours.</text><rect x="16" y="116" width="66" height="20" rx="6" fill="#4A5DF0"/><text x="27" y="129" font-family="Arial" font-weight="700" font-size="8" fill="#FFFFFF">Get started</text><rect x="90" y="116" width="72" height="20" rx="6" fill="none" stroke="#B9BECE"/><text x="100" y="129" font-family="Arial" font-weight="700" font-size="8" fill="#3A4054">Components</text><rect x="16" y="152" width="30" height="18" rx="4" fill="#4A5DF0"/><rect x="50" y="152" width="30" height="18" rx="4" fill="#D81B4F"/><rect x="84" y="152" width="30" height="18" rx="4" fill="#E3E7FD"/><rect x="118" y="152" width="30" height="18" rx="4" fill="#FFFFFF" stroke="#E2E4EC"/><rect x="152" y="152" width="30" height="18" rx="4" fill="#171B2E"/><text x="16" y="188" font-family="monospace" font-size="7.5" fill="#8A90A2">tokens · base · layout · components · utilities</text></svg>
@@ -442,6 +448,25 @@
           Open source · MIT · rdaiven.github.io/keel
         </span>
       </div>
+
+      <div class="card">
+        <a class="card__main" href="https://cut-above-j7qd-zeta.vercel.app" target="_blank" rel="noopener">
+          <div class="thumb" aria-hidden="true">
+            <svg viewBox="0 0 320 200"><rect width="320" height="200" fill="#0D0D0D"/><text x="24" y="60" font-family="'Space Grotesk',Arial" font-weight="700" font-size="30" fill="#F5F5F2" letter-spacing="-1">CUT<tspan fill="#6b8afd">/</tspan>ABOVE</text><text x="24" y="82" font-family="monospace" font-size="9" letter-spacing="2" fill="#7A7F88">AI CREATIVE &amp; VIDEO-ADS STUDIO</text><g transform="translate(24 104)"><rect width="272" height="46" rx="6" fill="#151515" stroke="#2a2a2a"/><polygon points="18,12 18,34 40,23" fill="#6b8afd"/><rect x="54" y="15" width="120" height="6" rx="3" fill="#33373f"/><rect x="54" y="28" width="86" height="6" rx="3" fill="#22252b"/><circle cx="246" cy="23" r="9" fill="none" stroke="#6b8afd" stroke-width="2"/><path d="M242 23 l3 3 l6 -7" stroke="#6b8afd" stroke-width="2" fill="none"/></g><g transform="translate(24 162)"><rect width="40" height="14" rx="3" fill="#6b8afd"/><rect x="48" width="40" height="14" rx="3" fill="#1f2937"/><rect x="96" width="60" height="14" rx="3" fill="#1f2937"/><rect x="164" width="30" height="14" rx="3" fill="#1f2937"/><rect x="202" width="70" height="14" rx="3" fill="#1f2937"/></g></svg>
+          </div>
+          <div class="card__body">
+            <span class="kicker">Live site · Built with keel</span>
+            <h3>Cut Above Media</h3>
+            <p>A real, shipped website for an AI-powered creative &amp; video-ads studio — built entirely on keel. The proof the framework holds up in production, not just in demos: motion, a full component system, and a mobile-first build.</p>
+            <div class="tags"><span>keel in production</span><span>Motion</span><span>Mobile-first</span></div>
+            <span class="open">Visit the live site →</span>
+          </div>
+        </a>
+        <span class="card__repo">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 10l4.55-2.28A1 1 0 0 1 21 8.6v6.8a1 1 0 0 1-1.45.88L15 14M5 6h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg>
+          Live in production · cut-above-j7qd-zeta.vercel.app
+        </span>
+      </div>
     </div>
 
     <footer>
@@ -449,5 +474,28 @@
       <a href="../index.html">Portfolio home →</a>
     </footer>
   </div>
+  <script>
+  /* Card reveal — staggered, self-contained, degrades to fully visible.
+     Cards only hide (via body.reveal) when JS runs AND motion is allowed. */
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return; // leave everything visible
+    document.body.classList.add('reveal');
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+    cards.forEach(function (c) {
+      var i = Array.prototype.indexOf.call(c.parentNode.children, c);
+      c.style.transitionDelay = (Math.min(i, 5) * 0.05).toFixed(2) + 's';
+      var r = c.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) c.classList.add('in');
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0 });
+    cards.forEach(function (c) { if (!c.classList.contains('in')) io.observe(c); });
+    window.setTimeout(function () { cards.forEach(function (c) { c.classList.add('in'); }); }, 700);
+  })();
+  </script>
 </body>
 </html>
