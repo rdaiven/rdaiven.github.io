@@ -77,10 +77,13 @@
     bar.className = 'progress';
     bar.setAttribute('aria-hidden', 'true');
     document.body.appendChild(bar);
-    var ticking = false;
+    var ticking = false, max = 0;
+    var measure = function () {
+      var doc = document.documentElement;
+      max = doc.scrollHeight - doc.clientHeight; // scrollHeight forces layout — read only on resize
+    };
     var draw = function () {
       var doc = document.documentElement;
-      var max = doc.scrollHeight - doc.clientHeight;
       var pct = max > 0 ? (doc.scrollTop || window.pageYOffset) / max : 0;
       bar.style.width = (pct * 100).toFixed(2) + '%';
       ticking = false;
@@ -89,7 +92,8 @@
       if (!ticking) { window.requestAnimationFrame(draw); ticking = true; }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('resize', function () { measure(); onScroll(); }, { passive: true });
+    measure();
     draw();
   }
 
@@ -102,15 +106,17 @@
   if (fine && !reduce && tilts.length) {
     var MAX = 4; // degrees
     tilts.forEach(function (el) {
+      var rect = null; // measured once per hover, not on every move
+      el.addEventListener('pointerenter', function () { rect = el.getBoundingClientRect(); });
       el.addEventListener('pointermove', function (e) {
-        var r = el.getBoundingClientRect();
-        var dx = (e.clientX - r.left) / r.width - 0.5;
-        var dy = (e.clientY - r.top) / r.height - 0.5;
+        if (!rect) rect = el.getBoundingClientRect();
+        var dx = (e.clientX - rect.left) / rect.width - 0.5;
+        var dy = (e.clientY - rect.top) / rect.height - 0.5;
         el.style.transform =
           'perspective(760px) rotateX(' + (-dy * MAX).toFixed(2) + 'deg) rotateY(' +
           (dx * MAX).toFixed(2) + 'deg) translateY(-4px)';
       });
-      el.addEventListener('pointerleave', function () { el.style.transform = ''; });
+      el.addEventListener('pointerleave', function () { el.style.transform = ''; rect = null; });
     });
   }
 
@@ -121,19 +127,19 @@
      no-JS visitors just get the plain linked rows.
   ------------------------------------------------------------ */
   var lab = document.querySelector('.lab');
-  var fineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (lab && fineHover && !reduce) {
+  if (lab && fine && !reduce) {
     var preview = document.createElement('div');
     preview.className = 'lab-preview';
     preview.setAttribute('aria-hidden', 'true');
     lab.appendChild(preview);
 
     var demoFrames = {};
+    var current = null; // frame currently shown
     var rows = Array.prototype.slice.call(lab.querySelectorAll('.labrow'));
 
     var showRow = function (row) {
-      // the preview card is CSS-hidden below 880px — don't load hidden iframes there
-      if (!window.matchMedia('(min-width: 880px)').matches) return;
+      // CSS hides the preview card below its breakpoint — let that be the authority
+      if (getComputedStyle(preview).display === 'none') return;
       var url = row.getAttribute('data-demo');
       if (!url) return;
       if (!demoFrames[url]) {                       // lazy-load once, then cache
@@ -146,9 +152,9 @@
         preview.appendChild(f);
         demoFrames[url] = f;
       }
-      Object.keys(demoFrames).forEach(function (u) {
-        demoFrames[u].classList.toggle('on', u === url);
-      });
+      if (current) current.classList.remove('on');
+      current = demoFrames[url];
+      current.classList.add('on');
       var top = Math.min(row.offsetTop, lab.clientHeight - preview.offsetHeight);
       preview.style.top = Math.max(0, top) + 'px';
       preview.classList.add('show');

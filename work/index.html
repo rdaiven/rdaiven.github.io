@@ -482,16 +482,23 @@
     if (reduce || !('IntersectionObserver' in window)) return; // leave everything visible
     document.body.classList.add('reveal');
     var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+
+    // Stagger by VISUAL order (CSS `order`, then DOM) so an order:-1 card leads.
+    // Read each card's `order` once, group by grid, then rank with a stable sort —
+    // ties keep DOM order. O(n) style reads instead of an O(n²) sibling scan.
+    var groups = new Map();
     cards.forEach(function (c) {
-      // stagger by VISUAL order (CSS `order` then DOM), so an order:-1 card leads
-      var sibs = Array.prototype.slice.call(c.parentNode.children);
-      var co = parseInt(window.getComputedStyle(c).order, 10) || 0, ci = sibs.indexOf(c), vi = 0;
-      sibs.forEach(function (s, si) {
-        if (s === c) return;
-        var so = parseInt(window.getComputedStyle(s).order, 10) || 0;
-        if (so < co || (so === co && si < ci)) vi++;
+      var g = groups.get(c.parentNode) || [];
+      g.push([c, parseInt(window.getComputedStyle(c).order, 10) || 0]);
+      groups.set(c.parentNode, g);
+    });
+    groups.forEach(function (g) {
+      g.sort(function (a, b) { return a[1] - b[1]; }).forEach(function (pair, i) {
+        pair[0].style.transitionDelay = (Math.min(i, 5) * 0.05).toFixed(2) + 's';
       });
-      c.style.transitionDelay = (Math.min(vi, 5) * 0.05).toFixed(2) + 's';
+    });
+
+    cards.forEach(function (c) {
       var r = c.getBoundingClientRect();
       if (r.top < window.innerHeight && r.bottom > 0) c.classList.add('in');
     });
