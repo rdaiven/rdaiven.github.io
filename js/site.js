@@ -91,8 +91,13 @@
     var onScroll = function () {
       if (!ticking) { window.requestAnimationFrame(draw); ticking = true; }
     };
+    var remeasure = function () { measure(); onScroll(); };
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', function () { measure(); onScroll(); }, { passive: true });
+    window.addEventListener('resize', remeasure, { passive: true });
+    // catch height changes with no resize event (font swap, late/expanding content)
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(remeasure).observe(document.documentElement);
+    }
     measure();
     draw();
   }
@@ -105,8 +110,12 @@
   var tilts = Array.prototype.slice.call(document.querySelectorAll('[data-tilt]'));
   if (fine && !reduce && tilts.length) {
     var MAX = 4; // degrees
+    // Only one element is under the pointer at a time, so a single cached rect
+    // (measured once per hover) is enough. Scrolling moves the element without
+    // firing pointermove, so a passive scroll listener invalidates the cache.
+    var rect = null;
+    window.addEventListener('scroll', function () { rect = null; }, { passive: true });
     tilts.forEach(function (el) {
-      var rect = null; // measured once per hover, not on every move
       el.addEventListener('pointerenter', function () { rect = el.getBoundingClientRect(); });
       el.addEventListener('pointermove', function (e) {
         if (!rect) rect = el.getBoundingClientRect();
