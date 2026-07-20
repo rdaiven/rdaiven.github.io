@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Cut Above Media">
+  <rect width="100" height="100" rx="22" fill="#0D0D0D"/>
+  <defs>
+    <mask id="favStripes">
+      <rect x="20" y="24" width="60" height="13" rx="3" fill="#fff"/>
+      <g fill="#000">
+        <path d="M26 24 L32 24 L26 37 L20 37 Z"/>
+        <path d="M38 24 L44 24 L38 37 L32 37 Z"/>
+        <path d="M50 24 L56 24 L50 37 L44 37 Z"/>
+        <path d="M62 24 L68 24 L62 37 L56 37 Z"/>
+        <path d="M74 24 L80 24 L74 37 L68 37 Z"/>
+      </g>
+    </mask>
+  </defs>
+  <g transform="rotate(-7 50 55)">
+    <rect x="20" y="24" width="60" height="13" rx="3" fill="#fff" mask="url(#favStripes)"/>
+    <rect x="22" y="41" width="56" height="35" rx="8" fill="#fff"/>
+    <path d="M45 51 L45 71 L63 61 Z" fill="#FF6B00"/>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Cut Above Media">
+  <defs>
+    <mask id="clapStripes">
+      <rect x="10" y="18" width="80" height="17" rx="4" fill="#fff"/>
+      <g fill="#000">
+        <path d="M18 18 L26 18 L18 35 L10 35 Z"/>
+        <path d="M34 18 L42 18 L34 35 L26 35 Z"/>
+        <path d="M50 18 L58 18 L50 35 L42 35 Z"/>
+        <path d="M66 18 L74 18 L66 35 L58 35 Z"/>
+        <path d="M82 18 L90 18 L82 35 L74 35 Z"/>
+      </g>
+    </mask>
+  </defs>
+  <g transform="rotate(-7 50 54)">
+    <rect x="10" y="18" width="80" height="17" rx="4" fill="#fff" mask="url(#clapStripes)"/>
+    <rect x="12" y="39" width="76" height="47" rx="10" fill="#fff"/>
+    <path d="M44 50 L44 78 L69 64 Z" fill="#FF6B00"/>
+  </g>
+</svg>
